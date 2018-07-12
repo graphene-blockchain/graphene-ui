@@ -12,41 +12,13 @@ import cnames from "classnames";
 import SettingsActions from "actions/SettingsActions";
 import SettingsStore from "stores/SettingsStore";
 import {connect} from "alt-react";
+import {getFeaturedMarkets} from "../../branding";
 
 class Dashboard extends React.Component {
     constructor(props) {
         super();
         let marketsByChain = {
-            "4018d784": [
-                ["BTS", "RUBLE"],
-                ["RUBLE", "ESCROW.RUBLE"],
-                ["BTS", "RUDEX.EOS"],
-                ["BTS", "RUDEX.BTC"],
-                ["BTS", "RUDEX.ETH"],
-                ["BTS", "PPY"],
-                ["RUBLE", "RUDEX.GOLOS"],
-                ["RUBLE", "RUDEX.GBG"],
-                ["BTS", "RUDEX.STEEM"],
-                ["BTS", "RUDEX.SBD"],
-                ["BTS", "ZEPH"],
-                ["BTS", "RUDEX.DCT"],
-                ["BTS", "RUDEX.KRM"],
-                ["BTS", "RUDEX.TT"],
-                ["BTS", "RUDEX.SCR"],
-                ["BTS", "RUDEX.DGB"],
-                ["BTS", "USD"],
-                ["BTS", "EUR"],
-                ["BTS", "CNY"],
-                ["BTS", "GOLD"],
-                ["BTS", "SILVER"],
-                ["BTS", "HERO"],
-                ["BTS", "OBITS"],
-                ["BTS", "SMOKE"],
-                ["BTS", "YOYOW"],
-                ["BTS", "BTWTY"],
-                ["BTS", "RUDEX.MUSE"],
-                ["BTS", "HERTZ"]
-            ],
+            "4018d784": getFeaturedMarkets(),
             "39f5e2ed": [["TEST", "PEG.FAKEUSD"], ["TEST", "BTWTY"]]
         };
         let chainID = Apis.instance().chain_id;

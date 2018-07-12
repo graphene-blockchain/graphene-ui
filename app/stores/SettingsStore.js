@@ -6,6 +6,13 @@ import {merge} from "lodash-es";
 import ls from "common/localStorage";
 import {Apis} from "bitsharesjs-ws";
 import {settingsAPIs} from "api/apiConfig";
+import {
+    getDefaultTheme,
+    getDefaultLogin,
+    getMyMarketsBases,
+    getMyMarketsQuotes,
+    getUnits
+} from "branding";
 
 const CORE_ASSET = "BTS"; // Setting this to BTS to prevent loading issues when used with BTS chain which is the most usual case currently
 
@@ -93,8 +100,8 @@ class SettingsStore {
             showSettles: false,
             showAssetPercent: false,
             walletLockTimeout: 60 * 10,
-            themes: "lightTheme",
-            passwordLogin: true,
+            themes: getDefaultTheme(),
+            passwordLogin: getDefaultLogin() == "password",
             browser_notifications: {
                 allow: true,
                 additional: {
@@ -110,7 +117,7 @@ class SettingsStore {
         let defaults = {
             locale: supportedLocales,
             apiServer: apiServer,
-            unit: [CORE_ASSET, "RUBLE", "USD", "CNY", "BTC", "EUR", "GBP"],
+            unit: getUnits(),
             showSettles: [{translate: "yes"}, {translate: "no"}],
             showAssetPercent: [{translate: "yes"}, {translate: "no"}],
             themes: [
@@ -212,39 +219,7 @@ class SettingsStore {
             this.marketsKey = this._getChainKey("userMarkets");
             // Default markets setup
             let topMarkets = {
-                markets_4018d784: [
-                    // BTS MAIN NET
-                    "BTS",
-                    "RUBLE",
-                    "USD",
-                    "EUR",
-                    "CNY",
-                    "GOLD",
-                    "SILVER",
-                    "RUDEX.BTC",
-                    "RUDEX.ETH",
-                    "RUDEX.GOLOS",
-                    "RUDEX.GBG",
-                    "RUDEX.MUSE",
-                    "RUDEX.STEEM",
-                    "RUDEX.SBD",
-                    "RUDEX.KRM",
-                    "RUDEX.DCT",
-                    "RUDEX.TT",
-                    "RUDEX.SCR",
-                    "RUDEX.DGB",
-                    "RUDEX.EOS",
-                    "PPY",
-                    "HERTZ",
-                    "HERO",
-                    "OBITS",
-                    "YOYOW",
-                    "SMOKE",
-                    "BTWTY",
-                    "ZEPH",
-                    "ESCROW.RUBLE",
-                    "BTC"
-                ],
+                markets_4018d784: getMyMarketsQuotes(),
                 markets_39f5e2ed: [
                     // TESTNET
                     "PEG.FAKEUSD",
@@ -253,14 +228,7 @@ class SettingsStore {
             };
 
             let bases = {
-                markets_4018d784: [
-                    // BTS MAIN NET
-                    "BTS",
-                    "RUBLE",
-                    "RUDEX.BTC",
-                    "USD",
-                    "CNY"
-                ],
+                markets_4018d784: getMyMarketsBases(),
                 markets_39f5e2ed: [
                     // TESTNET
                     "TEST"

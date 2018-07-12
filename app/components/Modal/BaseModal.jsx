@@ -4,7 +4,9 @@ import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import Modal from "react-foundation-apps/src/modal";
 import Trigger from "react-foundation-apps/src/trigger";
 import Translate from "react-translate-component";
-var logo = require("assets/logo-rudex-big.png");
+
+import {getLogo} from "branding";
+var logo = getLogo();
 
 class BaseModal extends React.Component {
     constructor() {

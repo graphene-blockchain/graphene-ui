@@ -8,7 +8,7 @@ import SettingsActions from "actions/SettingsActions";
 import PriceStatWithLabel from "./PriceStatWithLabel";
 import Translate from "react-translate-component";
 import counterpart from "counterpart";
-import {ChainStore} from "bitsharesjs/es";
+import {ChainStore} from "bitsharesjs";
 import ExchangeHeaderCollateral from "./ExchangeHeaderCollateral";
 import BaseModal from "../Modal/BaseModal";
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
@@ -292,7 +292,7 @@ export default class ExchangeHeader extends React.Component {
                                     <PriceStatWithLabel
                                         ignoreColorChange={true}
                                         ready={marketReady}
-                                        price={latestPrice.full}
+                                        price={latestPrice}
                                         quote={quoteAsset}
                                         base={baseAsset}
                                         market={marketID}

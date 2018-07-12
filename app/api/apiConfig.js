@@ -1,3 +1,5 @@
+import {getFaucet} from "../branding";
+
 export const blockTradesAPIs = {
     BASE: "https://api.blocktrades.us/v2",
     COINS_LIST: "/coins",
@@ -94,6 +96,8 @@ export const settingsAPIs = {
         {url: "wss://la.dexnode.net/ws", location: "LA, USA"},
         {url: "wss://kc-us-dex.xeldal.com/ws", location: "Kansas City, USA"},
         {url: "wss://btsza.co.za:8091/ws", location: "Cape Town, South Africa"},
+        {url: "wss://api.bitsharesdex.com/ws", location: "Missouri, USA"},
+        {url: "wss://api.fr.bitsharesdex.com/ws", location: "France"},
         {
             url: "wss://eu.nodes.bitshares.ws",
             location: "Central Europe - BitShares Infrastructure Program"
@@ -145,7 +149,7 @@ export const settingsAPIs = {
             location: "TESTNET - APT BitShares (Dallas, USA)"
         }
     ],
-    DEFAULT_FAUCET: "https://faucet.rudex.org",
+    DEFAULT_FAUCET: getFaucet().url,
     TESTNET_FAUCET: "https://faucet.testnet.bitshares.eu",
     RPC_URL: "https://openledger.info/api/"
 };
