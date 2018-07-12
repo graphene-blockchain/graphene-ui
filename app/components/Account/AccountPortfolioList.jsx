@@ -3,6 +3,7 @@ import debounceRender from "react-debounce-render";
 import BalanceComponent from "../Utility/BalanceComponent";
 import {BalanceValueComponent} from "../Utility/EquivalentValueComponent";
 import {Market24HourChangeComponent} from "../Utility/MarketChangeComponent";
+import AssetImage from "../Utility/AssetImage";
 import assetUtils from "common/asset_utils";
 import counterpart from "counterpart";
 import {Link} from "react-router-dom";
@@ -409,6 +410,11 @@ class AccountPortfolioList extends React.Component {
             balances.push(
                 <tr key={asset.get("symbol")} style={{maxWidth: "100rem"}}>
                     <td style={{textAlign: "left"}}>
+                        <AssetImage
+                            replaceNoneToBts={false}
+                            maxWidth={30}
+                            name={asset.get("symbol")}
+                        />
                         <LinkToAssetById asset={asset.get("id")} />
                     </td>
                     <td style={{textAlign: "right"}}>
@@ -686,6 +692,11 @@ class AccountPortfolioList extends React.Component {
                                     style={{maxWidth: "100rem"}}
                                 >
                                     <td style={{textAlign: "left"}}>
+                                        <AssetImage
+                                            replaceNoneToBts={false}
+                                            maxWidth={30}
+                                            name={asset.get("symbol")}
+                                        />
                                         <LinkToAssetById
                                             asset={asset.get("id")}
                                         />
