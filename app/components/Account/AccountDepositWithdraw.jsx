@@ -17,6 +17,7 @@ import SettingsActions from "actions/SettingsActions";
 import {settingsAPIs} from "api/apiConfig";
 import BitKapital from "../DepositWithdraw/BitKapital";
 import RuDexGateway from "../DepositWithdraw/rudex/RuDexGateway";
+import RuDexFiatDepositWithdrawal from "../DepositWithdraw/rudex/RuDexFiatDepositWithdrawal";
 import GatewayStore from "stores/GatewayStore";
 import AccountImage from "../Account/AccountImage";
 import GdexGateway from "../DepositWithdraw/gdex/GdexGateway";
@@ -188,7 +189,7 @@ class AccountDepositWithdraw extends React.Component {
 
                     {rudexService === "fiat" ? (
                         <div>
-                            <Translate content="gateway.rudex.coming_soon" />
+                            <RuDexFiatDepositWithdrawal account={account} />
                         </div>
                     ) : null}
                 </div>
@@ -547,31 +548,34 @@ class DepositStoreWrapper extends React.Component {
     }
 }
 
-export default connect(DepositStoreWrapper, {
-    listenTo() {
-        return [AccountStore, SettingsStore, GatewayStore];
-    },
-    getProps() {
-        return {
-            account: AccountStore.getState().currentAccount,
-            viewSettings: SettingsStore.getState().viewSettings,
-            openLedgerBackedCoins: GatewayStore.getState().backedCoins.get(
-                "OPEN",
-                []
-            ),
-            rudexBackedCoins: GatewayStore.getState().backedCoins.get(
-                "RUDEX",
-                []
-            ),
-            blockTradesBackedCoins: GatewayStore.getState().backedCoins.get(
-                "TRADE",
-                []
-            ),
-            winexBackedCoins: GatewayStore.getState().backedCoins.get(
-                "WIN",
-                []
-            ),
-            servicesDown: GatewayStore.getState().down || {}
-        };
+export default connect(
+    DepositStoreWrapper,
+    {
+        listenTo() {
+            return [AccountStore, SettingsStore, GatewayStore];
+        },
+        getProps() {
+            return {
+                account: AccountStore.getState().currentAccount,
+                viewSettings: SettingsStore.getState().viewSettings,
+                openLedgerBackedCoins: GatewayStore.getState().backedCoins.get(
+                    "OPEN",
+                    []
+                ),
+                rudexBackedCoins: GatewayStore.getState().backedCoins.get(
+                    "RUDEX",
+                    []
+                ),
+                blockTradesBackedCoins: GatewayStore.getState().backedCoins.get(
+                    "TRADE",
+                    []
+                ),
+                winexBackedCoins: GatewayStore.getState().backedCoins.get(
+                    "WIN",
+                    []
+                ),
+                servicesDown: GatewayStore.getState().down || {}
+            };
+        }
     }
-});
+);
