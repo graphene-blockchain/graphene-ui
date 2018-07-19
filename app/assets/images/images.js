@@ -1,1 +1,1 @@
-require("file-loader?name=images/[name].[ext]!./partner-mrktcash.svg");
+require("file-loader?name=images/[name].png!./partner-mrktcash.png");
