@@ -936,9 +936,10 @@
             "under_construction": "Under Construction",
             "partners": {
                 "mrktcash": {
-                    "title": "P2P fiat to cryptocurrency exchange",
+                    "title":
+                        "P2P platform where you can buy or sell bitAssets or another cryptocurrency",
                     "description":
-                        "Market. is P2P cryptocurrency exchange, where you can buy or sell tokens for fiat money (RUB, USD, CNY, EUR, etc.)."
+                        "Market. is P2P platform where you can buy or sell bitAssets or another cryptocurrency for fiat money (RUB, USD, CNY, EUR, etc.)."
                 }
             }
         },
