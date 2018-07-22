@@ -206,7 +206,7 @@ export default class DropDownMenu extends React.Component {
                     <div className="table-cell">
                         <Icon
                             size="2x"
-                            name="deposit"
+                            name="deposit-withdraw"
                             title="icons.deposit.deposit_withdraw"
                         />
                     </div>

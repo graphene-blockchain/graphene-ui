@@ -573,7 +573,7 @@ class Header extends React.Component {
                     <Icon
                         size="1_5x"
                         style={{position: "relative", top: 0, left: -8}}
-                        name="deposit"
+                        name="deposit-withdraw"
                         title="icons.deposit.deposit_withdraw"
                     />
                     <Translate
