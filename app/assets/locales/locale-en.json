@@ -933,7 +933,14 @@
             "min_amount": "Minimum amount: %(minAmount)s %(symbol)s",
             "min_amount_error": "Please enter number >= minimum",
             "support_block": "For support, please contact RuDEX at:",
-            "under_construction": "Under Construction"
+            "under_construction": "Under Construction",
+            "partners": {
+                "mrktcash": {
+                    "title": "P2P fiat to cryptocurrency exchange",
+                    "description":
+                        "Market. is P2P cryptocurrency exchange, where you can buy or sell tokens for fiat money (RUB, USD, CNY, EUR, etc.)."
+                }
+            }
         },
         "scan_qr": "Scan QR",
         "service": "Transfer Service",

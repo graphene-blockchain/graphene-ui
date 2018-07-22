@@ -217,32 +217,6 @@ export default class DropDownMenu extends React.Component {
 
                 <li
                     className={cnames(
-                        "divider",
-                        {
-                            active: active.indexOf("/deposit-withdraw") !== -1
-                        },
-                        {disabled: !enableDepositWithdraw}
-                    )}
-                    onClick={
-                        !enableDepositWithdraw
-                            ? () => {}
-                            : this.props.showWithdraw
-                    }
-                >
-                    <div className="table-cell">
-                        <Icon
-                            size="2x"
-                            name="withdraw"
-                            title="icons.withdraw"
-                        />
-                    </div>
-                    <div className="table-cell">
-                        <Translate content="modal.withdraw.submit_beta" />
-                    </div>
-                </li>
-
-                <li
-                    className={cnames(
                         {
                             active: active.indexOf("/settings") !== -1
                         },
