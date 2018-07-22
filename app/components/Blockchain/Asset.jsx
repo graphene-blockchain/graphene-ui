@@ -1032,6 +1032,9 @@ class Asset extends React.Component {
                             </span>
                         ) : null}
                     </th>
+                    <th>
+                        <Translate content="borrow.coll_ratio_target" />
+                    </th>
                     <th
                         className="clickable"
                         onClick={this._toggleSortOrder.bind(this, "ratio")}
@@ -1070,6 +1073,13 @@ class Asset extends React.Component {
                             quote_asset={c.call_price.quote.asset_id}
                             hide_symbols
                         />
+                    </td>
+                    <td style={{textAlign: "right", paddingRight: 10}}>
+                        {!!c.order.target_collateral_ratio
+                            ? (c.order.target_collateral_ratio / 1000).toFixed(
+                                  3
+                              )
+                            : "-"}
                     </td>
                     <td className={c.getStatus()} style={{textAlign: "right"}}>
                         {c.getRatio().toFixed(3)}
