@@ -467,8 +467,6 @@ var Utils = {
             prefix = namespace ? namespace.toLowerCase() : null;
         }
 
-        if (toReplace[i] === "RUDEX.") prefix = "";
-
         return {
             name,
             prefix,
