@@ -2019,6 +2019,7 @@
         "totals": "Asset Totals",
         "unclaimed": "Unclaimed balances belonging to these keys",
         "unclaimed_vesting": "Unclaimed (vesting)",
+        "allow_proxy": "Your vote has power, please support the blckchnd proxy",
         "understand_1":
             "I understand that no one can recover my password if I lose or forget it",
         "understand_2": "I have written down or otherwise stored my password",

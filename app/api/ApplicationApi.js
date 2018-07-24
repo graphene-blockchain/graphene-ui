@@ -20,6 +20,7 @@ const ApplicationApi = {
         registrar,
         referrer,
         referrer_percent,
+        allow_proxy = true,
         broadcast = false
     ) {
         ChainValidation.required(registrar, "registrar_id");
@@ -41,6 +42,7 @@ const ApplicationApi = {
                     registrar: chain_registrar.get("id"),
                     referrer: chain_referrer.get("id"),
                     referrer_percent: referrer_percent,
+                    allow_proxy: allow_proxy,
                     name: new_account_name,
                     owner: {
                         weight_threshold: 1,

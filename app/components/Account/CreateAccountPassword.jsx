@@ -40,6 +40,7 @@ class CreateAccountPassword extends React.Component {
                 45
             ),
             confirm_password: "",
+            allow_proxy: true,
             understand_1: false,
             understand_2: false,
             understand_3: false
@@ -137,7 +138,8 @@ class CreateAccountPassword extends React.Component {
             this.state.registrar_account,
             referralAccount || this.state.registrar_account,
             0,
-            refcode
+            refcode,
+            this.state.allow_proxy
         )
             .then(() => {
                 AccountActions.setPasswordAccount(name);
@@ -316,6 +318,32 @@ class CreateAccountPassword extends React.Component {
                         ) : null}
                     </section>
 
+                    <br />
+
+                    <div
+                        className="confirm-checks"
+                        onClick={this._onInput.bind(this, "allow_proxy")}
+                    >
+                        <label
+                            htmlFor="checkbox-allow-proxy"
+                            style={{position: "relative"}}
+                        >
+                            <input
+                                type="checkbox"
+                                id="checkbox-allow-proxy"
+                                onChange={() => {}}
+                                checked={this.state.allow_proxy}
+                                style={{
+                                    position: "absolute",
+                                    top: "-5px",
+                                    left: "0"
+                                }}
+                            />
+                            <div style={{paddingLeft: "30px"}}>
+                                <Translate content="wallet.allow_proxy" />
+                            </div>
+                        </label>
+                    </div>
                     <br />
 
                     <div

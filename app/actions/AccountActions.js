@@ -113,7 +113,8 @@ class AccountActions {
         registrar,
         referrer,
         referrer_percent,
-        refcode
+        refcode,
+        allow_proxy = true
     ) {
         return dispatch => {
             return WalletActions.createAccount(
@@ -121,7 +122,8 @@ class AccountActions {
                 registrar,
                 referrer,
                 referrer_percent,
-                refcode
+                refcode,
+                allow_proxy
             ).then(() => {
                 dispatch(account_name);
                 return account_name;
@@ -135,7 +137,8 @@ class AccountActions {
         registrar,
         referrer,
         referrer_percent,
-        refcode
+        refcode,
+        allow_proxy = true
     ) {
         return dispatch => {
             return WalletActions.createAccountWithPassword(
@@ -144,7 +147,8 @@ class AccountActions {
                 registrar,
                 referrer,
                 referrer_percent,
-                refcode
+                refcode,
+                allow_proxy
             ).then(() => {
                 dispatch(account_name);
                 return account_name;

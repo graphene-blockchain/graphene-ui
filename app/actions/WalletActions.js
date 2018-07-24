@@ -51,7 +51,8 @@ class WalletActions {
         registrar,
         referrer,
         referrer_percent,
-        refcode
+        refcode,
+        allow_proxy = true
     ) {
         let {privKey: owner_private} = WalletDb.generateKeyFromPassword(
             account_name,
@@ -92,6 +93,7 @@ class WalletActions {
                     registrar, //registrar_id,
                     referrer, //referrer_id,
                     referrer_percent, //referrer_percent,
+                    allow_proxy, // allow_proxy
                     true //broadcast
                 )
                     .then(resolve)
@@ -138,6 +140,7 @@ class WalletActions {
                                 memo_key: memo_private
                                     .toPublicKey()
                                     .toPublicKeyString(),
+                                allow_proxy: allow_proxy,
                                 refcode: refcode,
                                 referrer: referrer
                             }
@@ -175,7 +178,8 @@ class WalletActions {
         registrar,
         referrer,
         referrer_percent,
-        refcode
+        refcode,
+        allow_proxy = true
     ) {
         if (WalletDb.isLocked()) {
             let error = "wallet locked";
@@ -204,6 +208,7 @@ class WalletActions {
                 registrar, //registrar_id,
                 referrer, //referrer_id,
                 referrer_percent, //referrer_percent,
+                allow_proxy, // allow_proxy
                 true //broadcast
             ).then(() => updateWallet());
         };
@@ -245,6 +250,7 @@ class WalletActions {
                                 .toPublicKey()
                                 .toPublicKeyString(),
                             //"memo_key": memo_private.private_key.toPublicKey().toPublicKeyString(),
+                            allow_proxy: allow_proxy,
                             refcode: refcode,
                             referrer: referrer
                         }

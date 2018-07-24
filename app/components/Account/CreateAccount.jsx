@@ -35,6 +35,7 @@ class CreateAccount extends React.Component {
             loading: false,
             hide_refcode: true,
             show_identicon: false,
+            allow_proxy: true,
             step: 1
         };
         this.onFinishConfirm = this.onFinishConfirm.bind(this);
@@ -84,6 +85,12 @@ class CreateAccount extends React.Component {
         this.setState({validPassword: e.valid});
     }
 
+    _onInput(value, e) {
+        this.setState({
+            [value]: !this.state[value]
+        });
+    }
+
     onFinishConfirm(confirm_store_state) {
         if (
             confirm_store_state.included &&
@@ -124,7 +131,8 @@ class CreateAccount extends React.Component {
                     this.state.registrar_account,
                     referralAccount || this.state.registrar_account,
                     0,
-                    refcode
+                    refcode,
+                    this.state.allow_proxy
                 )
                     .then(() => {
                         // User registering his own account
@@ -302,6 +310,33 @@ class CreateAccount extends React.Component {
                         ) : null}
                     </div>
                 )}
+
+                {firstAccount ? (
+                    <div
+                        className="confirm-checks"
+                        onClick={this._onInput.bind(this, "allow_proxy")}
+                    >
+                        <label
+                            htmlFor="checkbox-allow-proxy"
+                            style={{position: "relative"}}
+                        >
+                            <input
+                                type="checkbox"
+                                id="checkbox-allow-proxy"
+                                onChange={() => {}}
+                                checked={this.state.allow_proxy}
+                                style={{
+                                    position: "absolute",
+                                    top: "-5px",
+                                    left: "0"
+                                }}
+                            />
+                            <div style={{paddingLeft: "30px"}}>
+                                <Translate content="wallet.allow_proxy" />
+                            </div>
+                        </label>
+                    </div>
+                ) : null}
 
                 <div className="divider" />
 
