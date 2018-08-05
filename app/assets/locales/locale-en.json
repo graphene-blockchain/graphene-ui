@@ -1003,6 +1003,7 @@
         "account_notify": "The active account is now %(account)s",
         "account_value": "Account value",
         "accounts_manage": "Manage Accounts",
+        "bots": "Bots",
         "collateral_ratio": "Collateral ratio",
         "create_account": "Create Account",
         "create_asset": "Create Asset",

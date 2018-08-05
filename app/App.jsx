@@ -20,6 +20,7 @@ import {updateGatewayBackers} from "common/gatewayUtils";
 import titleUtils from "common/titleUtils";
 import {BodyClassName} from "bitshares-ui-style-guide";
 import Loadable from "react-loadable";
+//import Bots from "./components/Bots/Bots"
 
 import {Route, Switch} from "react-router-dom";
 
@@ -47,6 +48,12 @@ const AccountPage = Loadable({
 const Transfer = Loadable({
     loader: () =>
         import(/* webpackChunkName: "transfer" */ "./components/Transfer/Transfer"),
+    loading: LoadingIndicator
+});
+
+const Bots = Loadable({
+    loader: () =>
+        import(/* webpackChunkName: "bots" */ "./components/Bots/Bots"),
     loading: LoadingIndicator
 });
 
@@ -357,6 +364,7 @@ class App extends React.Component {
                                     exact
                                     component={Transfer}
                                 />
+                                <Route path="/bots" exact component={Bots} />
                                 <Route
                                     path="/deposit-withdraw"
                                     exact
