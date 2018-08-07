@@ -140,6 +140,7 @@ export function getFeaturedMarkets() {
         ["BTS", "RUDEX.TT"],
         ["BTS", "RUDEX.SCR"],
         ["BTS", "RUDEX.MUSE"],
+        ["BTS", "RUDEX.EOS"],
         ["BTS", "USD"],
         ["BTS", "EUR"],
         ["BTS", "CNY"],
@@ -149,7 +150,6 @@ export function getFeaturedMarkets() {
         ["BTS", "OBITS"],
         ["BTS", "SMOKE"],
         ["BTS", "YOYOW"],
-        ["CNY", "GDEX.EOS"],
         ["BTS", "BTWTY"],
         ["BTS", "ZEPH"],
         ["BTS", "HERTZ"]
