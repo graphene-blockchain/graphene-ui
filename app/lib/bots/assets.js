@@ -2,7 +2,7 @@ import Apis from "lib/bots/apis";
 
 class Asset {
     static get(obj, name) {
-        if (obj[name]) return obj[name];
+        if (this[name]) return this[name];
 
         return this.getAsset(name);
     }
@@ -73,4 +73,4 @@ class Asset {
     }
 }
 
-export default new Proxy(Asset, Asset);
+export default new Proxy({}, Asset);

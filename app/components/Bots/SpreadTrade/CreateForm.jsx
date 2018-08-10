@@ -3,39 +3,20 @@ import BotManager from "lib/bots";
 import {ChainStore} from "bitsharesjs";
 //import {debounce} from "lodash-es";
 
-/*
-{
-    name: "RubleWorker",
-    strategy: "SpreadTrade",
-    base: {
-      asset: "bts",
-      balance: 2,
-      amount: 1,
-      spread: 2,
-    },
-    quote: {
-      asset: "ruble",
-      balance: 1,
-      amount: 1,
-      spread: 2
-    },
-    movePercent: 2,
-    defaultPrice: 10
-}
-*/
 class CreateForm extends React.Component {
     state = {
         name: "",
         baseAsset: "USD",
         quoteAsset: "OPEN.BTC",
-        validate: []
+        baseAmount: 10,
+        quoteAmount: 0.01,
+        baseSpread: 10,
+        quoteSpread: 10,
+        movePercent: 5,
+        baseBalance: 100,
+        quoteBalance: 0.1,
+        validate: ["name"]
     };
-
-    componentWillMount() {
-        Object.keys(this.state).forEach(name =>
-            this.validate(name, this.state[name])
-        );
-    }
 
     handleChange = event => {
         console.log(event.target.name, event.target.value);
@@ -68,7 +49,24 @@ class CreateForm extends React.Component {
                 break;
             case "baseAsset":
             case "quoteAsset":
-                if (value.length == 0) {
+                if (value.length !== 0) {
+                    // TODO check asset in blockchain
+                    this.setState({
+                        validate: validate.filter(input => input !== name)
+                    });
+                } else {
+                    validate.push(name);
+                    this.setState({validate});
+                }
+                break;
+            case "baseAmount":
+            case "quoteAmount":
+            case "baseBalance":
+            case "quoteBalance":
+            case "baseSpread":
+            case "quoteSpread":
+            case "movePercent":
+                if (value === "" || isNaN(+value)) {
                     validate.push(name);
                     this.setState({validate});
                 } else {
@@ -77,7 +75,20 @@ class CreateForm extends React.Component {
                     });
                 }
                 break;
+            case "defaultPrice":
+                if (!isNaN(+value))
+                    this.setState({
+                        validate: validate.filter(input => input !== name)
+                    });
+                else {
+                    validate.push(name);
+                    this.setState({validate});
+                }
+                break;
         }
+
+        //console.log(this.state.validate)
+        this.props.enableCreate(this.state.validate.length == 0);
     };
 
     render() {
@@ -113,6 +124,7 @@ class CreateForm extends React.Component {
                             onChange={this.handleChange}
                             autoComplete="baseAsset"
                             style={{
+                                marginBottom: 30,
                                 border: this.state.validate.includes(
                                     "baseAsset"
                                 )
@@ -126,8 +138,17 @@ class CreateForm extends React.Component {
                             id="baseBalance"
                             type="text"
                             ref="input"
+                            value={this.state.baseBalance}
                             onChange={this.handleChange}
                             autoComplete="baseBalance"
+                            style={{
+                                marginBottom: 30,
+                                border: this.state.validate.includes(
+                                    "baseBalance"
+                                )
+                                    ? "1px solid red"
+                                    : "none"
+                            }}
                         />
                         <label className="left-label">Amount</label>
                         <input
@@ -135,8 +156,17 @@ class CreateForm extends React.Component {
                             id="baseAmount"
                             type="text"
                             ref="input"
+                            value={this.state.baseAmount}
                             onChange={this.handleChange}
                             autoComplete="baseAmount"
+                            style={{
+                                marginBottom: 30,
+                                border: this.state.validate.includes(
+                                    "baseAmount"
+                                )
+                                    ? "1px solid red"
+                                    : "none"
+                            }}
                         />
                         <label className="left-label">Spread</label>
                         <input
@@ -144,8 +174,17 @@ class CreateForm extends React.Component {
                             id="baseSpread"
                             type="text"
                             ref="input"
+                            value={this.state.baseSpread}
                             onChange={this.handleChange}
                             autoComplete="baseSpread"
+                            style={{
+                                marginBottom: 30,
+                                border: this.state.validate.includes(
+                                    "baseSpread"
+                                )
+                                    ? "1px solid red"
+                                    : "none"
+                            }}
                         />
                     </div>
                     <div className="content-block" style={{marginLeft: 50}}>
@@ -156,8 +195,17 @@ class CreateForm extends React.Component {
                             id="quoteAsset"
                             type="text"
                             ref="input"
+                            value={this.state.quoteAsset}
                             onChange={this.handleChange}
                             autoComplete="quoteAsset"
+                            style={{
+                                marginBottom: 30,
+                                border: this.state.validate.includes(
+                                    "quoteAsset"
+                                )
+                                    ? "1px solid red"
+                                    : "none"
+                            }}
                         />
                         <label className="left-label">Balance</label>
                         <input
@@ -165,8 +213,17 @@ class CreateForm extends React.Component {
                             id="quoteBalance"
                             type="text"
                             ref="input"
+                            value={this.state.quoteBalance}
                             onChange={this.handleChange}
                             autoComplete="quoteBalance"
+                            style={{
+                                marginBottom: 30,
+                                border: this.state.validate.includes(
+                                    "quoteBalance"
+                                )
+                                    ? "1px solid red"
+                                    : "none"
+                            }}
                         />
                         <label className="left-label">Amount</label>
                         <input
@@ -174,8 +231,17 @@ class CreateForm extends React.Component {
                             id="quoteAmount"
                             type="text"
                             ref="input"
+                            value={this.state.quoteAmount}
                             onChange={this.handleChange}
                             autoComplete="quoteAmount"
+                            style={{
+                                marginBottom: 30,
+                                border: this.state.validate.includes(
+                                    "quoteAmount"
+                                )
+                                    ? "1px solid red"
+                                    : "none"
+                            }}
                         />
                         <label className="left-label">Spread</label>
                         <input
@@ -183,8 +249,17 @@ class CreateForm extends React.Component {
                             id="quoteSpread"
                             type="text"
                             ref="input"
+                            value={this.state.quoteSpread}
                             onChange={this.handleChange}
                             autoComplete="quoteSpread"
+                            style={{
+                                marginBottom: 30,
+                                border: this.state.validate.includes(
+                                    "quoteSpread"
+                                )
+                                    ? "1px solid red"
+                                    : "none"
+                            }}
                         />
                     </div>
                 </div>
@@ -196,8 +271,14 @@ class CreateForm extends React.Component {
                         id="movePercent"
                         type="text"
                         ref="input"
+                        value={this.state.movePercent}
                         onChange={this.handleChange}
                         autoComplete="movePercent"
+                        style={{
+                            border: this.state.validate.includes("movePercent")
+                                ? "1px solid red"
+                                : "none"
+                        }}
                     />
                 </div>
                 <div className="content-block">
@@ -207,8 +288,14 @@ class CreateForm extends React.Component {
                         id="defaultPrice"
                         type="text"
                         ref="input"
+                        value={this.state.defaultPrice}
                         onChange={this.handleChange}
                         autoComplete="defaultPrice"
+                        style={{
+                            border: this.state.validate.includes("defaultPrice")
+                                ? "1px solid red"
+                                : "none"
+                        }}
                     />
                 </div>
             </div>

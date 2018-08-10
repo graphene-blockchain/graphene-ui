@@ -1,6 +1,5 @@
 import SpreadTrade from "./SpreadTrade";
 import RelativeOrders from "./RelativeOrders";
-//import Storage from "./Storage"
 import Storage from "stores/BotsStorage";
 
 export default {

@@ -4,18 +4,45 @@ import {ChainStore} from "bitsharesjs";
 import Apis from "lib/bots/apis";
 import Assets from "lib/bots/assets";
 import BigNumber from "bignumber.js";
+//import MarketsActions from "actions/MarketsActions";
+import Account from "lib/bots/account";
+import SettingsActions from "actions/SettingsActions";
+import WalletUnlockActions from "actions/WalletUnlockActions";
 
 class SpreadTrade {
     static create = Create;
     state = State;
 
     constructor(account, storage, initData) {
-        this.account = account;
+        console.log("constructor Bot", account);
+        this.account = new Account(account);
         this.storage = storage;
-        //this.config = initData
 
-        //State.props.storage = storage
-        if (initData) storage.init(initData);
+        if (initData) {
+            storage.init({
+                name: initData.name,
+                base: {
+                    asset: initData.baseAsset,
+                    balance: initData.baseBalance,
+                    spread: initData.baseSpread,
+                    amount: initData.baseAmount,
+                    order: {
+                        //id, price and amount
+                    }
+                },
+                quote: {
+                    asset: initData.quoteAsset,
+                    balance: initData.quoteBalance,
+                    spread: initData.quoteSpread,
+                    amount: initData.quoteAmount,
+                    order: {
+                        //id, price and amount
+                    }
+                },
+                movePercent: initData.movePercent,
+                defaultPrice: initData.defaultPrice
+            });
+        }
 
         this.name = storage.read().name;
 
@@ -27,8 +54,8 @@ class SpreadTrade {
         console.log("start");
         let state = this.storage.read();
 
-        this.base = await Assets[state.baseAsset];
-        this.quote = await Assets[state.quoteAsset];
+        this.base = await Assets[state.base.asset];
+        this.quote = await Assets[state.quote.asset];
 
         if ([this.base.issuer, this.quote.issuer].includes("1.2.0")) {
             if ([this.base.id, this.quote.id].includes("1.3.0"))
@@ -40,12 +67,19 @@ class SpreadTrade {
             this.getFeed = this.getUIAFeed;
         }
 
+        await WalletUnlockActions.unlock();
+        SettingsActions.changeSetting({
+            setting: "walletLockTimeout",
+            value: 0
+        });
+
         ChainStore.subscribe(this.queue);
-        this.queue();
+        this.run = true;
     }
 
     async stop() {
         ChainStore.unsubscribe(this.queue);
+        this.run = false;
     }
 
     queue = () => {
@@ -57,30 +91,37 @@ class SpreadTrade {
     checkOrders = async () => {
         let state = this.storage.read();
 
+        this.defaultPrice = state.defaultPrice;
+
         let feedPrice = await this.getFeed(),
-            buyPrice = feedPrice.div(1 + state.baseSpread / 100).toNumber(),
-            sellPrice = feedPrice.times(1 + state.quoteSpread / 100).toNumber();
+            buyPrice = feedPrice.div(1 + state.base.spread / 100).toNumber(),
+            sellPrice = feedPrice
+                .times(1 + state.quote.spread / 100)
+                .toNumber();
 
         feedPrice = feedPrice.toNumber();
 
         if (feedPrice == 0) return;
 
         console.log("feed", feedPrice, buyPrice, sellPrice);
-        return;
+        console.log(state.base.order.id, state.quote.order.id);
 
-        let buyOrder = state.buy.id
-                ? await this.account.getOrder(state.buy.id)
-                : state.buy.id,
-            sellOrder = state.sell.id
-                ? await this.account.getOrder(state.sell.id)
-                : state.sell.id;
+        let buyOrder = state.base.order.id
+                ? (await Apis.db.get_objects([state.base.order.id]))[0]
+                : state.base.order.id,
+            sellOrder = state.quote.order.id
+                ? (await Apis.db.get_objects([state.quote.order.id]))[0]
+                : state.quote.order.id;
+
+        console.log("Orders", buyOrder, sellOrder);
+        //return
 
         if (buyOrder) {
             //check Price
             if (
-                new BigNumber(Math.abs(buyPrice - state.buy.price))
-                    .div(state.buy.price)
-                    .isGreaterThanOrEqualTo(this.conf.movePercent / 100)
+                new BigNumber(Math.abs(buyPrice - state.base.order.price))
+                    .div(state.base.order.price)
+                    .isGreaterThanOrEqualTo(state.movePercent / 100)
             ) {
                 // move order
 
@@ -89,20 +130,20 @@ class SpreadTrade {
                         this.base.symbol
                     }`
                 );
-                await this.account.cancelOrder(state.buy.id);
+                await this.account.cancelOrder(state.base.order.id);
 
                 // check amount in order
                 let orderAmount = new BigNumber(buyOrder.for_sale)
                     .div(10 ** this.base.precision)
                     .toNumber();
-                state.buy.balance += orderAmount;
+                state.base.balance += orderAmount;
 
                 // add to sell balance
-                if (state.buy.amount > orderAmount)
-                    state.sell.balance += new BigNumber(
-                        state.buy.amount - orderAmount
+                if (state.base.order.amount > orderAmount)
+                    state.quote.balance += new BigNumber(
+                        state.base.order.amount - orderAmount
                     )
-                        .div(state.buy.price)
+                        .div(state.base.order.price)
                         .toNumber();
 
                 let accountBalance =
@@ -110,8 +151,8 @@ class SpreadTrade {
                     10 ** this.base.precision;
                 let amount = Math.min(
                     accountBalance,
-                    state.buy.balance,
-                    this.conf.base.amount
+                    state.base.balance,
+                    state.base.amount
                 );
                 try {
                     let obj = await this.account.sell(
@@ -120,35 +161,35 @@ class SpreadTrade {
                         amount,
                         new BigNumber(1).div(buyPrice).toNumber()
                     );
-                    state.buy = {
+                    state.base.order = {
                         id: obj ? obj.id : "1.7.0",
                         price: buyPrice,
-                        balance: state.buy.balance - amount,
                         amount
                     };
+                    state.base.balance -= amount;
                 } catch (error) {
                     this.logger.error(error);
-                    state.buy.id = undefined;
+                    state.base.order.id = undefined;
                 }
             }
         } else {
-            if (/^1.7.\d*$/.test(state.buy.id)) {
+            if (/^1.7.\d*$/.test(state.base.order.id)) {
                 // fill order
-                state.sell.balance += new BigNumber(state.buy.amount)
-                    .div(state.buy.price)
+                state.quote.balance += new BigNumber(state.base.order.amount)
+                    .div(state.base.order.price)
                     .toNumber();
-                state.buy.id = undefined;
+                state.base.order.id = undefined;
             }
 
             let accountBalance = new BigNumber(
-                (await this.account.balances(this.base.symbol))[0].amount
+                (await this.account.balances(this.base.id))[0].amount
             )
                 .div(10 ** this.base.precision)
                 .toNumber();
 
             if (
-                Math.min(accountBalance, state.buy.balance) >=
-                this.conf.base.amount
+                Math.min(accountBalance, state.base.balance) >=
+                state.base.amount
             ) {
                 //buy
                 this.logger.info(
@@ -158,15 +199,15 @@ class SpreadTrade {
                     let obj = await this.account.sell(
                         this.base.symbol,
                         this.quote.symbol,
-                        this.conf.base.amount,
-                        new BigNumber(1).div(buyPrice).toNumber()
+                        state.base.amount,
+                        new BigNumber(1).div(new BigNumber(buyPrice)).toNumber()
                     );
-                    state.buy = {
+                    state.base.order = {
                         id: obj ? obj.id : "1.7.0",
                         price: buyPrice,
-                        balance: state.buy.balance - this.conf.base.amount,
-                        amount: this.conf.base.amount
+                        amount: state.base.amount
                     };
+                    state.base.balance -= state.base.amount;
                 } catch (error) {
                     this.logger.error(error);
                 }
@@ -176,9 +217,9 @@ class SpreadTrade {
         if (sellOrder) {
             //check Price
             if (
-                new BigNumber(Math.abs(sellPrice - state.sell.price))
-                    .div(state.sell.price)
-                    .isGreaterThanOrEqualTo(this.conf.movePercent / 100)
+                new BigNumber(Math.abs(sellPrice - state.quote.order.price))
+                    .div(state.quote.order.price)
+                    .isGreaterThanOrEqualTo(state.movePercent / 100)
             ) {
                 // move order
 
@@ -187,20 +228,20 @@ class SpreadTrade {
                         this.base.symbol
                     }`
                 );
-                await this.account.cancelOrder(state.sell.id);
+                await this.account.cancelOrder(state.quote.order.id);
 
                 // check amount in order
                 let orderAmount = new BigNumber(sellOrder.for_sale)
                     .div(10 ** this.quote.precision)
                     .toNumber();
-                state.sell.balance += orderAmount;
+                state.quote.balance += orderAmount;
 
                 // add to buy balance
-                if (state.sell.amount > orderAmount)
-                    state.buy.balance += new BigNumber(
-                        state.sell.amount - orderAmount
+                if (state.quote.order.amount > orderAmount)
+                    state.base.balance += new BigNumber(
+                        state.quote.order.amount - orderAmount
                     )
-                        .times(state.sell.price)
+                        .times(state.quote.order.price)
                         .toNumber();
 
                 let accountBalance = new BigNumber(
@@ -210,8 +251,8 @@ class SpreadTrade {
                     .toNumber();
                 let amount = Math.min(
                     accountBalance,
-                    state.sell.balance,
-                    this.conf.quote.amount
+                    state.quote.balance,
+                    state.quote.amount
                 );
                 try {
                     let obj = await this.account.sell(
@@ -220,35 +261,35 @@ class SpreadTrade {
                         amount,
                         sellPrice
                     );
-                    state.sell = {
+                    state.quote.order = {
                         id: obj ? obj.id : "1.7.0",
                         price: sellPrice,
-                        balance: state.sell.balance - amount,
                         amount
                     };
+                    state.quote.balance -= amount;
                 } catch (error) {
                     this.logger.error(error);
-                    state.sell.id = undefined;
+                    state.quote.order.id = undefined;
                 }
             }
         } else {
-            if (/^1.7.\d*$/.test(state.sell.id)) {
+            if (/^1.7.\d*$/.test(state.quote.order.id)) {
                 // fill order
-                state.buy.balance += new BigNumber(state.sell.amount)
-                    .times(state.sell.price)
+                state.base.balance += new BigNumber(state.quote.order.amount)
+                    .times(state.quote.order.price)
                     .toNumber();
-                state.sell.id = undefined;
+                state.quote.order.id = undefined;
             }
 
             let accountBalance = new BigNumber(
-                (await this.account.balances(this.quote.symbol))[0].amount
+                (await this.account.balances(this.quote.id))[0].amount
             )
                 .div(10 ** this.quote.precision)
                 .toNumber();
 
             if (
-                Math.min(accountBalance, state.sell.balance) >=
-                this.conf.quote.amount
+                Math.min(accountBalance, state.quote.balance) >=
+                state.quote.amount
             ) {
                 //buy
                 this.logger.info(
@@ -260,15 +301,15 @@ class SpreadTrade {
                     let obj = await this.account.sell(
                         this.quote.symbol,
                         this.base.symbol,
-                        this.conf.quote.amount,
+                        state.quote.amount,
                         sellPrice
                     );
-                    state.sell = {
+                    state.quote.order = {
                         id: obj ? obj.id : "1.7.0",
                         price: sellPrice,
-                        balance: state.sell.balance - this.conf.quote.amount,
-                        amount: this.conf.quote.amount
+                        amount: state.quote.amount
                     };
+                    state.quote.balance -= state.quote.amount;
                 } catch (error) {
                     this.logger.error(error);
                 }
@@ -351,6 +392,7 @@ class SpreadTrade {
                 {params: {symbol: asset, limit: 1}}
             );
             this.priceArray.push(data.data[0].price);
+            //this.priceArray.push(10)
         } catch (error) {
             this.logger.error(
                 `Error Binance request: ${asset}, error: ${error}`

@@ -4,7 +4,7 @@ export default {
     db: new Proxy(Apis, {
         get(apis, method) {
             return function() {
-                //console.log(`call Apis.db.${method}(${[...arguments]})`)
+                console.log(`call Apis.db.${method}(${[...arguments]})`);
                 return apis
                     .instance()
                     .db_api()

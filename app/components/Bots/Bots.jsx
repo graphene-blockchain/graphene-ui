@@ -9,7 +9,8 @@ class Bots extends React.Component {
     state = {
         selectStrategy: strategies[0],
         bots: BotManager.getBots(accounts[0]),
-        selectBot: null
+        selectBot: null,
+        enableCreate: true
     };
 
     handleChangeStrategy = event => {
@@ -34,65 +35,18 @@ class Bots extends React.Component {
         this.setState({bots});
     };
 
+    handleEnableCreate = enableCreate => {
+        if (this.state.enableCreate != enableCreate)
+            this.setState({enableCreate});
+    };
+
     render() {
-        console.log("selectStrategy", this.state.selectStrategy);
-        //let CreateForm = BotManager.strategies[this.state.selectStrategy].create
+        let CreateForm =
+            BotManager.strategies[this.state.selectStrategy].create;
 
-        let CreateForm = () => {
-            let Create =
-                BotManager.strategies[this.state.selectStrategy].create;
-
-            return (
-                <div className="content-block">
-                    <Create
-                        ref={form => {
-                            this.createForm = form;
-                        }}
-                        account={accounts[0]}
-                        name={this.state.selectStrategy}
-                    />
-                    <button
-                        className="button float-right no-margin"
-                        type="submit"
-                        disabled={false}
-                    >
-                        Create
-                    </button>
-                </div>
-            );
-        };
-
-        let StateForm = () => {
-            if (this.state.selectBot) {
-                let State = this.state.bots[this.state.selectBot].state;
-                return (
-                    <div>
-                        <State bot={this.state.bots[this.state.selectBot]} />
-                        <button
-                            className="button"
-                            onClick={() =>
-                                this.state.bots[this.state.selectBot].start()
-                            }
-                        >
-                            Start
-                        </button>
-                        <button
-                            className="button"
-                            onClick={() =>
-                                this.state.bots[this.state.selectBot].stop()
-                            }
-                        >
-                            Stop
-                        </button>
-                        <button className="button">Delete</button>
-                    </div>
-                );
-            } else {
-                return <p>Please, select bot</p>;
-            }
-        };
-        //console.log("state form",StateForm)
-        //console.log("bots", this.state.bots)
+        let bot = this.state.selectBot
+            ? this.state.bots[this.state.selectBot]
+            : null;
 
         return (
             <div className="grid-block vertical">
@@ -103,10 +57,10 @@ class Bots extends React.Component {
                         onSubmit={this.handleCreate}
                         noValidate
                     >
+                        <div className="left-label" style={{marginTop: 30}}>
+                            Select strategy:
+                        </div>
                         <div className="content-block">
-                            <div className="left-label" style={{marginTop: 30}}>
-                                Select strategy:
-                            </div>
                             <div className="content-block">
                                 <select
                                     className={"form-control bts-select "}
@@ -122,14 +76,30 @@ class Bots extends React.Component {
                             </div>
                         </div>
                         <hr />
-                        <CreateForm />
+                        <div className="content-block">
+                            <CreateForm
+                                ref={form => {
+                                    this.createForm = form;
+                                }}
+                                account={accounts[0]}
+                                name={this.state.selectStrategy}
+                                enableCreate={this.handleEnableCreate}
+                            />
+                            <button
+                                className="button no-margin"
+                                type="submit"
+                                disabled={!this.state.enableCreate}
+                            >
+                                Create
+                            </button>
+                        </div>
                     </form>
                     <div className="content-block">
-                        {"Bot state:"}
+                        <div className="left-label" style={{marginTop: 30}}>
+                            Bot state:
+                        </div>
                         <select
-                            className={
-                                "form-control account-select bts-select "
-                            }
+                            className={"form-control bts-select"}
                             value={this.props.selectBot}
                             onChange={this.handleChangeBot}
                         >
@@ -143,7 +113,33 @@ class Bots extends React.Component {
                             ))}
                         </select>
                         <div className="content-block">
-                            <StateForm />
+                            {this.state.selectBot ? (
+                                <div>
+                                    <bot.state bot={bot} />
+                                    <button
+                                        className="button"
+                                        onClick={() => bot.start()}
+                                        disabled={bot.run}
+                                    >
+                                        Start
+                                    </button>
+                                    <button
+                                        className="button"
+                                        onClick={() => bot.stop()}
+                                        disabled={!bot.run}
+                                    >
+                                        Stop
+                                    </button>
+                                    <button
+                                        className="button"
+                                        disabled={bot.run}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            ) : (
+                                <p>Please, select bot</p>
+                            )}
                         </div>
                     </div>
                 </div>
