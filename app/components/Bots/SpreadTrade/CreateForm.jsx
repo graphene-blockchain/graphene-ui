@@ -12,7 +12,7 @@ class CreateForm extends React.Component {
         quoteAmount: 0.01,
         baseSpread: 10,
         quoteSpread: 10,
-        movePercent: 5,
+        //movePercent: 5,
         baseBalance: 100,
         quoteBalance: 0.1,
         validate: ["name"]
@@ -65,7 +65,7 @@ class CreateForm extends React.Component {
             case "quoteBalance":
             case "baseSpread":
             case "quoteSpread":
-            case "movePercent":
+            /*case "movePercent":
                 if (value === "" || isNaN(+value)) {
                     validate.push(name);
                     this.setState({validate});
@@ -74,7 +74,7 @@ class CreateForm extends React.Component {
                         validate: validate.filter(input => input !== name)
                     });
                 }
-                break;
+                break;*/
             case "defaultPrice":
                 if (!isNaN(+value))
                     this.setState({
@@ -264,7 +264,7 @@ class CreateForm extends React.Component {
                     </div>
                 </div>
 
-                <div className="content-block">
+                {/*<div className="content-block">
                     <label className="left-label">Move Percent</label>
                     <input
                         name="movePercent"
@@ -280,7 +280,7 @@ class CreateForm extends React.Component {
                                 : "none"
                         }}
                     />
-                </div>
+                </div>*/}
                 <div className="content-block">
                     <label className="left-label">Default Price</label>
                     <input

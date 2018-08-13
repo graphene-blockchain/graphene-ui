@@ -8,13 +8,13 @@ import BigNumber from "bignumber.js";
 import Account from "lib/bots/account";
 import SettingsActions from "actions/SettingsActions";
 import WalletUnlockActions from "actions/WalletUnlockActions";
+import axios from "axios";
 
 class SpreadTrade {
     static create = Create;
     state = State;
 
     constructor(account, storage, initData) {
-        console.log("constructor Bot", account);
         this.account = new Account(account);
         this.storage = storage;
 
@@ -39,7 +39,7 @@ class SpreadTrade {
                         //id, price and amount
                     }
                 },
-                movePercent: initData.movePercent,
+                //movePercent: initData.movePercent,
                 defaultPrice: initData.defaultPrice
             });
         }
@@ -48,6 +48,7 @@ class SpreadTrade {
 
         this.logger = console;
         this.queueEvents = Promise.resolve();
+        this.run = false;
     }
 
     async start() {
@@ -80,6 +81,11 @@ class SpreadTrade {
     async stop() {
         ChainStore.unsubscribe(this.queue);
         this.run = false;
+        await this.queueEvents;
+    }
+
+    delete() {
+        this.storage.delete();
     }
 
     queue = () => {
@@ -104,7 +110,7 @@ class SpreadTrade {
         if (feedPrice == 0) return;
 
         console.log("feed", feedPrice, buyPrice, sellPrice);
-        console.log(state.base.order.id, state.quote.order.id);
+        console.log("Orders id", state.base.order.id, state.quote.order.id);
 
         let buyOrder = state.base.order.id
                 ? (await Apis.db.get_objects([state.base.order.id]))[0]
@@ -113,15 +119,15 @@ class SpreadTrade {
                 ? (await Apis.db.get_objects([state.quote.order.id]))[0]
                 : state.quote.order.id;
 
-        console.log("Orders", buyOrder, sellOrder);
-        //return
-
         if (buyOrder) {
             //check Price
             if (
+                /*
                 new BigNumber(Math.abs(buyPrice - state.base.order.price))
                     .div(state.base.order.price)
-                    .isGreaterThanOrEqualTo(state.movePercent / 100)
+                    .isGreaterThanOrEqualTo(state.movePercent / 100)*/
+                Math.abs(buyPrice - state.base.order.price) >
+                Math.abs(feedPrice - buyPrice) / 2
             ) {
                 // move order
 
@@ -217,9 +223,12 @@ class SpreadTrade {
         if (sellOrder) {
             //check Price
             if (
+                /*
                 new BigNumber(Math.abs(sellPrice - state.quote.order.price))
                     .div(state.quote.order.price)
-                    .isGreaterThanOrEqualTo(state.movePercent / 100)
+                    .isGreaterThanOrEqualTo(state.movePercent / 100)*/
+                Math.abs(sellPrice - state.quote.order.price) >
+                Math.abs(feedPrice - sellPrice) / 2
             ) {
                 // move order
 
@@ -374,7 +383,6 @@ class SpreadTrade {
         return this.defaultPrice
             ? new BigNumber(this.defaultPrice)
             : await this.binancePrice(this.base.symbol, this.quote.symbol);
-        //return BigNumber(this.conf.defaultPrice++)
     }
 
     async binancePrice(base, quote) {

@@ -30,6 +30,10 @@ class Storage {
     write(newState) {
         bots.set(this.name, newState);
     }
+
+    delete() {
+        bots.remove(this.name);
+    }
 }
 
 export default Storage;

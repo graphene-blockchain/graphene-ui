@@ -10,7 +10,8 @@ class Bots extends React.Component {
         selectStrategy: strategies[0],
         bots: BotManager.getBots(accounts[0]),
         selectBot: null,
-        enableCreate: true
+        enableCreate: false,
+        botRun: false
     };
 
     handleChangeStrategy = event => {
@@ -18,7 +19,12 @@ class Bots extends React.Component {
     };
 
     handleChangeBot = event => {
-        this.setState({selectBot: event.target.value});
+        let selectBot = event.target.value;
+
+        this.setState({
+            selectBot,
+            botRun: this.state.bots[selectBot].run
+        });
     };
 
     handleCreate = event => {
@@ -38,6 +44,30 @@ class Bots extends React.Component {
     handleEnableCreate = enableCreate => {
         if (this.state.enableCreate != enableCreate)
             this.setState({enableCreate});
+    };
+
+    handleStartBot = async () => {
+        let bot = this.state.bots[this.state.selectBot];
+
+        await bot.start();
+        this.setState({botRun: bot.run});
+        console.log("botRun", this.state.botRun);
+    };
+
+    handleStopBot = async () => {
+        let bot = this.state.bots[this.state.selectBot];
+
+        await bot.stop();
+        this.setState({botRun: bot.run});
+    };
+
+    handleDeleteBot = () => {
+        BotManager.delete(accounts[0], this.state.bots[this.state.selectBot]);
+
+        this.setState({
+            bots: BotManager.getBots(accounts[0]),
+            selectBot: null
+        });
     };
 
     render() {
@@ -118,21 +148,25 @@ class Bots extends React.Component {
                                     <bot.state bot={bot} />
                                     <button
                                         className="button"
-                                        onClick={() => bot.start()}
-                                        disabled={bot.run}
+                                        onClick={this.handleStartBot}
+                                        disabled={this.state.botRun}
+                                        style={{marginLeft: 50}}
                                     >
                                         Start
                                     </button>
                                     <button
                                         className="button"
-                                        onClick={() => bot.stop()}
-                                        disabled={!bot.run}
+                                        onClick={this.handleStopBot}
+                                        disabled={!this.state.botRun}
+                                        style={{marginLeft: 50}}
                                     >
                                         Stop
                                     </button>
                                     <button
                                         className="button"
-                                        disabled={bot.run}
+                                        onClick={this.handleDeleteBot}
+                                        disabled={this.state.botRun}
+                                        style={{marginLeft: 50}}
                                     >
                                         Delete
                                     </button>
