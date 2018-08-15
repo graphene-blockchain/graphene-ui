@@ -92,8 +92,46 @@ class SettingsStore {
      * @private
      */
     _getDefaultSetting() {
+        const supportedLocales = [
+            "en",
+            "zh",
+            "fr",
+            "ko",
+            "de",
+            "es",
+            "it",
+            "tr",
+            "ru",
+            "ja"
+        ];
+
+        const fallbackLocales = {
+            uk: "ru",
+            be: "ru",
+            uz: "ru",
+            kz: "ru"
+        };
+
+        let defaultLocale = "ru";
+        let userLanguage = navigator.language || navigator.userLanguage;
+
+        for (let i = 0; i < supportedLocales.length; i++) {
+            if (userLanguage.startsWith(supportedLocales[i])) {
+                defaultLocale = supportedLocales[i];
+                break;
+            }
+        }
+
+        let fallbackKeys = Object.keys(fallbackLocales);
+        for (let i = 0; i < fallbackKeys.length; i++) {
+            if (userLanguage.startsWith(fallbackKeys[i])) {
+                defaultLocale = fallbackLocales[fallbackKeys[i]];
+                break;
+            }
+        }
+
         return {
-            locale: "en",
+            locale: defaultLocale,
             apiServer: settingsAPIs.DEFAULT_WS_NODE,
             faucet_address: settingsAPIs.DEFAULT_FAUCET,
             unit: "RUBLE",

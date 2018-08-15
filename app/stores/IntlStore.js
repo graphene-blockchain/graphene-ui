@@ -20,7 +20,8 @@ class IntlStore {
     constructor() {
         const storedSettings = ss.get("settings_v4", {});
         if (storedSettings.locale === undefined) {
-            storedSettings.locale = "en";
+            //storedSettings.locale = "en";
+            storedSettings.locale = this.getDefaultLocale();
         }
         this.currentLocale = storedSettings.locale;
 
