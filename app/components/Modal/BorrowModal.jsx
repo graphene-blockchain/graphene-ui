@@ -21,6 +21,7 @@ import Immutable from "immutable";
 import {ChainStore} from "bitsharesjs";
 import {List} from "immutable";
 import Icon from "../Icon/Icon";
+import {Checkbox} from "bitshares-ui-style-guide";
 
 /**
  *  Given an account and an asset id, render a modal allowing modification of a margin position for that asset
@@ -62,7 +63,7 @@ class BorrowModalContent extends React.Component {
             let target_collateral_ratio = !isNaN(
                 currentPosition.target_collateral_ratio
             )
-                ? currentPosition.target_collateral_ratio / 100
+                ? currentPosition.target_collateral_ratio / 1000
                 : 0;
 
             return {
@@ -446,7 +447,7 @@ class BorrowModalContent extends React.Component {
         if (isTCR) {
             extensionsProp = {
                 target_collateral_ratio: parseInt(
-                    this.state.target_collateral_ratio * 100,
+                    this.state.target_collateral_ratio * 1000,
                     10
                 )
             };
@@ -597,7 +598,8 @@ class BorrowModalContent extends React.Component {
             collateral_ratio,
             target_collateral_ratio,
             errors,
-            original_position
+            original_position,
+            useTargetCollateral
         } = this.state;
         let quotePrecision = utils.get_asset_precision(
             this.props.quote_asset.get("precision")
@@ -697,70 +699,6 @@ class BorrowModalContent extends React.Component {
             </span>
         );
 
-        let updateTargetCollateral = (
-            <span>
-                <label>
-                    <Translate content="borrow.target_collateral_ratio" />&nbsp;&nbsp;
-                    <span
-                        className="tooltip"
-                        data-html={true}
-                        data-tip={counterpart.translate(
-                            "tooltip.target_collateral_ratio"
-                        )}
-                    >
-                        <Icon
-                            name="question-circle"
-                            title="icons.question_circle"
-                        />
-                    </span>
-                </label>
-                <div style={{marginBottom: "1em"}}>
-                    <input
-                        type="checkbox"
-                        onClick={this._setUseTargetCollateral.bind(this)}
-                        checked={
-                            this.state.useTargetCollateral
-                                ? "checked=checked"
-                                : ""
-                        }
-                    />
-                    &nbsp;&nbsp;
-                    <Translate content="borrow.enable_target_collateral_ratio" />
-                </div>
-                {this.state.useTargetCollateral ? (
-                    <span>
-                        <input
-                            value={
-                                isNaN(target_collateral_ratio)
-                                    ? "0"
-                                    : target_collateral_ratio
-                            }
-                            onChange={this._onTargetRatioChange.bind(this)}
-                            type="text"
-                            style={{
-                                float: "right",
-                                marginTop: -10,
-                                width: "12%"
-                            }}
-                        />
-                        <input
-                            style={{width: "85%"}}
-                            min="0"
-                            max="6"
-                            step="0.01"
-                            onChange={this._onTargetRatioChange.bind(this)}
-                            value={
-                                isNaN(target_collateral_ratio)
-                                    ? "0"
-                                    : target_collateral_ratio
-                            }
-                            type="range"
-                        />
-                    </span>
-                ) : null}
-            </span>
-        );
-
         let feed_price = this._getFeedPrice();
 
         let maintenanceRatio = this._getMaintenanceRatio();
@@ -849,7 +787,8 @@ class BorrowModalContent extends React.Component {
                             >
                                 <div className="borrow-price-feeds">
                                     <span className="borrow-price-label">
-                                        <Translate content="transaction.feed_price" />:&nbsp;
+                                        <Translate content="transaction.feed_price" />
+                                        :&nbsp;
                                     </span>
                                     <FormattedPrice
                                         noPopOver
@@ -911,7 +850,8 @@ class BorrowModalContent extends React.Component {
                                     }
                                 >
                                     <span className="borrow-price-label">
-                                        <Translate content="exchange.your_price" />:&nbsp;
+                                        <Translate content="exchange.your_price" />
+                                        :&nbsp;
                                     </span>
                                     {this.state.newPosition ? (
                                         <FormattedPrice
@@ -1048,7 +988,89 @@ class BorrowModalContent extends React.Component {
                                     className={"form-group"}
                                     style={{marginBottom: "3.5rem"}}
                                 >
-                                    {updateTargetCollateral}
+                                    <span>
+                                        <label>
+                                            <Translate content="borrow.target_collateral_ratio" />
+                                            &nbsp;&nbsp;
+                                            <span
+                                                className="tooltip"
+                                                data-html={true}
+                                                data-tip={counterpart.translate(
+                                                    "tooltip.target_collateral_ratio"
+                                                )}
+                                            >
+                                                <Icon
+                                                    name="question-circle"
+                                                    title="icons.question_circle"
+                                                />
+                                            </span>
+                                        </label>
+                                        {useTargetCollateral ? (
+                                            <span>
+                                                <div
+                                                    style={{
+                                                        marginBottom: "1em"
+                                                    }}
+                                                >
+                                                    <Checkbox
+                                                        onClick={this._setUseTargetCollateral.bind(
+                                                            this
+                                                        )}
+                                                        checked
+                                                    >
+                                                        <Translate content="borrow.enable_target_collateral_ratio" />
+                                                    </Checkbox>
+                                                </div>
+                                                <span>
+                                                    <input
+                                                        value={
+                                                            isNaN(
+                                                                target_collateral_ratio
+                                                            )
+                                                                ? "0"
+                                                                : target_collateral_ratio
+                                                        }
+                                                        onChange={this._onTargetRatioChange.bind(
+                                                            this
+                                                        )}
+                                                        type="text"
+                                                        style={{
+                                                            float: "right",
+                                                            marginTop: -10,
+                                                            width: "12%"
+                                                        }}
+                                                    />
+                                                    <input
+                                                        style={{width: "85%"}}
+                                                        min="0"
+                                                        max="6"
+                                                        step="0.01"
+                                                        onChange={this._onTargetRatioChange.bind(
+                                                            this
+                                                        )}
+                                                        value={
+                                                            isNaN(
+                                                                target_collateral_ratio
+                                                            )
+                                                                ? "0"
+                                                                : target_collateral_ratio
+                                                        }
+                                                        type="range"
+                                                    />
+                                                </span>
+                                            </span>
+                                        ) : (
+                                            <div style={{marginBottom: "1em"}}>
+                                                <Checkbox
+                                                    onClick={this._setUseTargetCollateral.bind(
+                                                        this
+                                                    )}
+                                                >
+                                                    <Translate content="borrow.enable_target_collateral_ratio" />
+                                                </Checkbox>
+                                            </div>
+                                        )}
+                                    </span>
                                 </div>
                             </div>
                         ) : null}

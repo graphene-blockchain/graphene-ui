@@ -53,7 +53,11 @@ let icons = [
     "user",
     "warning",
     "withdraw",
-    "zoom"
+    "filter",
+    "info-circle-o",
+    "zoom",
+    "people",
+    "fire"
 ];
 
 let iconsMap = {};
