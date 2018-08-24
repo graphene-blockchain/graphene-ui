@@ -41,6 +41,7 @@
         "hide_hidden": "Gizle",
         "hide_ignored": "Gizle",
         "history": "Geçmiş",
+        "history_error": "Failed to download the account history, please try again",
         "home": "Başa dön",
         "hour_24": "24 Saat",
         "hour_24_short": "24 Saat",
@@ -49,10 +50,10 @@
         "ignore": "Yok say",
         "in_open": "Bekleyen emirlerinizdeki %(asset)s miktarı: ",
         "in_open_value": "%(asset)s piyasasındaki bekleyen emirlerin büyüklüğü (anlık değere göre): ",
-        "intro_text_1": "<b>RuDEX Merkezsiz Kriptopara Borsası</b> (BMKB) kripto para al-sat deneyiminizi kökten değiştirecek, yeni nesil bir borsa platformudur.",
+        "intro_text_1": "<b>Bitshares Merkezsiz Kriptopara Borsası</b> (BMKB) kripto para al-sat deneyiminizi kökten değiştirecek, yeni nesil bir borsa platformudur.",
         "intro_text_2": "<b>Bitshares</b>'de al-sat işlemleri herhangi bir aracı olmaksızın, doğrudan kullanıcıların kendi arasında gerçekleşir.",
         "intro_text_3": "Platform üzerinde kullanıcılar kendi hesaplarının tam kontrolüne sahiptir - hiçbir aracı kurum işlemlerinize müdahale edemez!",
-        "intro_text_4": "Platformda BTC, ETH, STEEM, DASH, LTC, DOGE gibi coin'lerle işlem yapabileceğiniz gibi aynı zamanda kendi coin'inizi oluşturabilir ve hemen ticaretine başlayabilirsiniz.",
+        "intro_text_4": "Platformda BTC, ETH, EOS, STEEM gibi coin'lerle işlem yapabileceğiniz gibi aynı zamanda kendi coin'inizi oluşturabilir ve hemen ticaretine başlayabilirsiniz.",
         "intro_text_title": "RuDEX'e Hoş Geldiniz",
         "login_with": "Login with",
         "market_actions": "Takas işlemleri",
@@ -1071,7 +1072,7 @@
         "announcement_1": "In an effort to provide enhanced security for the web-based wallet, we are migrating it, effective immediately to the address below. Please be sure to update any bookmarks you may have.",
         "text_1": "Local wallet detected",
         "text_2": "Please backup your wallet now and restore the backup file to <a href='https://wallet.rudex.org' target='blank' rel='noopener noreferrer'>https://wallet.rudex.org</a>, which will be your new address for the web wallet. Thanks for your continued support.",
-        "text_3": "Please use <a href='https://wallet.rudex.org' target='blank' rel='noopener noreferrer'>https://wallet.rudex.org</a> from now on, your existing credentials will let you login there as well.",
+        "text_3": "Please use <a href='https://market.rudex.org' target='blank' rel='noopener noreferrer'>https://market.rudex.org</a> from now on, your existing credentials will let you login there as well.",
         "title": "Notice"
     },
     "modal": {
@@ -1102,7 +1103,7 @@
             "submit_beta": "Deposit (beta)"
         },
         "deposit_withdraw": {
-            "disabled": "Gateway service disabled",
+            "disabled": "%(gateway)s gateway service disabled",
             "gateway": "Gateway",
             "no_gateway_available": "No gateway available",
             "select_gateway": "Please select a gateway operator",
@@ -1242,6 +1243,7 @@
     "proposal": {
         "action": "Hareketler",
         "approve": "Onayla",
+        "approvers": "Approver(s)",
         "asset_create": "%(asset)s dijital varlığını {account} hesabından oluştur.",
         "asset_issue": "Issue {amount} to {to} using {account}",
         "asset_reserve": "Burn (reserve) {amount} using {account}",
@@ -1255,6 +1257,7 @@
         "limit_order_create": "%(account)s adlı hesaptan %(sell_amount)s fiyatı üzerinden %(buy_amount)s almak için emir ver",
         "limit_order_sell": "{account} adlı hesaptan {price} fiyatı üzerinden {amount} satmak için bir emir ver",
         "override_transfer": "Transfer {amount} from {from} to {to} by authority of {issuer}",
+        "proposals": "Proposals",
         "reject": "Reddet",
         "status": "Durum",
         "transfer": "Transfer miktarı: {amount}, gönderen: {from}, alıcı: {to}",
@@ -1429,7 +1432,7 @@
         "propose_tip": "Propose another user to initiate a transaction",
         "proxy_remove": "You have a proxy set, to remove it simply clear this input field",
         "proxy_search": "Search for an account to be used as your proxy for voting",
-        "settle": "Sona erdirme işlemi dijital varlıklarınızı 24 saatlik bir gecikme ile o anki fiyat üzerinden BTS'ye dönüştürmenizi sağlar",
+        "settle": "Sona erdirme işlemi dijital varlıklarınızı %(settleDelay)s saatlik bir gecikme ile o anki fiyat üzerinden %(backingAsset)s'ye dönüştürmenizi sağlar",
         "settle_price": "Sona erdirilen emirlerin gerçekleşeceği fiyat",
         "show_asset": "Bu dijital varlığı ana listede göstermek için tıklayın.",
         "show_block": "İşlemin gerçekleşmiş olduğu #%(block)s numaralı bloğa bakmak için buraya tıklayın.",
@@ -1546,12 +1549,15 @@
             "asset_update_feed_producers": "Fiyat kaynağı hesabı güncelleme",
             "asset_update_issuer": "Update asset issuer",
             "balance_claim": "Bakiye talebi",
+            "bid_collateral": "Collateral bid",
             "blind_transfer": "Kör transfer",
             "call_order_update": "Marjin güncelleme",
             "committee_member_create": "Kurul üyesi oluşturma",
             "committee_member_update": "Kurul üyesini güncelle",
             "committee_member_update_global_parameters": "Genel değişkenleri güncelleme",
             "custom": "Kişiye özel",
+            "execute_bid": "Execute bid",
+            "fba_distribute": "Fee backed asset distribution",
             "fill_order": "Gerçekleşen emir",
             "limit_order_cancel": "İptal edilen emir",
             "limit_order_create": "Emir girişi",
@@ -1633,6 +1639,7 @@
     "utility": {
         "total_x_assets": "Total of %(count)s assets",
         "total_x_items": "Total of %(count)s items",
+        "total_x_markets": "Total of %(count)s markets",
         "total_x_operations": "Total of %(count)s operations"
     },
     "walkthrough": {

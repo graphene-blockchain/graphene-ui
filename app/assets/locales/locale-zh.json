@@ -41,6 +41,7 @@
         "hide_hidden": "隐藏已忽略资产",
         "hide_ignored": "显示已忽略账户",
         "history": "交易历史",
+        "history_error": "Failed to download the account history, please try again",
         "home": "首页",
         "hour_24": "日涨跌幅%",
         "hour_24_short": "日涨跌%",
@@ -1102,7 +1103,7 @@
             "submit_beta": "Deposit (beta)"
         },
         "deposit_withdraw": {
-            "disabled": "Gateway service disabled",
+            "disabled": "%(gateway)s gateway service disabled",
             "gateway": "Gateway",
             "no_gateway_available": "No gateway available",
             "select_gateway": "Please select a gateway operator",
@@ -1254,6 +1255,7 @@
         "limit_order_create": "为账户 %(account)s 下单，买入 %(buy_amount)s，卖出 %(sell_amount)s",
         "limit_order_sell": "为账户 {account} 下单，以价格 {price} 卖出 {amount}",
         "override_transfer": "由 {issuer} 授权，将 {amount} 从账户 {from} 转账到 {to}",
+        "proposals": "Proposals",
         "reject": "否决",
         "status": "状态",
         "transfer": "将 {amount} 从账户 {from} 转账到 {to}",
@@ -1428,7 +1430,7 @@
         "propose_tip": "提议另一个用户发起交易",
         "proxy_remove": "You have a proxy set, to remove it simply clear this input field",
         "proxy_search": "Search for an account to be used as your proxy for voting",
-        "settle": "使用清算功能，你可以在24小时后以当时的清算价将你的 %(asset)s 资产转换为对应抵押资产",
+        "settle": "Settling will let you convert your holdings of %(asset)s to %(backingAsset)s after a delay of %(settleDelay)s hours, at a price equal to the feed price at that time.",
         "settle_price": "清算单执行时将使用的价格",
         "show_asset": "在主列表中显示资产",
         "show_block": "显示收录交易的区块 #%(block)s 的信息",
@@ -1545,12 +1547,15 @@
             "asset_update_feed_producers": "更新资产喂价者",
             "asset_update_issuer": "Update asset issuer",
             "balance_claim": "领取余额",
+            "bid_collateral": "Collateral bid",
             "blind_transfer": "隐私转账",
             "call_order_update": "更新债仓",
             "committee_member_create": "创建理事会成员",
             "committee_member_update": "更新理事会成员",
             "committee_member_update_global_parameters": "全局参数更新",
             "custom": "自定义",
+            "execute_bid": "Execute bid",
+            "fba_distribute": "Fee backed asset distribution",
             "fill_order": "订单撮合",
             "limit_order_cancel": "取消限价单",
             "limit_order_create": "限价单",
@@ -1632,6 +1637,7 @@
     "utility": {
         "total_x_assets": "Total of %(count)s assets",
         "total_x_items": "Total of %(count)s items",
+        "total_x_markets": "Total of %(count)s markets",
         "total_x_operations": "Total of %(count)s operations"
     },
     "walkthrough": {

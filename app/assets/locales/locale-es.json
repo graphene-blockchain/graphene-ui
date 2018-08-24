@@ -41,6 +41,7 @@
         "hide_hidden": "Active",
         "hide_ignored": "Ocultar cuentas ocultas",
         "history": "Historial",
+        "history_error": "Failed to download the account history, please try again",
         "home": "Casa",
         "hour_24": "Cambio 24hs",
         "hour_24_short": "24hs",
@@ -1106,7 +1107,7 @@
             "submit_beta": "Deposit (beta)"
         },
         "deposit_withdraw": {
-            "disabled": "Gateway service disabled",
+            "disabled": "%(gateway)s gateway service disabled",
             "gateway": "Gateway",
             "no_gateway_available": "No gateway available",
             "select_gateway": "Please select a gateway operator",
@@ -1436,7 +1437,7 @@
         "propose_tip": "Proponer otro usuario para iniciar una transacción",
         "proxy_remove": "You have a proxy set, to remove it simply clear this input field",
         "proxy_search": "Search for an account to be used as your proxy for voting",
-        "settle": "El settling te permitirá de convertir tus propriedades de %(asset)s en BTS después de un retraso de 24 horas, a un precio igual al precio dado en ese momento.",
+        "settle": "El settling te permitirá de convertir tus propriedades de %(asset)s en %(backingAsset)s después de un retraso de %(settleDelay)s horas, a un precio igual al precio dado en ese momento.",
         "settle_price": "Este es el precio al que se ejecutarán los pedidos colocados.",
         "show_asset": "Haga clic aquí para mostrar este activo en la lista principal.",
         "show_block": "Haga clic aquí para mostrar el bloque #%(block)s donde ocurrió esta transacción.",
@@ -1554,12 +1555,15 @@
             "asset_update_feed_producers": "Actualizar productores de feed de activo",
             "asset_update_issuer": "Update asset issuer",
             "balance_claim": "Solicitar balance",
+            "bid_collateral": "Collateral bid",
             "blind_transfer": "Transferencia cegada",
             "call_order_update": "Actualizar margen",
             "committee_member_create": "Crear miembro del Comité",
             "committee_member_update": "Actualizaziòn miembro del comité de ",
             "committee_member_update_global_parameters": "Actualización global de parámetros",
             "custom": "Personalizado",
+            "execute_bid": "Execute bid",
+            "fba_distribute": "Fee backed asset distribution",
             "fill_order": "Completar orden",
             "limit_order_cancel": "Cancelar orden",
             "limit_order_create": "Publicar orden",
@@ -1641,6 +1645,7 @@
     "utility": {
         "total_x_assets": "Total of %(count)s assets",
         "total_x_items": "Total of %(count)s items",
+        "total_x_markets": "Total of %(count)s markets",
         "total_x_operations": "Total of %(count)s operations"
     },
     "walkthrough": {

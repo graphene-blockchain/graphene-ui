@@ -41,6 +41,7 @@
         "hide_hidden": "Attivi",
         "hide_ignored": "Nascondi account nascosti",
         "history": "Storico",
+        "history_error": "Failed to download the account history, please try again",
         "home": "Home",
         "hour_24": "Variazione in 24h",
         "hour_24_short": "24h",
@@ -53,7 +54,7 @@
         "intro_text_2": "<b>Il DEX</b> è inerentemente decentralizzato, permettendoti la compravendita del token BitShares (BTS) e una varietà di asset trustless stabili nel prezzo e ancorati al mercato come bitUSD, bitCNY, bitBTC, bitGold e altri. È possibile fare trading di questi asset con <b>zero</b> rischio di controparte, permettendoti di mantenere il pieno controllo sui tuoi fondi.",
         "intro_text_3": "<b>Il DEX</b> permette anche la creazione di asset generati dagli utenti (user-issued assets, UIA), con cui si può fare trading con altri UIA o altri asset trustless sulla piattaforma.  Un distributore molto noto sul DEX è <b>OpenLedger</b>, che offre una gamma di asset che include BTC, ETH, STEEM, DASH, LTC, DOGE e molti altri",
         "intro_text_4": "Ciò garantisce ai trader di criptovalute un unico mix di trading tradizionale e decentralizzato, il tutto con la familiare interfaccia di un exchange. Buon trading!",
-        "intro_text_title": "Benvenuto su BitShares",
+        "intro_text_title": "Benvenuto su RuDEX",
         "login_with": "Login with",
         "market_actions": "Operazioni di mercato",
         "market_value": "Valore di mercato",
@@ -1102,7 +1103,7 @@
             "submit_beta": "Deposit (beta)"
         },
         "deposit_withdraw": {
-            "disabled": "Gateway service disabled",
+            "disabled": "%(gateway)s gateway service disabled",
             "gateway": "Gateway",
             "no_gateway_available": "No gateway available",
             "select_gateway": "Please select a gateway operator",
@@ -1431,7 +1432,7 @@
         "propose_tip": "Propose another user to initiate a transaction",
         "proxy_remove": "You have a proxy set, to remove it simply clear this input field",
         "proxy_search": "Search for an account to be used as your proxy for voting",
-        "settle": "Il settling ti permetterà di convertire le tue disponibilità di %(asset)s in BTS dopo un'attesa di 24 ore, ad un prezzo uguale al prezzo di mercato in quel momento.",
+        "settle": "Il settling ti permetterà di convertire le tue disponibilità di %(asset)s in %(backingAsset)s dopo un'attesa di %(settleDelay)s ore, ad un prezzo uguale al prezzo di mercato in quel momento.",
         "settle_price": "Questo è il prezzo a cui i settle order saranno eseguiti.",
         "show_asset": "Clicca qui per mostrare quest'asset nella lista principale.",
         "show_block": "Clicca qui per mostrare il blocco #%(block)s in cui questa transazione è avvenuta.",
@@ -1549,12 +1550,15 @@
             "asset_update_feed_producers": "Aggiorna produttori di feed per l'asset",
             "asset_update_issuer": "Update asset issuer",
             "balance_claim": "Riscuoti saldo",
+            "bid_collateral": "Collateral bid",
             "blind_transfer": "Blinded transfer",
             "call_order_update": "Aggiorna margine",
             "committee_member_create": "Crea membro del comitato",
             "committee_member_update": "Aggiorna membro del comitato",
             "committee_member_update_global_parameters": "Aggiornamento parametri globali",
             "custom": "Personalizzato",
+            "execute_bid": "Execute bid",
+            "fba_distribute": "Fee backed asset distribution",
             "fill_order": "Completa ordine",
             "limit_order_cancel": "Annulla un ordine",
             "limit_order_create": "Fai un ordine",
@@ -1636,6 +1640,7 @@
     "utility": {
         "total_x_assets": "Total of %(count)s assets",
         "total_x_items": "Total of %(count)s items",
+        "total_x_markets": "Total of %(count)s markets",
         "total_x_operations": "Total of %(count)s operations"
     },
     "walkthrough": {

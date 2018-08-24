@@ -125,21 +125,28 @@ class AccountOverview extends React.Component {
             <tr>
                 <th
                     style={{textAlign: "left"}}
-                    className="clickable"
+                    className={cnames("clickable is-sortable", {
+                        "is-active": this.state.sortKey === "alphabetic"
+                    })}
                     onClick={this._toggleSortOrder.bind(this, "alphabetic")}
                 >
                     <Translate component="span" content="account.asset" />
                 </th>
                 <th
                     onClick={this._toggleSortOrder.bind(this, "qty")}
-                    className="clickable"
+                    className={cnames("clickable is-sortable", {
+                        "is-active": this.state.sortKey === "qty"
+                    })}
                     style={{textAlign: "right"}}
                 >
                     <Translate content="account.qty" />
                 </th>
                 <th
                     onClick={this._toggleSortOrder.bind(this, "priceValue")}
-                    className="column-hide-small clickable"
+                    className={cnames(
+                        "column-hide-small clickable is-sortable",
+                        {"is-active": this.state.sortKey === "priceValue"}
+                    )}
                     style={{textAlign: "right"}}
                 >
                     <Translate content="exchange.price" /> (
@@ -147,7 +154,10 @@ class AccountOverview extends React.Component {
                 </th>
                 <th
                     onClick={this._toggleSortOrder.bind(this, "changeValue")}
-                    className="column-hide-small clickable"
+                    className={cnames(
+                        "column-hide-small clickable is-sortable",
+                        {"is-active": this.state.sortKey === "changeValue"}
+                    )}
                     style={{textAlign: "right"}}
                 >
                     <Translate content="account.hour_24_short" />
@@ -155,7 +165,10 @@ class AccountOverview extends React.Component {
                 <th
                     onClick={this._toggleSortOrder.bind(this, "totalValue")}
                     style={{textAlign: "right"}}
-                    className="column-hide-small clickable"
+                    className={cnames(
+                        "column-hide-small clickable is-sortable",
+                        {"is-active": this.state.sortKey === "totalValue"}
+                    )}
                 >
                     <TranslateWithLinks
                         noLink
