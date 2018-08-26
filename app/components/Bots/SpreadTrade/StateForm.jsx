@@ -1,14 +1,10 @@
 import React from "react";
 
 class StateForm extends React.Component {
-    state = {
-        validate: []
-    };
-
     componentWillMount() {
-        console.log(this.props.bot);
-
-        this.setState(this.props.bot.storage.read());
+        this.setState(
+            Object.assign({validate: []}, this.props.bot.storage.read())
+        );
     }
 
     handleChange = event => {
@@ -48,9 +44,8 @@ class StateForm extends React.Component {
                 quote.spread = value;
                 this.setState({quote});
                 break;
-            //case "movePercent":
             case "defaultPrice":
-                this.setState({[name]: value});
+                this.setState({defaultPrice: value});
                 break;
         }
 
@@ -58,13 +53,14 @@ class StateForm extends React.Component {
     };
 
     handleUpdateBot = () => {
+        let stateNow = this.props.bot.storage.read();
+        this.state.base.order = stateNow.base.order;
+        this.state.quote.order = stateNow.quote.order;
+
         this.props.bot.storage.write(this.state);
     };
 
-    validate = (name, value) => {};
-
     render() {
-        console.log("StateForm props", this.props);
         return (
             <div>
                 <div className="grid-block horizontal">
@@ -217,24 +213,6 @@ class StateForm extends React.Component {
                         />
                     </div>
                 </div>
-
-                {/*<div className="content-block">
-                    <label className="left-label">Move Percent</label>
-                    <input
-                        name="movePercent"
-                        type="text"
-                        ref="input"
-                        value={this.state.movePercent}
-                        onChange={this.handleChange}
-                        autoComplete="movePercent"
-                        disabled={this.props.bot.run}
-                        style={{
-                            border: this.state.validate.includes("movePercent")
-                                ? "1px solid red"
-                                : "none"
-                        }}
-                    />
-                </div>*/}
                 <div className="content-block">
                     <label className="left-label">Default Price</label>
                     <input

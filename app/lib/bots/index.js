@@ -1,5 +1,5 @@
 import SpreadTrade from "./SpreadTrade";
-import RelativeOrders from "./RelativeOrders";
+//import RelativeOrders from "./RelativeOrders";
 import Storage from "stores/BotsStorage";
 
 var bots = {};
@@ -13,35 +13,39 @@ export default {
     create(strategy, account, initData) {
         let storage = new Storage(`${account}::${strategy}[${initData.name}]`);
 
-        return new this.strategies[strategy](account, storage, initData);
+        let bot = new this.strategies[strategy](account, storage, initData);
+        bots[`__bots__${storage.name}`] = bot;
+
+        return bot;
     },
 
-    delete(account, bot) {
-        let index = Object.keys(bots[account]).find(
-            key => bots[account][key] === bot
-        );
-        console.log("index", index);
-        if (index) {
-            bots[account][index] = undefined;
-            bot.delete();
-        }
+    delete(bot) {
+        let name = `__bots__${bot.storage.name}`;
+
+        bots[name].delete();
+        delete bots[name];
     },
 
     getBots(account) {
-        bots[account] = bots[account] || {};
+        //console.log("getBots", Object.keys(bots))
 
-        return Storage.getAccountBot(account).map(key => {
-            if (bots[account][key]) return bots[account][key];
+        return Storage.getAccountBot(account)
+            .map(key => {
+                if (bots[key]) return bots[key];
 
-            let [strategy, name] = key
-                .replace(/^__bots__(.+)::(\w+)\[(\w+)\]/, "$2,$3")
-                .split(",");
-            let storage = new Storage(`${account}::${strategy}[${name}]`);
+                let [strategy, name] = key
+                    .replace(/^__bots__(.+)::(\w+)\[(\w+)\]/, "$2,$3")
+                    .split(",");
 
-            let bot = new this.strategies[strategy](account, storage);
-            bots[account][key] = bot;
-            return bot;
-        });
+                if (!strategy || !name) return null;
+
+                let storage = new Storage(`${account}::${strategy}[${name}]`);
+
+                let bot = new this.strategies[strategy](account, storage);
+                bots[key] = bot;
+                return bot;
+            })
+            .filter(el => el);
     },
 
     hasBot(account, strategy, name) {

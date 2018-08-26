@@ -1,18 +1,30 @@
 import React from "react";
 import BotManager from "lib/bots";
 import AccountStore from "stores/AccountStore";
-
-const strategies = Object.keys(BotManager.strategies);
-const accounts = Array.from(AccountStore.getState().myActiveAccounts);
+import {connect} from "alt-react";
 
 class Bots extends React.Component {
-    state = {
-        selectStrategy: strategies[0],
-        bots: BotManager.getBots(accounts[0]),
-        selectBot: null,
-        enableCreate: false,
-        botRun: false
-    };
+    constructor() {
+        super();
+
+        this.strategies = BotManager.strategies;
+        this.state = {
+            selectStrategy: Object.keys(this.strategies)[0],
+            bots: [],
+            selectBot: 0,
+            enableCreate: false,
+            botRun: false
+        };
+    }
+
+    componentDidMount() {
+        let bots = BotManager.getBots(this.props.currentAccount);
+        this.setState({
+            bots,
+            selectBot: 0,
+            botRun: bots[0].run
+        });
+    }
 
     handleChangeStrategy = event => {
         this.setState({selectStrategy: event.target.value});
@@ -34,11 +46,14 @@ class Bots extends React.Component {
         bots.push(
             BotManager.create(
                 this.state.selectStrategy,
-                accounts[0],
+                this.props.currentAccount,
                 this.createForm.state
             )
         );
         this.setState({bots});
+
+        if (this.createForm.validate)
+            this.createForm.validate("name", this.createForm.state.name);
     };
 
     handleEnableCreate = enableCreate => {
@@ -51,7 +66,6 @@ class Bots extends React.Component {
 
         await bot.start();
         this.setState({botRun: bot.run});
-        console.log("botRun", this.state.botRun);
     };
 
     handleStopBot = async () => {
@@ -62,21 +76,21 @@ class Bots extends React.Component {
     };
 
     handleDeleteBot = () => {
-        BotManager.delete(accounts[0], this.state.bots[this.state.selectBot]);
+        BotManager.delete(this.state.bots[this.state.selectBot]);
 
         this.setState({
-            bots: BotManager.getBots(accounts[0]),
-            selectBot: null
+            bots: BotManager.getBots(this.props.currentAccount),
+            selectBot: 0
         });
     };
 
     render() {
-        let CreateForm =
-            BotManager.strategies[this.state.selectStrategy].create;
+        //console.log("start render main page", this.props)
+        if (this.props.currentAccount === null) return null;
 
-        let bot = this.state.selectBot
-            ? this.state.bots[this.state.selectBot]
-            : null;
+        let CreateForm = this.strategies[this.state.selectStrategy].create;
+
+        let bot = this.state.bots[this.state.selectBot] || null;
 
         return (
             <div className="grid-block vertical">
@@ -94,10 +108,10 @@ class Bots extends React.Component {
                             <div className="content-block">
                                 <select
                                     className={"form-control bts-select "}
-                                    value={this.props.selectStrategy}
+                                    value={this.state.selectStrategy}
                                     onChange={this.handleChangeStrategy}
                                 >
-                                    {strategies.map(name => (
+                                    {Object.keys(this.strategies).map(name => (
                                         <option key={name} value={name}>
                                             {name}
                                         </option>
@@ -111,7 +125,7 @@ class Bots extends React.Component {
                                 ref={form => {
                                     this.createForm = form;
                                 }}
-                                account={accounts[0]}
+                                account={this.props.currentAccount}
                                 name={this.state.selectStrategy}
                                 enableCreate={this.handleEnableCreate}
                             />
@@ -130,22 +144,19 @@ class Bots extends React.Component {
                         </div>
                         <select
                             className={"form-control bts-select"}
-                            value={this.props.selectBot}
+                            value={this.state.selectBot}
                             onChange={this.handleChangeBot}
                         >
-                            <option key="empty" value={null}>
-                                Select bot
-                            </option>
                             {this.state.bots.map((bot, index) => (
                                 <option key={bot.name} value={index}>
-                                    {bot.name}
+                                    {`${bot.name} (${bot.constructor.name})`}
                                 </option>
                             ))}
                         </select>
                         <div className="content-block">
-                            {this.state.selectBot ? (
+                            {bot ? (
                                 <div>
-                                    <bot.state bot={bot} />
+                                    <bot.state key={bot.name} bot={bot} />
                                     <button
                                         className="button"
                                         onClick={this.handleStartBot}
@@ -182,4 +193,16 @@ class Bots extends React.Component {
     }
 }
 
-export default Bots;
+export default connect(
+    Bots,
+    {
+        listenTo() {
+            return [AccountStore];
+        },
+        getProps() {
+            return {
+                currentAccount: AccountStore.getState().currentAccount
+            };
+        }
+    }
+);

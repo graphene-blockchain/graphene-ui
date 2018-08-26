@@ -1,7 +1,8 @@
 import React from "react";
 import BotManager from "lib/bots";
-import {ChainStore} from "bitsharesjs";
-//import {debounce} from "lodash-es";
+import Apis from "lib/bots/apis";
+import {debounce} from "lodash-es";
+//import FloatingDropdown from "components/Utility/FloatingDropdown";
 
 class CreateForm extends React.Component {
     state = {
@@ -12,16 +13,36 @@ class CreateForm extends React.Component {
         quoteAmount: 0.01,
         baseSpread: 10,
         quoteSpread: 10,
-        //movePercent: 5,
         baseBalance: 100,
         quoteBalance: 0.1,
         validate: ["name"]
     };
 
+    componentDidMount() {
+        this.assetValidate = debounce(this.assetValidate, 200);
+    }
+
+    assetValidate = async name => {
+        let asset = this.state[name];
+        let blockchainAssets = (await Apis.db.list_assets(asset, 1))[0];
+        let validate = this.state.validate;
+
+        if (asset !== blockchainAssets.symbol) validate.push(name);
+        else {
+            validate = validate.filter(input => input !== name);
+        }
+
+        this.setState({validate});
+        this.props.enableCreate(this.state.validate.length == 0);
+    };
+
     handleChange = event => {
-        console.log(event.target.name, event.target.value);
+        //console.log(event.target.name, event.target.value);
         let name = event.target.name,
             value = event.target.value;
+
+        if (["baseAsset", "quoteAsset"].includes(name))
+            value = value.toUpperCase();
 
         this.setState({[name]: value}, () => this.validate(name, value));
     };
@@ -32,7 +53,7 @@ class CreateForm extends React.Component {
         switch (name) {
             case "name":
                 if (
-                    value.length == 0 ||
+                    !/^\w+$/.test(value) ||
                     BotManager.hasBot(
                         this.props.account,
                         this.props.name,
@@ -50,22 +71,26 @@ class CreateForm extends React.Component {
             case "baseAsset":
             case "quoteAsset":
                 if (value.length !== 0) {
-                    // TODO check asset in blockchain
-                    this.setState({
-                        validate: validate.filter(input => input !== name)
-                    });
+                    this.assetValidate(name);
                 } else {
                     validate.push(name);
                     this.setState({validate});
                 }
                 break;
-            case "baseAmount":
-            case "quoteAmount":
             case "baseBalance":
             case "quoteBalance":
+                if (isNaN(+value)) {
+                    validate.push(name);
+                    this.setState({validate});
+                } else {
+                    this.setState({
+                        validate: validate.filter(input => input !== name)
+                    });
+                }
+            case "baseAmount":
+            case "quoteAmount":
             case "baseSpread":
             case "quoteSpread":
-            /*case "movePercent":
                 if (value === "" || isNaN(+value)) {
                     validate.push(name);
                     this.setState({validate});
@@ -74,7 +99,7 @@ class CreateForm extends React.Component {
                         validate: validate.filter(input => input !== name)
                     });
                 }
-                break;*/
+                break;
             case "defaultPrice":
                 if (!isNaN(+value))
                     this.setState({
@@ -87,7 +112,7 @@ class CreateForm extends React.Component {
                 break;
         }
 
-        //console.log(this.state.validate)
+        console.log(this.state.validate);
         this.props.enableCreate(this.state.validate.length == 0);
     };
 
@@ -150,7 +175,7 @@ class CreateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Amount</label>
+                        <label className="left-label">Amount in order</label>
                         <input
                             name="baseAmount"
                             id="baseAmount"
@@ -168,7 +193,7 @@ class CreateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Spread</label>
+                        <label className="left-label">Spread, %</label>
                         <input
                             name="baseSpread"
                             id="baseSpread"
@@ -225,7 +250,7 @@ class CreateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Amount</label>
+                        <label className="left-label">Amount in order</label>
                         <input
                             name="quoteAmount"
                             id="quoteAmount"
@@ -243,7 +268,7 @@ class CreateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Spread</label>
+                        <label className="left-label">Spread, %</label>
                         <input
                             name="quoteSpread"
                             id="quoteSpread"
@@ -263,24 +288,6 @@ class CreateForm extends React.Component {
                         />
                     </div>
                 </div>
-
-                {/*<div className="content-block">
-                    <label className="left-label">Move Percent</label>
-                    <input
-                        name="movePercent"
-                        id="movePercent"
-                        type="text"
-                        ref="input"
-                        value={this.state.movePercent}
-                        onChange={this.handleChange}
-                        autoComplete="movePercent"
-                        style={{
-                            border: this.state.validate.includes("movePercent")
-                                ? "1px solid red"
-                                : "none"
-                        }}
-                    />
-                </div>*/}
                 <div className="content-block">
                     <label className="left-label">Default Price</label>
                     <input
