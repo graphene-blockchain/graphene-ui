@@ -863,6 +863,10 @@
             "openledger_notice1_informed": "I have read and am informed about OpenLedgers position.",
             "support_block": "For support, please contact RuDEX at:",
             "under_construction": "Under Construction",
+            "confirmations": {
+                "last_irreversible": "Your deposit will be confirmed after transaction will become irreversible",
+                "n_blocks": "Your deposit will be confirmed after %(blocks)s confirmations from the network"
+            },
             "partners": {
                 "mrktcash": {
                     "title": "P2P platform where you can buy or sell bitAssets or another cryptocurrency",
