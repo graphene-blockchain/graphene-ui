@@ -79,7 +79,7 @@ class CreateForm extends React.Component {
                 break;
             case "baseBalance":
             case "quoteBalance":
-                if (isNaN(+value)) {
+                if (value !== "-" && isNaN(+value)) {
                     validate.push(name);
                     this.setState({validate});
                 } else {
@@ -87,6 +87,7 @@ class CreateForm extends React.Component {
                         validate: validate.filter(input => input !== name)
                     });
                 }
+                break;
             case "baseAmount":
             case "quoteAmount":
             case "baseSpread":

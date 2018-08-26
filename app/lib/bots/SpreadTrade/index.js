@@ -92,7 +92,7 @@ class SpreadTrade {
 
     checkOrders = async () => {
         let state = this.storage.read();
-        console.log("state", state);
+        //console.log("state", state);
 
         this.defaultPrice = state.defaultPrice;
 
@@ -130,15 +130,20 @@ class SpreadTrade {
                 return acc;
             }, {}),
             baseBalance =
-                state.base.balance === ""
-                    ? accountBalances.base
-                    : Math.min(accountBalances.base, state.base.balance),
+                state.base.balance === "-"
+                    ? 0
+                    : state.base.balance === ""
+                        ? accountBalances.base
+                        : Math.min(accountBalances.base, state.base.balance),
             quoteBalance =
-                state.quote.balance === ""
-                    ? accountBalances.quote
-                    : Math.min(accountBalances.quote, state.quote.balance);
+                state.quote.balance === "-"
+                    ? 0
+                    : state.quote.balance === ""
+                        ? accountBalances.quote
+                        : Math.min(accountBalances.quote, state.quote.balance);
 
         console.log("orders", buyOrder, sellOrder);
+
         if (buyOrder) {
             //check Price
             if (
@@ -160,14 +165,14 @@ class SpreadTrade {
                     .div(10 ** this.base.precision)
                     .toNumber();
 
-                state.base.balance !== "" &&
+                !["", "-"].includes(state.base.balance) &&
                     (state.base.balance =
                         Number(state.base.balance) + orderAmount);
 
                 // add to sell balance
                 if (
                     state.base.order.amount > orderAmount &&
-                    state.quote.balance !== ""
+                    !["", "-"].incudes(state.quote.balance)
                 )
                     state.quote.balance = BigNumber(
                         state.base.order.amount - orderAmount
@@ -191,7 +196,8 @@ class SpreadTrade {
                         price: buyPrice,
                         amount
                     };
-                    state.base.balance !== "" && (state.base.balance -= amount);
+                    !["", "-"].includes(state.base.balance) &&
+                        (state.base.balance -= amount);
                 } catch (error) {
                     this.logger.error(error);
                     state.base.order.id = undefined;
@@ -200,7 +206,7 @@ class SpreadTrade {
         } else {
             if (/^1.7.\d*$/.test(state.base.order.id)) {
                 // fill order
-                state.quote.balance !== "" &&
+                !["", "-"].includes(state.quote.balance) &&
                     (state.quote.balance = BigNumber(state.base.order.amount)
                         .div(state.base.order.price)
                         .plus(state.quote.balance)
@@ -231,7 +237,7 @@ class SpreadTrade {
                         price: buyPrice,
                         amount: state.base.amount
                     };
-                    state.base.balance !== "" &&
+                    !["", "-"].includes(state.base.balance) &&
                         (state.base.balance -= state.base.amount);
                 } catch (error) {
                     this.logger.error(error);
@@ -259,14 +265,14 @@ class SpreadTrade {
                 let orderAmount = BigNumber(sellOrder.for_sale)
                     .div(10 ** this.quote.precision)
                     .toNumber();
-                state.quote.balance !== "" &&
+                !["", "-"].includes(state.quote.balance) &&
                     (state.quote.balance =
                         Number(state.quote.balance) + orderAmount);
 
                 // add to buy balance
                 if (
                     state.quote.order.amount > orderAmount &&
-                    state.base.balance !== ""
+                    !["", "-"].includes(state.base.balance)
                 )
                     state.base.balance = BigNumber(
                         state.quote.order.amount - orderAmount
@@ -288,7 +294,7 @@ class SpreadTrade {
                         price: sellPrice,
                         amount
                     };
-                    state.quote.balance !== "" &&
+                    !["", "-"].includes(state.quote.balance) &&
                         (state.quote.balance -= amount);
                 } catch (error) {
                     this.logger.error(error);
@@ -298,7 +304,7 @@ class SpreadTrade {
         } else {
             if (/^1.7.\d*$/.test(state.quote.order.id)) {
                 // fill order
-                state.base.balance !== "" &&
+                !["", "-"].includes(state.base.balance) &&
                     (state.base.balance = BigNumber(state.quote.order.amount)
                         .times(state.quote.order.price)
                         .plus(state.base.balance)
@@ -328,7 +334,7 @@ class SpreadTrade {
                         price: sellPrice,
                         amount: state.quote.amount
                     };
-                    state.quote.balance !== "" &&
+                    !["", "-"].includes(state.quote.balance) &&
                         (state.quote.balance -= state.quote.amount);
                 } catch (error) {
                     this.logger.error(error);
