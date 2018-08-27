@@ -864,8 +864,8 @@
             "support_block": "For support, please contact RuDEX at:",
             "under_construction": "Under Construction",
             "confirmations": {
-                "last_irreversible": "Your deposit will be confirmed after transaction will become irreversible",
-                "n_blocks": "Your deposit will be confirmed after %(blocks)s confirmations from the network"
+                "last_irreversible": "Your deposit will be deposited after transaction will become irreversible",
+                "n_blocks": "Your deposit will be deposited after %(blocks)s confirmations from the network"
             },
             "partners": {
                 "mrktcash": {
