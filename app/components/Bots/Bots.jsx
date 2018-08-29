@@ -22,7 +22,7 @@ class Bots extends React.Component {
         this.setState({
             bots,
             selectBot: 0,
-            botRun: bots[0].run
+            botRun: bots[0] ? bots[0].run : false
         });
     }
 
