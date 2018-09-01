@@ -22,7 +22,7 @@ export const openledgerAPIs = {
 };
 
 export const rudexAPIs = {
-    BASE: "https://gateway.rudex.org/api/vtest",
+    BASE: "https://gateway.rudex.org/api/v0_3",
     COINS_LIST: "/coins"
 };
 
