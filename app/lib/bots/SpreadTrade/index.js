@@ -97,7 +97,7 @@ class SpreadTrade {
         this.defaultPrice = state.defaultPrice;
 
         let feedPrice = await this.getFeed(),
-            buyPrice = feedPrice.div(1 + state.base.spread / 100).toNumber(),
+            buyPrice = feedPrice.times(1 - state.base.spread / 100).toNumber(),
             sellPrice = feedPrice
                 .times(1 + state.quote.spread / 100)
                 .toNumber();
@@ -142,10 +142,18 @@ class SpreadTrade {
                         ? accountBalances.quote
                         : Math.min(accountBalances.quote, state.quote.balance);
 
+        console.log("prices", buyPrice, feedPrice, sellPrice);
         console.log("orders", buyOrder, sellOrder);
 
         if (buyOrder) {
             //check Price
+            console.log(
+                `check buyOrder: move=${Math.abs(
+                    buyPrice - state.base.order.price
+                ) >
+                    Math.abs(feedPrice - buyPrice) /
+                        2}, fill=${ticker.lowest_ask <= buyPrice}`
+            );
             if (
                 Math.abs(buyPrice - state.base.order.price) >
                     Math.abs(feedPrice - buyPrice) / 2 &&
@@ -215,6 +223,10 @@ class SpreadTrade {
                 state.base.order.id = undefined;
             }
 
+            console.log(
+                `create buyOrder: balance=${baseBalance >=
+                    state.base.amount}, fill=${ticker.lowest_ask <= buyPrice}`
+            );
             if (
                 baseBalance >= state.base.amount &&
                 ticker.lowest_ask > buyPrice
@@ -247,6 +259,13 @@ class SpreadTrade {
 
         if (sellOrder) {
             //check Price
+            console.log(
+                `check sellOrder: move=${Math.abs(
+                    sellPrice - state.quote.order.price
+                ) >
+                    Math.abs(feedPrice - sellPrice) /
+                        2}, fill=${ticker.highest_bid >= sellPrice}`
+            );
             if (
                 Math.abs(sellPrice - state.quote.order.price) >
                     Math.abs(feedPrice - sellPrice) / 2 &&
@@ -312,6 +331,11 @@ class SpreadTrade {
                 state.quote.order.id = undefined;
             }
 
+            console.log(
+                `create sellOrder: balance=${quoteBalance >=
+                    state.quote.amount}, fill=${ticker.highest_bid >=
+                    sellPrice}`
+            );
             if (
                 quoteBalance >= state.quote.amount &&
                 ticker.highest_bid < sellPrice

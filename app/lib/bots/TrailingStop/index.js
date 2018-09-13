@@ -1,19 +1,28 @@
-import Create from "components/Bots/RelativeOrders/Create";
-import State from "components/Bots/RelativeOrders/State";
+import Create from "components/Bots/TrailingStop/Create";
+import State from "components/Bots/TrailingStop/State";
+import {ChainStore} from "bitsharesjs";
+import Apis from "lib/bots/apis";
+import Assets from "lib/bots/assets";
+import BigNumber from "bignumber.js";
 import Account from "lib/bots/account";
+import SettingsActions from "actions/SettingsActions";
+import WalletUnlockActions from "actions/WalletUnlockActions";
 
-class RelativeOrders {
+class TrailingStop {
     static create = Create;
     state = State;
 
     constructor(account, storage, initData) {
-        this.account = new Account(account);
+        this.account = new Account(account, "TEST");
         this.storage = storage;
 
         if (initData) {
             storage.init({
                 name: initData.name,
-                defaultPrice: initData.defaultPrice
+                sellAsset: initData.sellAsset,
+                getAsset: initData.getAsset,
+                amount: initData.amount,
+                percent: initData.percent
             });
         }
 
@@ -30,6 +39,7 @@ class RelativeOrders {
         this.base = await Assets[state.base.asset];
         this.quote = await Assets[state.quote.asset];
 
+        /*
         if ([this.base.issuer, this.quote.issuer].includes("1.2.0")) {
             if ([this.base.id, this.quote.id].includes("1.3.0"))
                 this.getFeed = this.getCoreFeed;
@@ -39,6 +49,7 @@ class RelativeOrders {
         } else {
             this.getFeed = this.getUIAFeed;
         }
+        */
 
         await WalletUnlockActions.unlock();
         SettingsActions.changeSetting({
@@ -67,9 +78,10 @@ class RelativeOrders {
 
     checkOrders = async () => {
         let state = this.storage.read();
+        console.log("checkOrders");
 
         this.storage.write(state);
     };
 }
 
-export default RelativeOrders;
+export default TrailingStop;

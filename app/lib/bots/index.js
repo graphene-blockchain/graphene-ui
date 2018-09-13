@@ -1,13 +1,15 @@
 import SpreadTrade from "./SpreadTrade";
-//import RelativeOrders from "./RelativeOrders";
+import TrailingStop from "./TrailingStop";
+import RelativeOrders from "./RelativeOrders";
 import Storage from "stores/BotsStorage";
 
 var bots = {};
 
 export default {
     strategies: {
-        SpreadTrade
-        //RelativeOrders
+        SpreadTrade,
+        TrailingStop,
+        RelativeOrders
     },
 
     create(strategy, account, initData) {
