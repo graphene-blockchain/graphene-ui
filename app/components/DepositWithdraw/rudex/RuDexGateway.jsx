@@ -175,7 +175,8 @@ class RuDexGateway extends React.Component {
                             >
                                 <Translate
                                     content={"gateway.choose_" + action}
-                                />:{" "}
+                                />
+                                :{" "}
                             </label>
                             <Select
                                 //className="external-coin-types bts-select"
@@ -253,6 +254,7 @@ class RuDexGateway extends React.Component {
                                 withdraw_fee={coin.withdrawFee}
                                 deposit_fee={coin.depositFee}
                                 asset_precision={coin.precision}
+                                confirmations={coin.confirmations}
                                 action={this.state.action}
                             />
                             <label className="left-label">Support</label>

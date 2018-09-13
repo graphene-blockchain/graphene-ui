@@ -17,6 +17,10 @@ export default class TypeAhead extends React.Component {
         if (value != this.state.value) {
             this.setState({value: nextProps.defaultValue});
         }
+        if (nextProps.value === undefined)
+            this.setState({
+                value: nextProps.defaultValue
+            });
     }
 
     onClick = () => {

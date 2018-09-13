@@ -53,10 +53,6 @@ class Dashboard extends React.Component {
                 this.state.featuredMarkets
             ) ||
             !utils.are_equal_shallow(
-                nextProps.lowVolumeMarkets,
-                this.props.lowVolumeMarkets
-            ) ||
-            !utils.are_equal_shallow(
                 nextState.newAssets,
                 this.state.newAssets
             ) ||
@@ -134,12 +130,8 @@ class Dashboard extends React.Component {
 
         let markets = featuredMarkets
             .map(pair => {
-                let isLowVolume =
-                    this.props.lowVolumeMarkets.get(pair[1] + "_" + pair[0]) ||
-                    this.props.lowVolumeMarkets.get(pair[0] + "_" + pair[1]);
                 // HACK: Show all defined markets
-                isLowVolume = false;
-                if (!isLowVolume) validMarkets++;
+                validMarkets++;
                 let className = "";
                 if (validMarkets > 15) {
                     className += ` show-for-${
@@ -160,7 +152,6 @@ class Dashboard extends React.Component {
                         quote={pair[0]}
                         base={pair[1]}
                         invert={pair[2]}
-                        isLowVolume={isLowVolume}
                         hide={validMarkets > 29}
                     />
                 );

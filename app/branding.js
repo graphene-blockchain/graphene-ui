@@ -64,8 +64,10 @@ export function getDefaultLogin() {
  *
  * @returns {[string,string,string,string,string,string]}
  */
-export function getUnits() {
-    return ["BTS", "RUBLE", "USD", "CNY", "BTC", "EUR", "GBP"];
+export function getUnits(chainId = "4018d784") {
+    if (chainId === "4018d784")
+        return ["BTS", "RUBLE", "USD", "CNY", "BTC", "EUR", "GBP"];
+    else if (chainId === "39f5e2ed") return ["TEST"];
 }
 
 /**
@@ -84,38 +86,105 @@ export function getMyMarketsBases() {
  * @returns {[string]}
  */
 export function getMyMarketsQuotes() {
-    return [
-        "BTS",
-        "RUBLE",
-        "USD",
-        "EUR",
-        "CNY",
-        "GOLD",
-        "SILVER",
-        "RUDEX.BTC",
-        "RUDEX.ETH",
-        "RUDEX.GOLOS",
-        "RUDEX.GBG",
-        "RUDEX.MUSE",
-        "RUDEX.STEEM",
-        "RUDEX.SBD",
-        "RUDEX.KRM",
-        "RUDEX.DCT",
-        "RUDEX.TT",
-        "RUDEX.SCR",
-        "RUDEX.DGB",
-        "RUDEX.EOS",
-        "PPY",
-        "HERTZ",
-        "HERO",
-        "OBITS",
-        "YOYOW",
-        "SMOKE",
-        "BTWTY",
-        "ZEPH",
-        "ESCROW.RUBLE",
-        "BTC"
-    ];
+    let tokens = {
+        nativeTokens: [
+            "BTC",
+            "BTS",
+            "CNY",
+            "EUR",
+            "GOLD",
+            "RUBLE",
+            "SILVER",
+            "USD"
+        ],
+        //bridgeTokens: ["BRIDGE.BCO", "BRIDGE.BTC", "BRIDGE.MONA", "BRIDGE.ZNY"],
+        //gdexTokens: ["GDEX.BTC", "GDEX.BTO", "GDEX.EOS", "GDEX.ETH"],
+        // openledgerTokens: [
+        //     "OBITS",
+        //     "OPEN.BTC",
+        //     "OPEN.DASH",
+        //     "OPEN.DGD",
+        //     "OPEN.DOGE",
+        //     "OPEN.EOS",
+        //     "OPEN.EOSDAC",
+        //     "OPEN.ETH",
+        //     "OPEN.EURT",
+        //     "OPEN.GAME",
+        //     "OPEN.GRC",
+        //     "OPEN.INCNT",
+        //     "OPEN.KRM",
+        //     "OPEN.LISK",
+        //     "OPEN.LTC",
+        //     "OPEN.MAID",
+        //     "OPEN.MKR",
+        //     "OPEN.NEO",
+        //     "OPEN.OMG",
+        //     "OPEN.SBD",
+        //     "OPEN.STEEM",
+        //     "OPEN.TUSD",
+        //     "OPEN.USDT",
+        //     "OPEN.WAVES",
+        //     "OPEN.XMR",
+        //     "OPEN.ZEC",
+        //     "OPEN.ZRX"
+        // ],
+        rudexTokens: [
+            "RUDEX.BTC",
+            "RUDEX.ETH",
+            "RUDEX.GOLOS",
+            "RUDEX.GBG",
+            "RUDEX.MUSE",
+            "RUDEX.STEEM",
+            "RUDEX.SBD",
+            "RUDEX.KRM",
+            "RUDEX.DCT",
+            "RUDEX.TT",
+            "RUDEX.SCR",
+            "RUDEX.DGB",
+            "RUDEX.EOS",
+            "RUDEX.PPC",
+            "RUDEX.GRC",
+            "PPY"
+        ],
+        //winTokens: ["WIN.ETC", "WIN.ETH", "WIN.HSR"],
+        // otherTokens: [
+        //     "BKT",
+        //     "BLOCKPAY",
+        //     "BTWTY",
+        //     "TWENTIX",
+        //     "BTSR",
+        //     "CADASTRAL",
+        //     "CVCOIN",
+        //     "HEMPSWEET",
+        //     "HERO",
+        //     "HERTZ",
+        //     "ICOO",
+        //     "IOU.CNY",
+        //     "KAPITAL",
+        //     "KEXCOIN",
+        //     "OCT",
+        //     "SMOKE",
+        //     "STEALTH",
+        //     "YOYOW",
+        //     "ZEPH"
+        // ],
+        otherTokens: [
+            "HERTZ",
+            "HERO",
+            "OBITS",
+            "YOYOW",
+            "SMOKE",
+            "BTWTY",
+            "ZEPH",
+            "ESCROW.RUBLE"
+        ]
+    };
+
+    let allTokens = [];
+    for (let type in tokens) {
+        allTokens = allTokens.concat(tokens[type]);
+    }
+    return allTokens;
 }
 
 /**
@@ -123,7 +192,7 @@ export function getMyMarketsQuotes() {
  *
  * @returns {list of string tuples}
  */
-export function getFeaturedMarkets() {
+export function getFeaturedMarkets(quotes = []) {
     return [
         ["BTS", "RUBLE"],
         ["RUBLE", "ESCROW.RUBLE"],
@@ -140,6 +209,9 @@ export function getFeaturedMarkets() {
         ["BTS", "RUDEX.TT"],
         ["BTS", "RUDEX.SCR"],
         ["BTS", "RUDEX.MUSE"],
+        ["BTS", "RUDEX.EOS"],
+        ["BTS", "RUDEX.PPC"],
+        ["BTS", "RUDEX.GRC"],
         ["BTS", "USD"],
         ["BTS", "EUR"],
         ["BTS", "CNY"],
@@ -149,11 +221,13 @@ export function getFeaturedMarkets() {
         ["BTS", "OBITS"],
         ["BTS", "SMOKE"],
         ["BTS", "YOYOW"],
-        ["CNY", "GDEX.EOS"],
         ["BTS", "BTWTY"],
         ["BTS", "ZEPH"],
         ["BTS", "HERTZ"]
-    ];
+    ].filter(a => {
+        if (!quotes.length) return true;
+        return quotes.indexOf(a[0]) !== -1;
+    });
 }
 
 /**

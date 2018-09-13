@@ -4,11 +4,11 @@ Openledger – сервис шлюза, построенный на бирже B
 
 ## Веб-сайт
 
-<https://openledger.info>
+<https://dex.openledger.io>
 
 ## Поддержка
 
 Если у вас возник вопрос или случилась задержка в отправке или получении активов, обратитесь сюда:
 
-- [Открыть тикет](https://openledger.freshdesk.com/support/home)
-- [Чат в Telegram](https://t.me/OpenLedgerDC).
+- [Откройте тикет](https://openledger.freshdesk.com/support/home)
+- [Чат в Telegram](https://t.me/OpenLedgerDC)
