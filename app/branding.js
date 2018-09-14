@@ -146,27 +146,19 @@ export function getMyMarketsQuotes() {
             "RUDEX.GRC",
             "PPY"
         ],
-        //winTokens: ["WIN.ETC", "WIN.ETH", "WIN.HSR"],
-        // otherTokens: [
-        //     "BKT",
-        //     "BLOCKPAY",
-        //     "BTWTY",
-        //     "TWENTIX",
-        //     "BTSR",
-        //     "CADASTRAL",
-        //     "CVCOIN",
-        //     "HEMPSWEET",
-        //     "HERO",
-        //     "HERTZ",
-        //     "ICOO",
-        //     "IOU.CNY",
-        //     "KAPITAL",
-        //     "KEXCOIN",
-        //     "OCT",
-        //     "SMOKE",
-        //     "STEALTH",
-        //     "YOYOW",
-        //     "ZEPH"
+        // winTokens: ["WIN.ETC", "WIN.ETH", "WIN.HSR"],
+        // xbtsxTokens: [
+        //     "XBTSX.STH",
+        //     "XBTSX.POST",
+        //     "XBTSX.DOGE",
+        //     "XBTSX.BTC",
+        //     "XBTSX.LTC",
+        //     "XBTSX.DASH",
+        //     "XBTSX.KEC",
+        //     "XBTSX.BCH",
+        //     "XBTSX.BTG",
+        //     "XBTSX.XSPEC",
+        //     "XBTSX.NVC"
         // ],
         otherTokens: [
             "HERTZ",
@@ -244,7 +236,8 @@ export function getAssetNamespaces() {
         "RUDEX.",
         "GDEX.",
         "WIN.",
-        "ESCROW."
+        "ESCROW.",
+        "XBTSX."
     ];
 }
 
@@ -263,7 +256,10 @@ export function getAssetHideNamespaces() {
  * @returns {boolean}
  */
 export function allowedGateway(gateway) {
-    return ["OPEN", "RUDEX", "WIN", "BRIDGE", "GDEX"].indexOf(gateway) >= 0;
+    return (
+        ["OPEN", "RUDEX", "WIN", "BRIDGE", "GDEX", "XBTSX"].indexOf(gateway) >=
+        0
+    );
 }
 
 export function getSupportedLanguages() {
