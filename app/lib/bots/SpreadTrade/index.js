@@ -37,6 +37,7 @@ class SpreadTrade {
                         //id, price and amount
                     }
                 },
+                fromMarket: initData.fromMarket,
                 defaultPrice: initData.defaultPrice
             });
         }
@@ -94,9 +95,16 @@ class SpreadTrade {
         let state = this.storage.read();
         //console.log("state", state);
 
+        let ticker = await Apis.db.get_ticker(
+            this.base.symbol,
+            this.quote.symbol
+        );
+
         this.defaultPrice = state.defaultPrice;
 
-        let feedPrice = await this.getFeed(),
+        let feedPrice = state.fromMarket
+                ? BigNumber(ticker.latest)
+                : await this.getFeed(),
             buyPrice = feedPrice.times(1 - state.base.spread / 100).toNumber(),
             sellPrice = feedPrice
                 .times(1 + state.quote.spread / 100)
@@ -112,10 +120,6 @@ class SpreadTrade {
             sellOrder = state.quote.order.id
                 ? (await Apis.db.get_objects([state.quote.order.id]))[0]
                 : state.quote.order.id,
-            ticker = await Apis.db.get_ticker(
-                this.base.symbol,
-                this.quote.symbol
-            ),
             accountBalances = (await this.account.balances(
                 this.base.id,
                 this.quote.id

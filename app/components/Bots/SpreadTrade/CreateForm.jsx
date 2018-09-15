@@ -8,7 +8,7 @@ class CreateForm extends React.Component {
     state = {
         name: "",
         baseAsset: "USD",
-        quoteAsset: "OPEN.BTC",
+        quoteAsset: "BTC",
         baseAmount: 10,
         quoteAmount: 0.01,
         baseSpread: 10,
@@ -37,9 +37,12 @@ class CreateForm extends React.Component {
     };
 
     handleChange = event => {
-        //console.log(event.target.name, event.target.value);
         let name = event.target.name,
-            value = event.target.value;
+            value =
+                event.target.type === "checkbox"
+                    ? event.target.checked
+                    : event.target.value;
+        //console.log(name, value)
 
         if (["baseAsset", "quoteAsset"].includes(name))
             value = value.toUpperCase();
@@ -291,6 +294,7 @@ class CreateForm extends React.Component {
                 </div>
                 <div className="content-block">
                     <label className="left-label">Default Price</label>
+
                     <input
                         name="defaultPrice"
                         id="defaultPrice"
@@ -305,6 +309,17 @@ class CreateForm extends React.Component {
                                 : "none"
                         }}
                     />
+                </div>
+                <div className="content-block">
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="fromMarket"
+                            onChange={this.handleChange}
+                            checked={this.state.fromMarket}
+                        />
+                        Get price from market
+                    </label>
                 </div>
             </div>
         );

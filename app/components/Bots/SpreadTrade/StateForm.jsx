@@ -47,6 +47,9 @@ class StateForm extends React.Component {
             case "defaultPrice":
                 this.setState({defaultPrice: value});
                 break;
+            case "fromMarket":
+                this.setState({fromMarket: event.target.checked});
+                break;
         }
 
         //this.setState({[name]: value}, () => this.validate(name, value));
@@ -90,7 +93,6 @@ class StateForm extends React.Component {
                             ref="input"
                             value={this.state.base.balance}
                             onChange={this.handleChange}
-                            autoComplete="baseBalance"
                             disabled={this.props.bot.run}
                             style={{
                                 marginBottom: 30,
@@ -108,7 +110,6 @@ class StateForm extends React.Component {
                             ref="input"
                             value={this.state.base.amount}
                             onChange={this.handleChange}
-                            autoComplete="baseAmount"
                             disabled={this.props.bot.run}
                             style={{
                                 marginBottom: 30,
@@ -126,7 +127,6 @@ class StateForm extends React.Component {
                             ref="input"
                             value={this.state.base.spread}
                             onChange={this.handleChange}
-                            autoComplete="baseSpread"
                             disabled={this.props.bot.run}
                             style={{
                                 marginBottom: 30,
@@ -164,7 +164,6 @@ class StateForm extends React.Component {
                             ref="input"
                             value={this.state.quote.balance}
                             onChange={this.handleChange}
-                            autoComplete="quoteBalance"
                             disabled={this.props.bot.run}
                             style={{
                                 marginBottom: 30,
@@ -182,7 +181,6 @@ class StateForm extends React.Component {
                             ref="input"
                             value={this.state.quote.amount}
                             onChange={this.handleChange}
-                            autoComplete="quoteAmount"
                             disabled={this.props.bot.run}
                             style={{
                                 marginBottom: 30,
@@ -200,7 +198,6 @@ class StateForm extends React.Component {
                             ref="input"
                             value={this.state.quote.spread}
                             onChange={this.handleChange}
-                            autoComplete="quoteSpread"
                             disabled={this.props.bot.run}
                             style={{
                                 marginBottom: 30,
@@ -221,7 +218,6 @@ class StateForm extends React.Component {
                         ref="input"
                         value={this.state.defaultPrice}
                         onChange={this.handleChange}
-                        autoComplete="defaultPrice"
                         disabled={this.props.bot.run}
                         style={{
                             border: this.state.validate.includes("defaultPrice")
@@ -229,6 +225,18 @@ class StateForm extends React.Component {
                                 : "none"
                         }}
                     />
+                </div>
+                <div className="content-block">
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="fromMarket"
+                            onChange={this.handleChange}
+                            checked={this.state.fromMarket}
+                            disabled={this.props.bot.run}
+                        />
+                        Get price from market
+                    </label>
                 </div>
                 <button
                     className="button"
