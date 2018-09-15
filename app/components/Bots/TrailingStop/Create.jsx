@@ -46,7 +46,6 @@ class Create extends React.Component {
             this.setState(
                 {
                     amount: value,
-                    //stoploss: this.state.minAmount / this.state.amount,
                     minAmount: value * this.state.stoploss
                 },
                 () => this.validate(name, value)

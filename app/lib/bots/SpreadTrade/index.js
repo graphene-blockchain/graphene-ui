@@ -13,7 +13,7 @@ class SpreadTrade {
     state = State;
 
     constructor(account, storage, initData) {
-        this.account = new Account(account);
+        this.account = new Account(account, "TEST");
         this.storage = storage;
 
         if (initData) {

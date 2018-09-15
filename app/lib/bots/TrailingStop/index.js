@@ -22,6 +22,7 @@ class TrailingStop {
                 sellAsset: initData.sellAsset,
                 getAsset: initData.getAsset,
                 amount: initData.amount,
+                minAmount: initData.minAmount,
                 percent: initData.percent
             });
         }
@@ -36,20 +37,8 @@ class TrailingStop {
     async start() {
         let state = this.storage.read();
 
-        this.base = await Assets[state.base.asset];
-        this.quote = await Assets[state.quote.asset];
-
-        /*
-        if ([this.base.issuer, this.quote.issuer].includes("1.2.0")) {
-            if ([this.base.id, this.quote.id].includes("1.3.0"))
-                this.getFeed = this.getCoreFeed;
-            else if (this.base.issuer == this.quote.issuer)
-                this.getFeed = this.getSmartFeed;
-            else this.getFeed = this.getUIAFeed;
-        } else {
-            this.getFeed = this.getUIAFeed;
-        }
-        */
+        this.sellAsset = await Assets[state.sellAsset];
+        this.getAsset = await Assets[state.getAsset];
 
         await WalletUnlockActions.unlock();
         SettingsActions.changeSetting({
@@ -80,7 +69,36 @@ class TrailingStop {
         let state = this.storage.read();
         console.log("checkOrders");
 
-        this.storage.write(state);
+        let ticker = await Apis.db.get_ticker(
+                this.getAsset.symbol,
+                this.sellAsset.symbol
+            ),
+            price = BigNumber(ticker.latest),
+            needStoploss = price.times(1 - state.percent / 100),
+            createOrderPrice = price.times(1 - (state.percent * 2) / 3 / 100),
+            stoploss = BigNumber(state.minAmount).div(state.amount);
+
+        console.log(
+            price.toNumber(),
+            needStoploss.toNumber(),
+            createOrderPrice.toNumber(),
+            stoploss.toNumber()
+        );
+
+        if (needStoploss.gt(stoploss)) {
+            console.log("up minAmount");
+            state.minAmount = needStoploss.times(state.amount).toNumber();
+            this.storage.write(state);
+        } else if (createOrderPrice.lt(stoploss)) {
+            console.log("create limit order");
+            await this.account.sell(
+                this.sellAsset.symbol,
+                this.getAsset.symbol,
+                state.amount,
+                stoploss.toNumber()
+            );
+            this.stop();
+        }
     };
 }
 
