@@ -883,7 +883,9 @@
                     "title": "P2P platform where you can buy or sell bitAssets or another cryptocurrency",
                     "description": "Market. is P2P platform where you can buy or sell bitAssets or another cryptocurrency for fiat money (RUB, USD, CNY, EUR, etc.)."
                 }
-            }
+            },
+            "deposit_disabled": "Deposit is disabled",
+            "withdraw_disabled": "Withdrawal is disabled"
         },
         "xbtsx": {
             "coming_soon": "Coming soon",

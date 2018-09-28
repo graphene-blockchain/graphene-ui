@@ -19,6 +19,8 @@ import PropTypes from "prop-types";
 class RuDexGatewayDepositRequest extends React.Component {
     static propTypes = {
         gateway: PropTypes.string,
+        deposit_allowed: PropTypes.bool.isRequired,
+        withdraw_allowed: PropTypes.bool.isRequired,
         deposit_coin_type: PropTypes.string,
         deposit_asset_name: PropTypes.string,
         deposit_account: PropTypes.string,
@@ -241,333 +243,367 @@ class RuDexGatewayDepositRequest extends React.Component {
         );
 
         if (this.props.action === "deposit") {
-            return (
-                <div className="rudex__gateway grid-block no-padding no-margin">
-                    <div className="small-12 medium-5">
-                        <Translate
-                            component="h4"
-                            content="gateway.deposit_summary"
-                        />
-                        <div className="small-12 medium-10">
-                            <table className="table">
-                                <tbody>
-                                    <tr>
-                                        <Translate
-                                            component="td"
-                                            content="gateway.asset_to_deposit"
+            let summary = (
+                <div className="small-12 medium-5">
+                    <Translate
+                        component="h4"
+                        content="gateway.deposit_summary"
+                    />
+                    <div className="small-12 medium-10">
+                        <table className="table">
+                            <tbody>
+                                <tr>
+                                    <Translate
+                                        component="td"
+                                        content="gateway.asset_to_deposit"
+                                    />
+                                    <td
+                                        style={{
+                                            fontWeight: "bold",
+                                            color: "#049cce",
+                                            textAlign: "right"
+                                        }}
+                                    >
+                                        {this.props.deposit_asset}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <Translate
+                                        component="td"
+                                        content="gateway.asset_to_receive"
+                                    />
+                                    <td
+                                        style={{
+                                            fontWeight: "bold",
+                                            color: "#049cce",
+                                            textAlign: "right"
+                                        }}
+                                    >
+                                        <AssetName
+                                            name={this.props.receive_asset.get(
+                                                "symbol"
+                                            )}
+                                            replace={false}
                                         />
-                                        <td
-                                            style={{
-                                                fontWeight: "bold",
-                                                color: "#049cce",
-                                                textAlign: "right"
-                                            }}
-                                        >
-                                            {this.props.deposit_asset}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <Translate
-                                            component="td"
-                                            content="gateway.asset_to_receive"
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <Translate
+                                        component="td"
+                                        content="gateway.intermediate"
+                                    />
+                                    <td
+                                        style={{
+                                            fontWeight: "bold",
+                                            color: "#049cce",
+                                            textAlign: "right"
+                                        }}
+                                    >
+                                        <LinkToAccountById
+                                            account={this.props.issuer_account.get(
+                                                "id"
+                                            )}
                                         />
-                                        <td
-                                            style={{
-                                                fontWeight: "bold",
-                                                color: "#049cce",
-                                                textAlign: "right"
-                                            }}
-                                        >
-                                            <AssetName
-                                                name={this.props.receive_asset.get(
-                                                    "symbol"
-                                                )}
-                                                replace={false}
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <Translate
-                                            component="td"
-                                            content="gateway.intermediate"
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <Translate
+                                        component="td"
+                                        content="gateway.your_account"
+                                    />
+                                    <td
+                                        style={{
+                                            fontWeight: "bold",
+                                            color: "#049cce",
+                                            textAlign: "right"
+                                        }}
+                                    >
+                                        <LinkToAccountById
+                                            account={this.props.account.get(
+                                                "id"
+                                            )}
                                         />
-                                        <td
-                                            style={{
-                                                fontWeight: "bold",
-                                                color: "#049cce",
-                                                textAlign: "right"
-                                            }}
-                                        >
-                                            <LinkToAccountById
-                                                account={this.props.issuer_account.get(
-                                                    "id"
-                                                )}
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <Translate
-                                            component="td"
-                                            content="gateway.your_account"
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <Translate content="gateway.balance" />:
+                                    </td>
+                                    <td
+                                        style={{
+                                            fontWeight: "bold",
+                                            color: "#049cce",
+                                            textAlign: "right"
+                                        }}
+                                    >
+                                        <AccountBalance
+                                            account={this.props.account.get(
+                                                "name"
+                                            )}
+                                            asset={this.props.receive_asset.get(
+                                                "symbol"
+                                            )}
+                                            replace={false}
                                         />
-                                        <td
-                                            style={{
-                                                fontWeight: "bold",
-                                                color: "#049cce",
-                                                textAlign: "right"
-                                            }}
-                                        >
-                                            <LinkToAccountById
-                                                account={this.props.account.get(
-                                                    "id"
-                                                )}
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <Translate content="gateway.balance" />
-                                            :
-                                        </td>
-                                        <td
-                                            style={{
-                                                fontWeight: "bold",
-                                                color: "#049cce",
-                                                textAlign: "right"
-                                            }}
-                                        >
-                                            <AccountBalance
-                                                account={this.props.account.get(
-                                                    "name"
-                                                )}
-                                                asset={this.props.receive_asset.get(
-                                                    "symbol"
-                                                )}
-                                                replace={false}
-                                            />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div className="small-12 medium-7">
+                </div>
+            );
+
+            let instructions = (
+                <div className="small-12 medium-7">
+                    <Translate component="h4" content="gateway.deposit_inst" />
+                    <label className="left-label">
                         <Translate
-                            component="h4"
-                            content="gateway.deposit_inst"
+                            content="gateway.deposit_to"
+                            asset={this.props.deposit_asset}
                         />
-                        <label className="left-label">
+                        :
+                    </label>
+                    <label className="left-label">
+                        <b>
                             <Translate
-                                content="gateway.deposit_to"
-                                asset={this.props.deposit_asset}
+                                content="gateway.rudex.min_amount"
+                                minAmount={minDeposit}
+                                symbol={this.props.deposit_coin_type}
                             />
-                            :
-                        </label>
-                        <label className="left-label">
-                            <b>
-                                <Translate
-                                    content="gateway.rudex.min_amount"
-                                    minAmount={minDeposit}
-                                    symbol={this.props.deposit_coin_type}
-                                />
-                            </b>
-                        </label>
-                        {depositConfirmation ? (
-                            <span>
-                                (<i>{depositConfirmation}</i>)
-                            </span>
-                        ) : null}
-                        <div style={{padding: "10px 0", fontSize: "1.1rem"}}>
-                            <table className="table">
-                                <tbody>
+                        </b>
+                    </label>
+                    {depositConfirmation ? (
+                        <span>
+                            (<i>{depositConfirmation}</i>)
+                        </span>
+                    ) : null}
+                    <div style={{padding: "10px 0", fontSize: "1.1rem"}}>
+                        <table className="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <Translate
+                                            style={{
+                                                textTransform: "uppercase"
+                                            }}
+                                            content="gateway.address"
+                                        />
+                                        : <b>{deposit_address_fragment}</b>
+                                    </td>
+                                </tr>
+                                {deposit_memo ? (
                                     <tr>
                                         <td>
                                             <Translate
                                                 style={{
                                                     textTransform: "uppercase"
                                                 }}
-                                                content="gateway.address"
+                                                content="gateway.memo"
                                             />
-                                            : <b>{deposit_address_fragment}</b>
+                                            : <b>{deposit_memo}</b>
                                         </td>
                                     </tr>
-                                    {deposit_memo ? (
-                                        <tr>
-                                            <td>
-                                                <Translate
-                                                    style={{
-                                                        textTransform:
-                                                            "uppercase"
-                                                    }}
-                                                    content="gateway.memo"
-                                                />
-                                                : <b>{deposit_memo}</b>
-                                            </td>
-                                        </tr>
-                                    ) : null}
-                                </tbody>
-                            </table>
-                            <div
-                                className="button-group"
-                                style={{paddingTop: 10}}
-                            >
-                                {deposit_address_fragment ? (
-                                    <div
-                                        className="button"
-                                        onClick={this.toClipboard.bind(
-                                            this,
-                                            clipboardText
-                                        )}
-                                    >
-                                        <Translate content="gateway.copy_address" />
-                                    </div>
                                 ) : null}
-                                {memoText ? (
-                                    <div
-                                        className="button"
-                                        onClick={this.toClipboard.bind(
-                                            this,
-                                            memoText
-                                        )}
-                                    >
-                                        <Translate content="gateway.copy_memo" />
-                                    </div>
-                                ) : null}
-                            </div>
-                            <Translate
-                                className="has-error fz_14"
-                                component="p"
-                                content="gateway.min_deposit_warning_amount"
-                                minDeposit={minDeposit}
-                                coin={this.props.deposit_asset}
-                            />
-                            <Translate
-                                className="has-error fz_14"
-                                component="p"
-                                content="gateway.min_deposit_warning_asset"
-                                minDeposit={minDeposit}
-                                coin={this.props.deposit_asset}
-                            />
+                            </tbody>
+                        </table>
+                        <div className="button-group" style={{paddingTop: 10}}>
+                            {deposit_address_fragment ? (
+                                <div
+                                    className="button"
+                                    onClick={this.toClipboard.bind(
+                                        this,
+                                        clipboardText
+                                    )}
+                                >
+                                    <Translate content="gateway.copy_address" />
+                                </div>
+                            ) : null}
+                            {memoText ? (
+                                <div
+                                    className="button"
+                                    onClick={this.toClipboard.bind(
+                                        this,
+                                        memoText
+                                    )}
+                                >
+                                    <Translate content="gateway.copy_memo" />
+                                </div>
+                            ) : null}
                         </div>
+                        <Translate
+                            className="has-error fz_14"
+                            component="p"
+                            content="gateway.min_deposit_warning_amount"
+                            minDeposit={minDeposit}
+                            coin={this.props.deposit_asset}
+                        />
+                        <Translate
+                            className="has-error fz_14"
+                            component="p"
+                            content="gateway.min_deposit_warning_asset"
+                            minDeposit={minDeposit}
+                            coin={this.props.deposit_asset}
+                        />
                     </div>
                 </div>
             );
-        } else {
-            return (
-                <div className="rudex__gateway grid-block no-padding no-margin">
-                    <div className="small-12 medium-5">
-                        <Translate
-                            component="h4"
-                            content="gateway.withdraw_summary"
-                        />
-                        <div className="small-12 medium-10">
-                            <table className="table">
-                                <tbody>
-                                    <tr>
-                                        <Translate
-                                            component="td"
-                                            content="gateway.asset_to_withdraw"
-                                        />
-                                        <td
-                                            style={{
-                                                fontWeight: "bold",
-                                                color: "#049cce",
-                                                textAlign: "right"
-                                            }}
-                                        >
-                                            <AssetName
-                                                name={this.props.receive_asset.get(
-                                                    "symbol"
-                                                )}
-                                                replace={false}
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <Translate
-                                            component="td"
-                                            content="gateway.asset_to_receive"
-                                        />
-                                        <td
-                                            style={{
-                                                fontWeight: "bold",
-                                                color: "#049cce",
-                                                textAlign: "right"
-                                            }}
-                                        >
-                                            {this.props.deposit_asset}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <Translate
-                                            component="td"
-                                            content="gateway.intermediate"
-                                        />
-                                        <td
-                                            style={{
-                                                fontWeight: "bold",
-                                                color: "#049cce",
-                                                textAlign: "right"
-                                            }}
-                                        >
-                                            <LinkToAccountById
-                                                account={this.props.issuer_account.get(
-                                                    "id"
-                                                )}
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <Translate content="gateway.balance" />
-                                            :
-                                        </td>
-                                        <td
-                                            style={{
-                                                fontWeight: "bold",
-                                                color: "#049cce",
-                                                textAlign: "right"
-                                            }}
-                                        >
-                                            <AccountBalance
-                                                account={this.props.account.get(
-                                                    "name"
-                                                )}
-                                                asset={this.props.receive_asset.get(
-                                                    "symbol"
-                                                )}
-                                                replace={false}
-                                            />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
 
-                        {/*<p>When you withdraw {this.props.receive_asset.get("symbol")}, you will receive {this.props.deposit_asset} at a 1:1 ratio (minus fees).</p>*/}
-                    </div>
+            if (!this.props.deposit_allowed)
+                instructions = (
                     <div className="small-12 medium-7">
                         <Translate
                             component="h4"
-                            content="gateway.withdraw_inst"
+                            content="gateway.deposit_inst"
                         />
-                        <label className="left-label">
-                            <Translate
-                                content="gateway.withdraw_to"
-                                asset={this.props.deposit_asset}
-                            />
-                            :
-                        </label>
-                        <div className="button-group" style={{paddingTop: 20}}>
-                            <button
-                                className="button success"
-                                style={{fontSize: "1.3rem"}}
-                                onClick={this.onWithdraw.bind(this)}
-                            >
-                                <Translate content="gateway.withdraw_now" />{" "}
-                            </button>
-                        </div>
+                        <Translate
+                            className="has-error fz_14"
+                            component="h1"
+                            content="gateway.rudex.deposit_disabled"
+                        />
                     </div>
+                );
+
+            return (
+                <div className="rudex__gateway grid-block no-padding no-margin">
+                    {summary}
+                    {instructions}
+                </div>
+            );
+        } else {
+            let summary = (
+                <div className="small-12 medium-5">
+                    <Translate
+                        component="h4"
+                        content="gateway.withdraw_summary"
+                    />
+                    <div className="small-12 medium-10">
+                        <table className="table">
+                            <tbody>
+                                <tr>
+                                    <Translate
+                                        component="td"
+                                        content="gateway.asset_to_withdraw"
+                                    />
+                                    <td
+                                        style={{
+                                            fontWeight: "bold",
+                                            color: "#049cce",
+                                            textAlign: "right"
+                                        }}
+                                    >
+                                        <AssetName
+                                            name={this.props.receive_asset.get(
+                                                "symbol"
+                                            )}
+                                            replace={false}
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <Translate
+                                        component="td"
+                                        content="gateway.asset_to_receive"
+                                    />
+                                    <td
+                                        style={{
+                                            fontWeight: "bold",
+                                            color: "#049cce",
+                                            textAlign: "right"
+                                        }}
+                                    >
+                                        {this.props.deposit_asset}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <Translate
+                                        component="td"
+                                        content="gateway.intermediate"
+                                    />
+                                    <td
+                                        style={{
+                                            fontWeight: "bold",
+                                            color: "#049cce",
+                                            textAlign: "right"
+                                        }}
+                                    >
+                                        <LinkToAccountById
+                                            account={this.props.issuer_account.get(
+                                                "id"
+                                            )}
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <Translate content="gateway.balance" />:
+                                    </td>
+                                    <td
+                                        style={{
+                                            fontWeight: "bold",
+                                            color: "#049cce",
+                                            textAlign: "right"
+                                        }}
+                                    >
+                                        <AccountBalance
+                                            account={this.props.account.get(
+                                                "name"
+                                            )}
+                                            asset={this.props.receive_asset.get(
+                                                "symbol"
+                                            )}
+                                            replace={false}
+                                        />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/*<p>When you withdraw {this.props.receive_asset.get("symbol")}, you will receive {this.props.deposit_asset} at a 1:1 ratio (minus fees).</p>*/}
+                </div>
+            );
+
+            let instructions = (
+                <div className="small-12 medium-7">
+                    <Translate component="h4" content="gateway.withdraw_inst" />
+                    <label className="left-label">
+                        <Translate
+                            content="gateway.withdraw_to"
+                            asset={this.props.deposit_asset}
+                        />
+                        :
+                    </label>
+                    <div className="button-group" style={{paddingTop: 20}}>
+                        <button
+                            className="button success"
+                            style={{fontSize: "1.3rem"}}
+                            onClick={this.onWithdraw.bind(this)}
+                        >
+                            <Translate content="gateway.withdraw_now" />{" "}
+                        </button>
+                    </div>
+                </div>
+            );
+
+            if (!this.props.withdraw_allowed)
+                instructions = (
+                    <div className="small-12 medium-7">
+                        <Translate
+                            component="h4"
+                            content="gateway.deposit_inst"
+                        />
+                        <Translate
+                            className="has-error fz_14"
+                            component="h1"
+                            content="gateway.rudex.withdraw_disabled"
+                        />
+                    </div>
+                );
+
+            return (
+                <div className="rudex__gateway grid-block no-padding no-margin">
+                    {summary}
+                    {instructions}
                     <Modal id={withdraw_modal_id} overlay={true}>
                         <Trigger close={withdraw_modal_id}>
                             <a href="#" className="close-button">
