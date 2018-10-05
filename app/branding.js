@@ -145,6 +145,7 @@ export function getMyMarketsQuotes() {
             "RUDEX.GRC",
             "RUDEX.TT",
             "RUDEX.SMOKE",
+            "RUDEX.VIZ",
             "PPY"
         ],
         // winTokens: ["WIN.ETC", "WIN.ETH", "WIN.HSR"],
@@ -205,6 +206,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "RUDEX.PPC"],
         ["BTS", "RUDEX.GRC"],
         ["BTS", "RUDEX.SMOKE"],
+        ["BTS", "RUDEX.VIZ"],
         ["BTS", "USD"],
         ["BTS", "EUR"],
         ["BTS", "CNY"],
