@@ -41,6 +41,5 @@ require("file-loader?name=asset-symbols/[name].png!./hero.png");
 require("file-loader?name=asset-symbols/[name].png!./ruble.png");
 require("file-loader?name=asset-symbols/[name].png!./escrow.ruble.png");
 require("file-loader?name=asset-symbols/[name].png!./rub.png");
-require("file-loader?name=asset-symbols/[name].png!./smoke.png");
 require("file-loader?name=asset-symbols/[name].png!./zeph.png");
 require("file-loader?name=asset-symbols/[name].png!./hertz.png");
