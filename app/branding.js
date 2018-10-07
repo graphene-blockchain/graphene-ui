@@ -145,7 +145,6 @@ export function getMyMarketsQuotes() {
             "RUDEX.GRC",
             "RUDEX.TT",
             "RUDEX.SMOKE",
-            "RUDEX.VIZ",
             "RUDEX.WLS",
             "PPY"
         ],
@@ -206,7 +205,6 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "RUDEX.PPC"],
         ["BTS", "RUDEX.GRC"],
         ["BTS", "RUDEX.SMOKE"],
-        ["BTS", "RUDEX.VIZ"],
         ["BTS", "RUDEX.WLS"],
         ["BTS", "USD"],
         ["BTS", "EUR"],
