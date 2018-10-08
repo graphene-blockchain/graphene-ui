@@ -13,10 +13,17 @@ class StateForm extends React.Component {
             base,
             quote;
 
+        console.log(name, value, typeof value);
+
         switch (name) {
             case "baseAmount":
                 base = this.state.base;
                 base.amount = value;
+                this.setState({base});
+                break;
+            case "percentBaseAmount":
+                base = this.state.base;
+                base.percent = value == "true";
                 this.setState({base});
                 break;
             case "baseBalance":
@@ -32,6 +39,11 @@ class StateForm extends React.Component {
             case "quoteAmount":
                 quote = this.state.quote;
                 quote.amount = value;
+                this.setState({quote});
+                break;
+            case "percentQuoteAmount":
+                quote = this.state.quote;
+                quote.percent = value == "true";
                 this.setState({quote});
                 break;
             case "quoteBalance":
@@ -104,6 +116,22 @@ class StateForm extends React.Component {
                             }}
                         />
                         <label className="left-label">Amount</label>
+                        <div onChange={this.handleChange}>
+                            <input
+                                type="radio"
+                                value={true}
+                                name="percentBaseAmount"
+                                checked={this.state.base.percent}
+                            />{" "}
+                            balance %<br />
+                            <input
+                                type="radio"
+                                value={false}
+                                name="percentBaseAmount"
+                                checked={!this.state.base.percent}
+                            />{" "}
+                            value
+                        </div>
                         <input
                             name="baseAmount"
                             type="text"
@@ -175,6 +203,22 @@ class StateForm extends React.Component {
                             }}
                         />
                         <label className="left-label">Amount</label>
+                        <div onChange={this.handleChange}>
+                            <input
+                                type="radio"
+                                value={true}
+                                name="percentQuoteAmount"
+                                checked={this.state.quote.percent}
+                            />{" "}
+                            balance %<br />
+                            <input
+                                type="radio"
+                                value={false}
+                                name="percentQuoteAmount"
+                                checked={!this.state.quote.percent}
+                            />{" "}
+                            value
+                        </div>
                         <input
                             name="quoteAmount"
                             type="text"

@@ -13,7 +13,7 @@ class SpreadTrade {
     state = State;
 
     constructor(account, storage, initData) {
-        this.account = new Account(account, "TEST");
+        this.account = new Account(account);
         this.storage = storage;
 
         if (initData) {
@@ -24,6 +24,7 @@ class SpreadTrade {
                     balance: initData.baseBalance,
                     spread: initData.baseSpread,
                     amount: initData.baseAmount,
+                    percent: initData.percentBaseAmount,
                     order: {
                         //id, price and amount
                     }
@@ -33,6 +34,7 @@ class SpreadTrade {
                     balance: initData.quoteBalance,
                     spread: initData.quoteSpread,
                     amount: initData.quoteAmount,
+                    percent: initData.percentQuoteAmount,
                     order: {
                         //id, price and amount
                     }
@@ -144,7 +146,19 @@ class SpreadTrade {
                     ? 0
                     : state.quote.balance === ""
                         ? accountBalances.quote
-                        : Math.min(accountBalances.quote, state.quote.balance);
+                        : Math.min(accountBalances.quote, state.quote.balance),
+            baseAmount = state.base.percent
+                ? BigNumber(state.base.balance)
+                      .times(state.base.amount)
+                      .div(100)
+                      .toNumber()
+                : state.base.amount,
+            quoteAmount = state.quote.percent
+                ? BigNumber(state.quote.balance)
+                      .times(state.quote.amount)
+                      .div(100)
+                      .toNumber()
+                : state.quote.amount;
 
         console.log("prices", buyPrice, feedPrice, sellPrice);
         console.log("orders", buyOrder, sellOrder);
@@ -193,7 +207,7 @@ class SpreadTrade {
                         .plus(state.quote.balance)
                         .toNumber();
 
-                let amount = Math.min(baseBalance, state.base.amount);
+                let amount = Math.min(baseBalance, baseAmount);
                 try {
                     let obj = await this.account.sell(
                         this.base.symbol,
@@ -229,12 +243,9 @@ class SpreadTrade {
 
             console.log(
                 `create buyOrder: balance=${baseBalance >=
-                    state.base.amount}, fill=${ticker.lowest_ask <= buyPrice}`
+                    baseAmount}, fill=${ticker.lowest_ask <= buyPrice}`
             );
-            if (
-                baseBalance >= state.base.amount &&
-                ticker.lowest_ask > buyPrice
-            ) {
+            if (baseBalance >= baseAmount && ticker.lowest_ask > buyPrice) {
                 //buy
                 this.logger.info(
                     `buy: ${buyPrice} ${this.quote.symbol}/${this.base.symbol}`
@@ -243,7 +254,7 @@ class SpreadTrade {
                     let obj = await this.account.sell(
                         this.base.symbol,
                         this.quote.symbol,
-                        state.base.amount,
+                        baseAmount,
                         BigNumber(1)
                             .div(buyPrice)
                             .toNumber()
@@ -251,10 +262,10 @@ class SpreadTrade {
                     state.base.order = {
                         id: obj ? obj.id : "1.7.0",
                         price: buyPrice,
-                        amount: state.base.amount
+                        amount: baseAmount
                     };
                     !["", "-"].includes(state.base.balance) &&
-                        (state.base.balance -= state.base.amount);
+                        (state.base.balance -= baseAmount);
                 } catch (error) {
                     this.logger.error(error);
                 }
@@ -304,7 +315,7 @@ class SpreadTrade {
                         .plus(state.base.balance)
                         .toNumber();
 
-                let amount = Math.min(quoteBalance, state.quote.amount);
+                let amount = Math.min(quoteBalance, quoteAmount);
                 try {
                     let obj = await this.account.sell(
                         this.quote.symbol,
@@ -337,13 +348,9 @@ class SpreadTrade {
 
             console.log(
                 `create sellOrder: balance=${quoteBalance >=
-                    state.quote.amount}, fill=${ticker.highest_bid >=
-                    sellPrice}`
+                    quoteAmount}, fill=${ticker.highest_bid >= sellPrice}`
             );
-            if (
-                quoteBalance >= state.quote.amount &&
-                ticker.highest_bid < sellPrice
-            ) {
+            if (quoteBalance >= quoteAmount && ticker.highest_bid < sellPrice) {
                 //buy
                 this.logger.info(
                     `sell: ${sellPrice} ${this.quote.symbol}/${
@@ -354,16 +361,16 @@ class SpreadTrade {
                     let obj = await this.account.sell(
                         this.quote.symbol,
                         this.base.symbol,
-                        state.quote.amount,
+                        quoteAmount,
                         sellPrice
                     );
                     state.quote.order = {
                         id: obj ? obj.id : "1.7.0",
                         price: sellPrice,
-                        amount: state.quote.amount
+                        amount: quoteAmount
                     };
                     !["", "-"].includes(state.quote.balance) &&
-                        (state.quote.balance -= state.quote.amount);
+                        (state.quote.balance -= quoteAmount);
                 } catch (error) {
                     this.logger.error(error);
                 }

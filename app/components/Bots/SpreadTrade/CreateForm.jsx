@@ -2,7 +2,7 @@ import React from "react";
 import BotManager from "lib/bots";
 import Apis from "lib/bots/apis";
 import {debounce} from "lodash-es";
-//import FloatingDropdown from "components/Utility/FloatingDropdown";
+import AssetSelector from "../libs/AssetSelector";
 
 class CreateForm extends React.Component {
     state = {
@@ -15,6 +15,8 @@ class CreateForm extends React.Component {
         quoteSpread: 10,
         baseBalance: 100,
         quoteBalance: 0.1,
+        percentBaseAmount: false,
+        percentQuoteAmount: false,
         validate: ["name"]
     };
 
@@ -42,7 +44,7 @@ class CreateForm extends React.Component {
                 event.target.type === "checkbox"
                     ? event.target.checked
                     : event.target.value;
-        //console.log(name, value)
+        console.log(name, value);
 
         if (["baseAsset", "quoteAsset"].includes(name))
             value = value.toUpperCase();
@@ -144,7 +146,12 @@ class CreateForm extends React.Component {
                     <div className="content-block" style={{marginLeft: 50}}>
                         <label style={{textAlign: "center"}}>Base</label>
                         <label className="left-label">Asset</label>
-                        <input
+                        <AssetSelector
+                            name="baseAsset"
+                            value={this.state.baseAsset}
+                            onChange={this.handleChange}
+                        />
+                        {/*<input
                             name="baseAsset"
                             id="baseAsset"
                             type="text"
@@ -160,7 +167,7 @@ class CreateForm extends React.Component {
                                     ? "1px solid red"
                                     : "none"
                             }}
-                        />
+                        />*/}
                         <label className="left-label">Balance</label>
                         <input
                             name="baseBalance"
@@ -180,6 +187,21 @@ class CreateForm extends React.Component {
                             }}
                         />
                         <label className="left-label">Amount in order</label>
+                        <div onChange={this.handleChange}>
+                            <input
+                                type="radio"
+                                value={true}
+                                name="percentBaseAmount"
+                            />{" "}
+                            balance %<br />
+                            <input
+                                type="radio"
+                                value={false}
+                                name="percentBaseAmount"
+                                defaultChecked
+                            />{" "}
+                            value
+                        </div>
                         <input
                             name="baseAmount"
                             id="baseAmount"
@@ -219,6 +241,12 @@ class CreateForm extends React.Component {
                     <div className="content-block" style={{marginLeft: 50}}>
                         <label style={{textAlign: "center"}}>Quote</label>
                         <label className="left-label">Asset</label>
+                        <AssetSelector
+                            name="quoteAsset"
+                            value={this.state.quoteAsset}
+                            onChange={this.handleChange}
+                        />
+                        {/*
                         <input
                             name="quoteAsset"
                             id="quoteAsset"
@@ -235,7 +263,7 @@ class CreateForm extends React.Component {
                                     ? "1px solid red"
                                     : "none"
                             }}
-                        />
+                        />*/}
                         <label className="left-label">Balance</label>
                         <input
                             name="quoteBalance"
@@ -255,6 +283,21 @@ class CreateForm extends React.Component {
                             }}
                         />
                         <label className="left-label">Amount in order</label>
+                        <div onChange={this.handleChange}>
+                            <input
+                                type="radio"
+                                value={true}
+                                name="percentQuoteAmount"
+                            />{" "}
+                            balance %<br />
+                            <input
+                                type="radio"
+                                value={false}
+                                name="percentQuoteAmount"
+                                defaultChecked
+                            />{" "}
+                            value
+                        </div>
                         <input
                             name="quoteAmount"
                             id="quoteAmount"
