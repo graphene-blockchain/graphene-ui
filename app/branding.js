@@ -162,15 +162,7 @@ export function getMyMarketsQuotes() {
         //     "XBTSX.XSPEC",
         //     "XBTSX.NVC"
         // ],
-        otherTokens: [
-            "HERTZ",
-            "HERO",
-            "OBITS",
-            "YOYOW",
-            "BTWTY",
-            "ZEPH",
-            "ESCROW.RUBLE"
-        ]
+        otherTokens: ["HERTZ", "HERO", "OBITS", "YOYOW", "ZEPH", "ESCROW.RUBLE"]
     };
 
     let allTokens = [];
@@ -214,7 +206,6 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "HERO"],
         ["BTS", "OBITS"],
         ["BTS", "YOYOW"],
-        ["BTS", "BTWTY"],
         ["BTS", "ZEPH"],
         ["BTS", "HERTZ"]
     ].filter(a => {
