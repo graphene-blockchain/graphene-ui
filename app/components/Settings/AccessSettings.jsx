@@ -460,7 +460,7 @@ class AccessSettings extends React.Component {
 
     _recalculateLatency(event, feedback) {
         feedback("settings.pinging");
-        routerTransitioner.doLatencyUpdate(true, null).finally(() => {
+        routerTransitioner.doLatencyUpdate(true, true).finally(() => {
             feedback();
         });
     }
