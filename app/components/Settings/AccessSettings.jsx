@@ -8,6 +8,7 @@ import {connect} from "alt-react";
 import cnames from "classnames";
 import Icon from "../Icon/Icon";
 import LoadingButton from "../Utility/LoadingButton";
+import {Switch} from "bitshares-ui-style-guide";
 
 const autoSelectionUrl = "wss://fake.automatic-selection.com";
 
@@ -53,26 +54,18 @@ class AutoSelectionNode extends React.Component {
         if (popup) {
             return (
                 <div>
-                    <span
-                        className="switch"
+                    <Switch
                         style={{
                             float: "right",
                             position: "relative",
                             top: "-15px"
                         }}
-                        onClick={this.activate.bind(
+                        checked={isActive}
+                        onChange={this.activate.bind(
                             this,
                             isActive ? connectedNode.url : autoSelectionUrl
                         )}
-                    >
-                        <input
-                            id="automatic_node_switcher"
-                            type="checkbox"
-                            checked={isActive}
-                            onChange={() => {}}
-                        />
-                        <label />
-                    </span>
+                    />
 
                     <p style={{fontSize: "80%"}}>
                         <Translate content="settings.automatic_short" />:
@@ -83,24 +76,16 @@ class AutoSelectionNode extends React.Component {
             return (
                 <div className="auto-node">
                     <div>
-                        <span
-                            className="switch"
-                            onClick={this.activate.bind(
+                        <Switch
+                            checked={isActive}
+                            onChange={this.activate.bind(
                                 this,
                                 isActive ? connectedNode.url : autoSelectionUrl
                             )}
-                        >
-                            <input
-                                id="automatic_node_switcher"
-                                type="checkbox"
-                                checked={isActive}
-                                onChange={() => {}}
-                            />
-                            <label />
-                        </span>
+                        />
                         <Translate
                             component="div"
-                            style={{paddingLeft: "1rem", paddingTop: "0.5rem"}}
+                            style={{paddingLeft: "1rem", paddingTop: "0.1rem"}}
                             content="settings.automatic"
                             totalNodes={totalNodes}
                         />
