@@ -211,17 +211,15 @@ class RouterTransitioner {
     /**
      * Updates the latency of all target nodes
      *
-     * @param refresh boolean true reping all existing nodes
-     *                        false only reping all reachable nodes
-     * @param beSatisfiedWith integer if appropriate number of nodes for each of the keys in this latency map are found, pinging is stopped.
-     *                                Values correspond to AccessSettings display (low, medium latency)
-     * @param range integer ping range amount of nodes at the same time, default 5
+     * @param discardOldLatencies boolean if true drop all old latencies and reping
+     * @param pingAll boolean if true, resolve promise after all nodes are pinged, if false resolve when sufficiently small latency has been found
+     * @param pingInBackground integer if > 0, pinging will continue in background after promise is resolved, Integer value will be used as delay to start background ping
      * @returns {Promise}
      */
     doLatencyUpdate(
         discardOldLatencies = false,
         pingAll = false,
-        pingInBackground = true
+        pingInBackground = 5000
     ) {
         this.updateTransitionTarget(
             counterpart.translate("app_init.check_latency")
@@ -268,7 +266,7 @@ class RouterTransitioner {
                 }
                 thiz._transitionDone(resolve);
 
-                if (pingInBackground) {
+                if (pingInBackground > 0) {
                     let _func = function() {
                         // wait for transition to be completed
                         if (!thiz._willTransitionToInProgress) {
@@ -288,7 +286,7 @@ class RouterTransitioner {
                             setTimeout(_func, 2000);
                         }
                     };
-                    _func();
+                    setTimeout(_func, pingInBackground);
                 }
             }
 
@@ -818,6 +816,22 @@ class Pinger {
         this._pingInBackGround = true;
     }
 
+    /**
+     * This call enables background pinging (all nodes are pinged)
+     */
+    doCallbackAndEnableBackgroundPinging() {
+        this._beSatisfiedWith = {instant: 0, low: 0, medium: 0};
+        this._counter = {instant: 0, low: 0, medium: 0};
+        this._suitableNodeFound = true;
+        this._pingInBackGround = true;
+    }
+
+    /**
+     * Ping the currently stored nodes and call the callback when done.
+     *
+     * @param callbackFunc function handle callback when pinging is done
+     * @param nodes optional, add to internal node list before pinging
+     */
     pingNodes(callbackFunc, nodes = null) {
         if (nodes != null) {
             this.addNodes(nodes, true);

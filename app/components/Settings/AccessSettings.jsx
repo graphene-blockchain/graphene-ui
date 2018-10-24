@@ -444,8 +444,8 @@ class AccessSettings extends React.Component {
     }
 
     _recalculateLatency(event, feedback) {
-        feedback("settings.pinging");
-        routerTransitioner.doLatencyUpdate(true, true, false).finally(() => {
+        routerTransitioner.doLatencyUpdate(true, false, 1).finally(() => {
+            forceUpdate();
             feedback();
         });
     }
@@ -509,6 +509,10 @@ class AccessSettings extends React.Component {
 
         let popupCount = 0;
 
+        let backgroundPinging =
+            !!routerTransitioner &&
+            routerTransitioner.isBackgroundPingingInProgress();
+
         return this.props.popup ? (
             <div>
                 <div style={{fontWeight: "bold", height: 40}}>
@@ -538,6 +542,7 @@ class AccessSettings extends React.Component {
                 <div className="active-node">
                     <LoadingButton
                         style={{float: "right"}}
+                        isLoading={backgroundPinging}
                         caption="settings.ping"
                         loadingType="inside-feedback-resize"
                         onClick={this._recalculateLatency.bind(this)}

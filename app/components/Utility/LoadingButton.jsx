@@ -94,6 +94,14 @@ class LoadingButton extends React.Component {
             overrideMessage: null,
             loadingButtonWidth: null
         };
+        this.processingOnClick = false;
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return (
+            nextProps.isLoading !== this.props.isLoading ||
+            nextState.loading !== this.state.loading
+        );
     }
 
     _feedback(done = null, message = null) {
@@ -102,6 +110,7 @@ class LoadingButton extends React.Component {
                 overrideMessage: null,
                 loading: false
             });
+            this.processingOnClick = false;
         } else if (typeof done === "string") {
             this.setState({
                 overrideMessage: done
@@ -115,11 +124,13 @@ class LoadingButton extends React.Component {
                 this.setState({
                     loading: false
                 });
+                this.processingOnClick = false;
             }
         }
     }
 
     _onClick(event) {
+        this.processingOnClick = true;
         if (this.state.loading) {
             return true;
         }
@@ -135,6 +146,14 @@ class LoadingButton extends React.Component {
             this.props.onClick(event, this._feedback.bind(this));
             return true;
         }
+    }
+
+    _isLoading() {
+        return this.processingOnClick
+            ? this.state.loading
+            : this.props.isLoading == null
+                ? false
+                : this.props.isLoading;
     }
 
     render() {
