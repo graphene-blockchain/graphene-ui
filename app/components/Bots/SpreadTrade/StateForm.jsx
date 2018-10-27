@@ -1,4 +1,6 @@
 import React from "react";
+import {AssetLabel} from "../libs/AssetSelector";
+import Select from "react-select";
 
 class StateForm extends React.Component {
     componentWillMount() {
@@ -88,15 +90,18 @@ class StateForm extends React.Component {
                     >
                         <label style={{textAlign: "center"}}>Base</label>
                         <label className="left-label">Asset</label>
-                        <input
+                        <Select
+                            style={{marginBottom: 30}}
                             name="baseAsset"
-                            type="text"
-                            ref="input"
-                            value={this.state.base.asset}
-                            disabled
-                            style={{
-                                marginBottom: 30
+                            value={{
+                                value: this.state.base.asset,
+                                label: (
+                                    <AssetLabel name={this.state.base.asset} />
+                                )
                             }}
+                            clearable={false}
+                            searchable={false}
+                            disabled
                         />
                         <label className="left-label">Balance</label>
                         <input
@@ -175,15 +180,18 @@ class StateForm extends React.Component {
                     >
                         <label style={{textAlign: "center"}}>Quote</label>
                         <label className="left-label">Asset</label>
-                        <input
+                        <Select
+                            style={{marginBottom: 30}}
                             name="quoteAsset"
-                            type="text"
-                            ref="input"
-                            value={this.state.quote.asset}
-                            disabled
-                            style={{
-                                marginBottom: 30
+                            value={{
+                                value: this.state.quote.asset,
+                                label: (
+                                    <AssetLabel name={this.state.quote.asset} />
+                                )
                             }}
+                            clearable={false}
+                            searchable={false}
+                            disabled
                         />
                         <label className="left-label">Balance</label>
                         <input

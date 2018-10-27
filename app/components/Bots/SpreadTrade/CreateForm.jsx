@@ -151,23 +151,6 @@ class CreateForm extends React.Component {
                             value={this.state.baseAsset}
                             onChange={this.handleChange}
                         />
-                        {/*<input
-                            name="baseAsset"
-                            id="baseAsset"
-                            type="text"
-                            ref="input"
-                            value={this.state.baseAsset}
-                            onChange={this.handleChange}
-                            autoComplete="baseAsset"
-                            style={{
-                                marginBottom: 30,
-                                border: this.state.validate.includes(
-                                    "baseAsset"
-                                )
-                                    ? "1px solid red"
-                                    : "none"
-                            }}
-                        />*/}
                         <label className="left-label">Balance</label>
                         <input
                             name="baseBalance"
@@ -246,24 +229,6 @@ class CreateForm extends React.Component {
                             value={this.state.quoteAsset}
                             onChange={this.handleChange}
                         />
-                        {/*
-                        <input
-                            name="quoteAsset"
-                            id="quoteAsset"
-                            type="text"
-                            ref="input"
-                            value={this.state.quoteAsset}
-                            onChange={this.handleChange}
-                            autoComplete="quoteAsset"
-                            style={{
-                                marginBottom: 30,
-                                border: this.state.validate.includes(
-                                    "quoteAsset"
-                                )
-                                    ? "1px solid red"
-                                    : "none"
-                            }}
-                        />*/}
                         <label className="left-label">Balance</label>
                         <input
                             name="quoteBalance"

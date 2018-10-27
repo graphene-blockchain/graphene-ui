@@ -1,4 +1,6 @@
 import React from "react";
+import {AssetLabel} from "../libs/AssetSelector";
+import Select from "react-select";
 
 class State extends React.Component {
     state = {
@@ -65,17 +67,18 @@ class State extends React.Component {
                 >
                     <div className="content-block">
                         <label className="left-label">Sell asset</label>
-                        <input
+                        <Select
+                            style={{marginBottom: 30}}
                             name="sellAsset"
-                            id="sellAsset"
-                            type="text"
-                            ref="input"
-                            value={this.state.sellAsset}
-                            onChange={this.handleChange}
-                            disabled
-                            style={{
-                                marginBottom: 30
+                            value={{
+                                value: this.state.sellAsset,
+                                label: (
+                                    <AssetLabel name={this.state.sellAsset} />
+                                )
                             }}
+                            clearable={false}
+                            searchable={false}
+                            disabled
                         />
                         <label className="left-label">Amount</label>
                         <input
@@ -96,17 +99,16 @@ class State extends React.Component {
                     </div>
                     <div className="content-block" style={{marginLeft: 50}}>
                         <label className="left-label">Get asset</label>
-                        <input
+                        <Select
+                            style={{marginBottom: 30}}
                             name="getAsset"
-                            id="getAsset"
-                            type="text"
-                            ref="input"
-                            value={this.state.getAsset}
-                            onChange={this.handleChange}
-                            disabled
-                            style={{
-                                marginBottom: 30
+                            value={{
+                                value: this.state.getAsset,
+                                label: <AssetLabel name={this.state.getAsset} />
                             }}
+                            clearable={false}
+                            searchable={false}
+                            disabled
                         />
                         <label className="left-label">Min Amount</label>
                         <input

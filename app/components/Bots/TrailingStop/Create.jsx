@@ -2,6 +2,7 @@ import React from "react";
 import BotManager from "lib/bots";
 import Apis from "lib/bots/apis";
 import {debounce} from "lodash-es";
+import AssetSelector from "../libs/AssetSelector";
 
 class Create extends React.Component {
     state = {
@@ -140,21 +141,10 @@ class Create extends React.Component {
                 <div className="grid-block horizontal" style={{marginLeft: 50}}>
                     <div className="content-block">
                         <label className="left-label">Sell asset</label>
-                        <input
+                        <AssetSelector
                             name="sellAsset"
-                            id="sellAsset"
-                            type="text"
-                            ref="input"
                             value={this.state.sellAsset}
                             onChange={this.handleChange}
-                            style={{
-                                marginBottom: 30,
-                                border: this.state.validate.includes(
-                                    "sellAsset"
-                                )
-                                    ? "1px solid red"
-                                    : "none"
-                            }}
                         />
                         <label className="left-label">Amount</label>
                         <input
@@ -174,19 +164,10 @@ class Create extends React.Component {
                     </div>
                     <div className="content-block" style={{marginLeft: 50}}>
                         <label className="left-label">Get asset</label>
-                        <input
+                        <AssetSelector
                             name="getAsset"
-                            id="getAsset"
-                            type="text"
-                            ref="input"
                             value={this.state.getAsset}
                             onChange={this.handleChange}
-                            style={{
-                                marginBottom: 30,
-                                border: this.state.validate.includes("getAsset")
-                                    ? "1px solid red"
-                                    : "none"
-                            }}
                         />
                         <label className="left-label">Min Amount</label>
                         <input

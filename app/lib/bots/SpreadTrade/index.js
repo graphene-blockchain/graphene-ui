@@ -148,13 +148,13 @@ class SpreadTrade {
                         ? accountBalances.quote
                         : Math.min(accountBalances.quote, state.quote.balance),
             baseAmount = state.base.percent
-                ? BigNumber(state.base.balance)
+                ? BigNumber(baseBalance)
                       .times(state.base.amount)
                       .div(100)
                       .toNumber()
                 : state.base.amount,
             quoteAmount = state.quote.percent
-                ? BigNumber(state.quote.balance)
+                ? BigNumber(quoteBalance)
                       .times(state.quote.amount)
                       .div(100)
                       .toNumber()
