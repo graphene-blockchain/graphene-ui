@@ -112,6 +112,7 @@ class WebsocketAddModal extends React.Component {
                 id="ws_modal_add"
                 ref="ws_modal_add"
                 overlay={true}
+                onCancel={this.props.onClose}
                 overlayClose={false}
             >
                 <div className="grid-content">

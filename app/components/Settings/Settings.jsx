@@ -40,6 +40,7 @@ class Settings extends React.Component {
         general.push("reset");
 
         this.state = {
+            isAddNodeModalVisible: false,
             apiServer: props.settings.get("apiServer"),
             activeSetting,
             menuEntries,
@@ -48,6 +49,9 @@ class Settings extends React.Component {
                 access: ["apiServer", "faucet_address"]
             }
         };
+
+        this.showAddNodeModal = this.showAddNodeModal.bind(this);
+        this.hideAddNodeModal = this.hideAddNodeModal.bind(this);
 
         this._handleNotificationChange = this._handleNotificationChange.bind(
             this
@@ -86,6 +90,18 @@ class Settings extends React.Component {
                 });
             }
         }
+    }
+
+    showAddNodeModal() {
+        this.setState({
+            isAddNodeModalVisible: true
+        });
+    }
+
+    hideAddNodeModal() {
+        this.setState({
+            isAddNodeModalVisible: false
+        });
     }
 
     _getMenuEntries(props) {
@@ -284,7 +300,7 @@ class Settings extends React.Component {
                         faucet={settings.get("faucet_address")}
                         nodes={defaults.apiServer}
                         onChange={this._onChangeSetting.bind(this)}
-                        triggerModal={this.triggerModal.bind(this)}
+                        triggerModal={this.showAddNodeModal}
                     />
                 );
                 break;
@@ -397,6 +413,8 @@ class Settings extends React.Component {
                     </div>
                 </div>
                 <WebsocketAddModal
+                    isModalVisible={this.state.isAddNodeModalVisible}
+                    onClose={this.hideAddNodeModal}
                     ref="ws_modal"
                     apis={defaults["apiServer"]}
                     api={defaults["apiServer"]
