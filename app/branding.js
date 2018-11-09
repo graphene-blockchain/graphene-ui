@@ -138,46 +138,31 @@ export function getMyMarketsQuotes() {
             "RUDEX.SBD",
             "RUDEX.KRM",
             "RUDEX.DCT",
-            "RUDEX.TT",
             "RUDEX.SCR",
             "RUDEX.DGB",
             "RUDEX.EOS",
             "RUDEX.PPC",
             "RUDEX.GRC",
+            "RUDEX.TT",
+            "RUDEX.SMOKE",
+            "RUDEX.WLS",
             "PPY"
         ],
-        //winTokens: ["WIN.ETC", "WIN.ETH", "WIN.HSR"],
-        // otherTokens: [
-        //     "BKT",
-        //     "BLOCKPAY",
-        //     "BTWTY",
-        //     "TWENTIX",
-        //     "BTSR",
-        //     "CADASTRAL",
-        //     "CVCOIN",
-        //     "HEMPSWEET",
-        //     "HERO",
-        //     "HERTZ",
-        //     "ICOO",
-        //     "IOU.CNY",
-        //     "KAPITAL",
-        //     "KEXCOIN",
-        //     "OCT",
-        //     "SMOKE",
-        //     "STEALTH",
-        //     "YOYOW",
-        //     "ZEPH"
+        // winTokens: ["WIN.ETC", "WIN.ETH", "WIN.HSR"],
+        // xbtsxTokens: [
+        //     "XBTSX.STH",
+        //     "XBTSX.POST",
+        //     "XBTSX.DOGE",
+        //     "XBTSX.BTC",
+        //     "XBTSX.LTC",
+        //     "XBTSX.DASH",
+        //     "XBTSX.KEC",
+        //     "XBTSX.BCH",
+        //     "XBTSX.BTG",
+        //     "XBTSX.XSPEC",
+        //     "XBTSX.NVC"
         // ],
-        otherTokens: [
-            "HERTZ",
-            "HERO",
-            "OBITS",
-            "YOYOW",
-            "SMOKE",
-            "BTWTY",
-            "ZEPH",
-            "ESCROW.RUBLE"
-        ]
+        otherTokens: ["HERTZ", "HERO", "OBITS", "YOYOW", "ZEPH", "ESCROW.RUBLE"]
     };
 
     let allTokens = [];
@@ -206,12 +191,13 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "RUDEX.SBD"],
         ["BTS", "RUDEX.DCT"],
         ["BTS", "RUDEX.KRM"],
-        ["BTS", "RUDEX.TT"],
         ["BTS", "RUDEX.SCR"],
         ["BTS", "RUDEX.MUSE"],
         ["BTS", "RUDEX.EOS"],
         ["BTS", "RUDEX.PPC"],
         ["BTS", "RUDEX.GRC"],
+        ["BTS", "RUDEX.SMOKE"],
+        ["BTS", "RUDEX.WLS"],
         ["BTS", "USD"],
         ["BTS", "EUR"],
         ["BTS", "CNY"],
@@ -219,9 +205,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "SILVER"],
         ["BTS", "HERO"],
         ["BTS", "OBITS"],
-        ["BTS", "SMOKE"],
         ["BTS", "YOYOW"],
-        ["BTS", "BTWTY"],
         ["BTS", "ZEPH"],
         ["BTS", "HERTZ"]
     ].filter(a => {
@@ -244,7 +228,8 @@ export function getAssetNamespaces() {
         "RUDEX.",
         "GDEX.",
         "WIN.",
-        "ESCROW."
+        "ESCROW.",
+        "XBTSX."
     ];
 }
 
@@ -263,7 +248,10 @@ export function getAssetHideNamespaces() {
  * @returns {boolean}
  */
 export function allowedGateway(gateway) {
-    return ["OPEN", "RUDEX", "WIN", "BRIDGE", "GDEX"].indexOf(gateway) >= 0;
+    return (
+        ["OPEN", "RUDEX", "WIN", "BRIDGE", "GDEX", "XBTSX"].indexOf(gateway) >=
+        0
+    );
 }
 
 export function getSupportedLanguages() {
