@@ -1,8 +1,9 @@
 import React from "react";
 import {AssetLabel} from "../libs/AssetSelector";
 import Select from "react-select";
+import Translate from "react-translate-component";
 
-class StateForm extends React.Component {
+class State extends React.Component {
     componentWillMount() {
         this.setState(
             Object.assign({validate: []}, this.props.bot.storage.read())
@@ -15,7 +16,7 @@ class StateForm extends React.Component {
             base,
             quote;
 
-        console.log(name, value, typeof value);
+        //console.log(name, value, typeof value);
 
         switch (name) {
             case "baseAmount":
@@ -88,8 +89,12 @@ class StateForm extends React.Component {
                             marginTop: 30
                         }}
                     >
-                        <label style={{textAlign: "center"}}>Base</label>
-                        <label className="left-label">Asset</label>
+                        <label style={{textAlign: "center"}}>
+                            <Translate content="bots.common.base" />
+                        </label>
+                        <label className="left-label">
+                            <Translate content="bots.common.asset" />
+                        </label>
                         <Select
                             style={{marginBottom: 30}}
                             name="baseAsset"
@@ -103,7 +108,9 @@ class StateForm extends React.Component {
                             searchable={false}
                             disabled
                         />
-                        <label className="left-label">Balance</label>
+                        <label className="left-label">
+                            <Translate content="bots.common.balance" />
+                        </label>
                         <input
                             name="baseBalance"
                             type="text"
@@ -120,22 +127,27 @@ class StateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Amount</label>
-                        <div onChange={this.handleChange}>
+                        <label className="left-label">
+                            <Translate content="bots.common.amount" />
+                        </label>
+                        <div>
                             <input
                                 type="radio"
                                 value={true}
                                 name="percentBaseAmount"
                                 checked={this.state.base.percent}
+                                onChange={this.handleChange}
                             />{" "}
-                            balance %<br />
+                            <Translate content="bots.spread_trande.balance_percent" />
+                            <br />
                             <input
                                 type="radio"
                                 value={false}
                                 name="percentBaseAmount"
                                 checked={!this.state.base.percent}
+                                onChange={this.handleChange}
                             />{" "}
-                            value
+                            <Translate content="bots.spread_trande.balance_value" />
                         </div>
                         <input
                             name="baseAmount"
@@ -153,7 +165,9 @@ class StateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Spread</label>
+                        <label className="left-label">
+                            <Translate content="bots.spread_trande.spread" />
+                        </label>
                         <input
                             name="baseSpread"
                             type="text"
@@ -178,8 +192,12 @@ class StateForm extends React.Component {
                             marginTop: 30
                         }}
                     >
-                        <label style={{textAlign: "center"}}>Quote</label>
-                        <label className="left-label">Asset</label>
+                        <label style={{textAlign: "center"}}>
+                            <Translate content="bots.common.quote" />
+                        </label>
+                        <label className="left-label">
+                            <Translate content="bots.common.asset" />
+                        </label>
                         <Select
                             style={{marginBottom: 30}}
                             name="quoteAsset"
@@ -193,7 +211,9 @@ class StateForm extends React.Component {
                             searchable={false}
                             disabled
                         />
-                        <label className="left-label">Balance</label>
+                        <label className="left-label">
+                            <Translate content="bots.common.balance" />
+                        </label>
                         <input
                             name="quoteBalance"
                             type="text"
@@ -210,22 +230,27 @@ class StateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Amount</label>
-                        <div onChange={this.handleChange}>
+                        <label className="left-label">
+                            <Translate content="bots.common.amount" />
+                        </label>
+                        <div>
                             <input
                                 type="radio"
                                 value={true}
                                 name="percentQuoteAmount"
                                 checked={this.state.quote.percent}
+                                onChange={this.handleChange}
                             />{" "}
-                            balance %<br />
+                            <Translate content="bots.spread_trande.balance_percent" />
+                            <br />
                             <input
                                 type="radio"
                                 value={false}
                                 name="percentQuoteAmount"
                                 checked={!this.state.quote.percent}
+                                onChange={this.handleChange}
                             />{" "}
-                            value
+                            <Translate content="bots.spread_trande.balance_value" />
                         </div>
                         <input
                             name="quoteAmount"
@@ -243,7 +268,9 @@ class StateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Spread</label>
+                        <label className="left-label">
+                            <Translate content="bots.spread_trande.spread" />
+                        </label>
                         <input
                             name="quoteSpread"
                             type="text"
@@ -263,7 +290,9 @@ class StateForm extends React.Component {
                     </div>
                 </div>
                 <div className="content-block">
-                    <label className="left-label">Default Price</label>
+                    <label className="left-label">
+                        <Translate content="bots.spread_trande.default_price" />
+                    </label>
                     <input
                         name="defaultPrice"
                         type="text"
@@ -287,7 +316,7 @@ class StateForm extends React.Component {
                             checked={this.state.fromMarket}
                             disabled={this.props.bot.run}
                         />
-                        Get price from market
+                        <Translate content="bots.spread_trande.get_price_from_market" />
                     </label>
                 </div>
                 <button
@@ -296,11 +325,11 @@ class StateForm extends React.Component {
                     disabled={this.props.bot.run}
                     style={{marginLeft: 50, marginBottom: 30}}
                 >
-                    Update
+                    <Translate content="bots.common.update" />
                 </button>
             </div>
         );
     }
 }
 
-export default StateForm;
+export default State;

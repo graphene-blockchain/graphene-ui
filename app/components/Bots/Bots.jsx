@@ -2,6 +2,7 @@ import React from "react";
 import BotManager from "lib/bots";
 import AccountStore from "stores/AccountStore";
 import {connect} from "alt-react";
+import Translate from "react-translate-component";
 
 class Bots extends React.Component {
     constructor() {
@@ -102,7 +103,7 @@ class Bots extends React.Component {
                         noValidate
                     >
                         <div className="left-label" style={{marginTop: 30}}>
-                            Select strategy:
+                            <Translate content="bots.common.select_strategy" />
                         </div>
                         <div className="content-block">
                             <div className="content-block">
@@ -134,13 +135,13 @@ class Bots extends React.Component {
                                 type="submit"
                                 disabled={!this.state.enableCreate}
                             >
-                                Create
+                                <Translate content="bots.common.create" />
                             </button>
                         </div>
                     </form>
                     <div className="content-block">
                         <div className="left-label" style={{marginTop: 30}}>
-                            Bot state:
+                            <Translate content="bots.common.bot_state" />
                         </div>
                         <select
                             className={"form-control bts-select"}
@@ -163,7 +164,7 @@ class Bots extends React.Component {
                                         disabled={this.state.botRun}
                                         style={{marginLeft: 50}}
                                     >
-                                        Start
+                                        <Translate content="bots.common.start" />
                                     </button>
                                     <button
                                         className="button"
@@ -171,7 +172,7 @@ class Bots extends React.Component {
                                         disabled={!this.state.botRun}
                                         style={{marginLeft: 50}}
                                     >
-                                        Stop
+                                        <Translate content="bots.common.stop" />
                                     </button>
                                     <button
                                         className="button"
@@ -179,11 +180,13 @@ class Bots extends React.Component {
                                         disabled={this.state.botRun}
                                         style={{marginLeft: 50}}
                                     >
-                                        Delete
+                                        <Translate content="bots.common.delete" />
                                     </button>
                                 </div>
                             ) : (
-                                <p>Please, select bot</p>
+                                <p>
+                                    <Translate content="bots.common.select_bot" />
+                                </p>
                             )}
                         </div>
                     </div>

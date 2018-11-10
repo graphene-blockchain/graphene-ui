@@ -3,8 +3,9 @@ import BotManager from "lib/bots";
 import Apis from "lib/bots/apis";
 import {debounce} from "lodash-es";
 import AssetSelector from "../libs/AssetSelector";
+import Translate from "react-translate-component";
 
-class CreateForm extends React.Component {
+class Create extends React.Component {
     state = {
         name: "",
         baseAsset: "USD",
@@ -126,7 +127,9 @@ class CreateForm extends React.Component {
         return (
             <div>
                 <div className="content-block">
-                    <label className="left-label">Name</label>
+                    <label className="left-label">
+                        <Translate content="bots.common.name" />
+                    </label>
                     <input
                         name="name"
                         id="name"
@@ -144,14 +147,20 @@ class CreateForm extends React.Component {
                 </div>
                 <div className="grid-block horizontal">
                     <div className="content-block" style={{marginLeft: 50}}>
-                        <label style={{textAlign: "center"}}>Base</label>
-                        <label className="left-label">Asset</label>
+                        <label style={{textAlign: "center"}}>
+                            <Translate content="bots.common.base" />
+                        </label>
+                        <label className="left-label">
+                            <Translate content="bots.common.asset" />
+                        </label>
                         <AssetSelector
                             name="baseAsset"
                             value={this.state.baseAsset}
                             onChange={this.handleChange}
                         />
-                        <label className="left-label">Balance</label>
+                        <label className="left-label">
+                            <Translate content="bots.common.balance" />
+                        </label>
                         <input
                             name="baseBalance"
                             id="baseBalance"
@@ -169,21 +178,24 @@ class CreateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Amount in order</label>
+                        <label className="left-label">
+                            <Translate content="bots.common.amount" />
+                        </label>
                         <div onChange={this.handleChange}>
                             <input
                                 type="radio"
                                 value={true}
                                 name="percentBaseAmount"
                             />{" "}
-                            balance %<br />
+                            <Translate content="bots.spread_trande.balance_percent" />
+                            <br />
                             <input
                                 type="radio"
                                 value={false}
                                 name="percentBaseAmount"
                                 defaultChecked
                             />{" "}
-                            value
+                            <Translate content="bots.spread_trande.balance_value" />
                         </div>
                         <input
                             name="baseAmount"
@@ -202,7 +214,9 @@ class CreateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Spread, %</label>
+                        <label className="left-label">
+                            <Translate content="bots.spread_trande.spread" />
+                        </label>
                         <input
                             name="baseSpread"
                             id="baseSpread"
@@ -222,14 +236,20 @@ class CreateForm extends React.Component {
                         />
                     </div>
                     <div className="content-block" style={{marginLeft: 50}}>
-                        <label style={{textAlign: "center"}}>Quote</label>
-                        <label className="left-label">Asset</label>
+                        <label style={{textAlign: "center"}}>
+                            <Translate content="bots.common.quote" />
+                        </label>
+                        <label className="left-label">
+                            <Translate content="bots.common.asset" />
+                        </label>
                         <AssetSelector
                             name="quoteAsset"
                             value={this.state.quoteAsset}
                             onChange={this.handleChange}
                         />
-                        <label className="left-label">Balance</label>
+                        <label className="left-label">
+                            <Translate content="bots.common.balance" />
+                        </label>
                         <input
                             name="quoteBalance"
                             id="quoteBalance"
@@ -247,21 +267,24 @@ class CreateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Amount in order</label>
+                        <label className="left-label">
+                            <Translate content="bots.common.amount" />
+                        </label>
                         <div onChange={this.handleChange}>
                             <input
                                 type="radio"
                                 value={true}
                                 name="percentQuoteAmount"
                             />{" "}
-                            balance %<br />
+                            <Translate content="bots.spread_trande.balance_percent" />
+                            <br />
                             <input
                                 type="radio"
                                 value={false}
                                 name="percentQuoteAmount"
                                 defaultChecked
                             />{" "}
-                            value
+                            <Translate content="bots.spread_trande.balance_value" />
                         </div>
                         <input
                             name="quoteAmount"
@@ -280,7 +303,9 @@ class CreateForm extends React.Component {
                                     : "none"
                             }}
                         />
-                        <label className="left-label">Spread, %</label>
+                        <label className="left-label">
+                            <Translate content="bots.spread_trande.spread" />
+                        </label>
                         <input
                             name="quoteSpread"
                             id="quoteSpread"
@@ -301,7 +326,9 @@ class CreateForm extends React.Component {
                     </div>
                 </div>
                 <div className="content-block">
-                    <label className="left-label">Default Price</label>
+                    <label className="left-label">
+                        <Translate content="bots.spread_trande.default_price" />
+                    </label>
 
                     <input
                         name="defaultPrice"
@@ -326,7 +353,7 @@ class CreateForm extends React.Component {
                             onChange={this.handleChange}
                             checked={this.state.fromMarket}
                         />
-                        Get price from market
+                        <Translate content="bots.spread_trande.get_price_from_market" />
                     </label>
                 </div>
             </div>
@@ -334,4 +361,4 @@ class CreateForm extends React.Component {
     }
 }
 
-export default CreateForm;
+export default Create;

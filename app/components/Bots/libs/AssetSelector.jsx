@@ -1,28 +1,60 @@
 import React from "react";
 import "react-select/dist/react-select.css";
 import Apis from "lib/bots/apis";
+import Assets from "lib/bots/assets";
 import AssetImage from "../../Utility/AssetImage";
 import AsyncSelect from "react-select/lib/Async";
 import {debounce} from "lodash-es";
-import GatewayStore from "stores/GatewayStore";
+import {getMyMarketsQuotes, getAssetHideNamespaces} from "branding";
+import counterpart from "counterpart";
 
-export const AssetLabel = ({name}) => (
-    <div>
-        <AssetImage replaceNoneToBts={false} maxWidth={30} name={name} />
-        {name}
-    </div>
-);
+export class AssetLabel extends React.Component {
+    state = {
+        name: null
+    };
 
-var options = [
-    "BTS",
-    "BTC",
-    "USD",
-    "EUR",
-    "RUBLE",
-    ...GatewayStore.getState()
-        .backedCoins.get("RUDEX", [])
-        .map(coin => coin.symbol)
-].map(name => ({value: name, label: <AssetLabel name={name} />}));
+    hidePrefix = name => {
+        let arr = name.split(".");
+        if (getAssetHideNamespaces().includes(`${arr[0]}.`)) arr.shift();
+
+        return arr.join(".");
+    };
+
+    componentWillMount() {
+        this.setAssetName(this.props.name);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.name !== this.props.name)
+            this.setAssetName(nextProps.name);
+    }
+
+    setAssetName = async name => {
+        let asset = await Assets[name];
+
+        this.setState({
+            name: asset.bitasset_data_id ? `bit${name}` : name
+        });
+    };
+
+    render() {
+        return (
+            <div>
+                <AssetImage
+                    replaceNoneToBts={false}
+                    maxWidth={30}
+                    name={this.props.name}
+                />
+                {this.hidePrefix(this.state.name || this.props.name)}
+            </div>
+        );
+    }
+}
+
+var options = getMyMarketsQuotes().map(name => ({
+    value: name,
+    label: <AssetLabel name={name} />
+}));
 
 class AssetSelector extends React.Component {
     componentDidMount() {
@@ -67,8 +99,12 @@ class AssetSelector extends React.Component {
                     value={value}
                     onChange={this.onChange}
                     loadOptions={this.promiseOptions}
-                    searchPromptText="Please wait..."
-                    placeholder="Your asset"
+                    searchPromptText={counterpart.translate(
+                        "bots.asset_selector.wait"
+                    )}
+                    placeholder={counterpart.translate(
+                        "bots.asset_selector.placeholder"
+                    )}
                 />
             </div>
         );

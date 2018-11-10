@@ -1877,5 +1877,42 @@
             "finalNumber": "Фактическая сумма:%(final_number)s",
             "winAmount": "Минимальная сумма: %(min_amount)s %(asset)s"
         }
+    },
+    "bots": {
+        "asset_selector": {
+            "wait": "Пожалуйста подождите...",
+            "placeholder": "Ваш актив"
+        },
+        "common": {
+            "select_strategy": "Выбор стратегии:",
+            "create": "Создать",
+            "bot_state": "Состояние бота:",
+            "start": "Старт",
+            "stop": "Стоп",
+            "delete": "Удалить",
+            "update": "Обновить",
+            "select_bot": "Пожалуйста, выберите бота",
+            "name": "Имя",
+            "base": "Базовый актив",
+            "quote": "Назначенный актив",
+            "asset": "Актив",
+            "balance": "Баланс",
+            "amount": "Количество в ордере"
+        },
+        "spread_trande": {
+            "balance_percent": "% от баланса",
+            "balance_value": "значение",
+            "spread": "Спред, %",
+            "default_price": "Цена по умолчанию",
+            "get_price_from_market": "Взять рыночную цену"
+        },
+        "trailing_stop": {
+            "sell_asset": "Продаваемый актив",
+            "get_asset": "Приобретаемый актив",
+            "amount": "Количество",
+            "min_amount": "Минимальное количество",
+            "stoploss": "Стоп-лосс",
+            "trailing_percent": "Треллинг-стоп, %"
+        }
     }
 }
