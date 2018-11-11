@@ -36,6 +36,7 @@ let icons = [
     "photo-camera",
     "plus-circle",
     "power",
+    "robot",
     "question-circle",
     "server",
     "settle",

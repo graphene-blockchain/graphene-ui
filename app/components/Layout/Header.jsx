@@ -1148,8 +1148,8 @@ class Header extends React.Component {
                                             top: 0,
                                             left: -8
                                         }}
-                                        name="transfer"
-                                        title="icons.transfer"
+                                        name="robot"
+                                        title="icons.bots"
                                     />
                                     <span>
                                         <Translate content="header.bots" />

@@ -973,6 +973,7 @@
     "icons": {
         "adjust": "Adjust margin position",
         "assets": "Assets",
+        "bots": "Bots",
         "checkmark_circle": {
             "approved": "Approved",
             "operation_succeed": "Operation succeed",

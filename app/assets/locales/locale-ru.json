@@ -946,6 +946,7 @@
         "account_notify": "Активный аккаунт в настоящее время %(account)s",
         "account_value": "Оценка",
         "accounts_manage": "Управление аккаунтами",
+        "bots": "Боты",
         "collateral_ratio": "Коэффициент покрытия",
         "create_account": "Создать аккаунт",
         "create_asset": "Создать актив",
@@ -974,6 +975,7 @@
     "icons": {
         "adjust": "Настроить маржинальную позицию",
         "assets": "Активы",
+        "bots": "Боты",
         "checkmark_circle": {
             "approved": "Подтверждено",
             "operation_succeed": "Операция выполнена успешно",
