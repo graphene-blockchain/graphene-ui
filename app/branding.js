@@ -143,7 +143,6 @@ export function getMyMarketsQuotes() {
             "RUDEX.EOS",
             "RUDEX.PPC",
             "RUDEX.GRC",
-            "RUDEX.TT",
             "RUDEX.SMOKE",
             "RUDEX.WLS",
             "PPY"
