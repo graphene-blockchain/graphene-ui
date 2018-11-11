@@ -3,6 +3,7 @@ import BotManager from "lib/bots";
 import Apis from "lib/bots/apis";
 import {debounce} from "lodash-es";
 import AssetSelector from "../libs/AssetSelector";
+import Translate from "react-translate-component";
 
 class Create extends React.Component {
     state = {
@@ -123,7 +124,9 @@ class Create extends React.Component {
         return (
             <div>
                 <div className="content-block">
-                    <label className="left-label">Name</label>
+                    <label className="left-label">
+                        <Translate content="bots.common.name" />
+                    </label>
                     <input
                         name="name"
                         id="name"
@@ -140,13 +143,17 @@ class Create extends React.Component {
                 </div>
                 <div className="grid-block horizontal" style={{marginLeft: 50}}>
                     <div className="content-block">
-                        <label className="left-label">Sell asset</label>
+                        <label className="left-label">
+                            <Translate content="bots.trailing_stop.sell_asset" />
+                        </label>
                         <AssetSelector
                             name="sellAsset"
                             value={this.state.sellAsset}
                             onChange={this.handleChange}
                         />
-                        <label className="left-label">Amount</label>
+                        <label className="left-label">
+                            <Translate content="bots.trailing_stop.amount" />
+                        </label>
                         <input
                             name="amount"
                             id="amount"
@@ -163,13 +170,17 @@ class Create extends React.Component {
                         />
                     </div>
                     <div className="content-block" style={{marginLeft: 50}}>
-                        <label className="left-label">Get asset</label>
+                        <label className="left-label">
+                            <Translate content="bots.trailing_stop.get_asset" />
+                        </label>
                         <AssetSelector
                             name="getAsset"
                             value={this.state.getAsset}
                             onChange={this.handleChange}
                         />
-                        <label className="left-label">Min Amount</label>
+                        <label className="left-label">
+                            <Translate content="bots.trailing_stop.min_amount" />
+                        </label>
                         <input
                             name="minAmount"
                             id="minAmount"
@@ -189,7 +200,9 @@ class Create extends React.Component {
                     </div>
                 </div>
                 <div className="content-block">
-                    <label className="left-label">Stoploss</label>
+                    <label className="left-label">
+                        <Translate content="bots.trailing_stop.stoploss" />
+                    </label>
                     <input
                         name="stoploss"
                         id="stoploss"
@@ -204,7 +217,9 @@ class Create extends React.Component {
                                 : "none"
                         }}
                     />
-                    <label className="left-label">Trailing Percent, %</label>
+                    <label className="left-label">
+                        <Translate content="bots.trailing_stop.trailing_percent" />
+                    </label>
                     <input
                         name="percent"
                         id="percent"

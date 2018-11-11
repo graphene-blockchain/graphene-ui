@@ -1,5 +1,5 @@
-import Create from "components/Bots/SpreadTrade/CreateForm";
-import State from "components/Bots/SpreadTrade/StateForm";
+import Create from "components/Bots/SpreadTrade/Create";
+import State from "components/Bots/SpreadTrade/State";
 import {ChainStore} from "bitsharesjs";
 import Apis from "lib/bots/apis";
 import Assets from "lib/bots/assets";

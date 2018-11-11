@@ -1,6 +1,7 @@
 import React from "react";
 import {AssetLabel} from "../libs/AssetSelector";
 import Select from "react-select";
+import Translate from "react-translate-component";
 
 class State extends React.Component {
     state = {
@@ -66,7 +67,9 @@ class State extends React.Component {
                     style={{marginLeft: 50, marginTop: 50}}
                 >
                     <div className="content-block">
-                        <label className="left-label">Sell asset</label>
+                        <label className="left-label">
+                            <Translate content="bots.trailing_stop.sell_asset" />
+                        </label>
                         <Select
                             style={{marginBottom: 30}}
                             name="sellAsset"
@@ -80,7 +83,9 @@ class State extends React.Component {
                             searchable={false}
                             disabled
                         />
-                        <label className="left-label">Amount</label>
+                        <label className="left-label">
+                            <Translate content="bots.trailing_stop.amount" />
+                        </label>
                         <input
                             name="amount"
                             id="amount"
@@ -98,7 +103,9 @@ class State extends React.Component {
                         />
                     </div>
                     <div className="content-block" style={{marginLeft: 50}}>
-                        <label className="left-label">Get asset</label>
+                        <label className="left-label">
+                            <Translate content="bots.trailing_stop.get_asset" />
+                        </label>
                         <Select
                             style={{marginBottom: 30}}
                             name="getAsset"
@@ -110,7 +117,9 @@ class State extends React.Component {
                             searchable={false}
                             disabled
                         />
-                        <label className="left-label">Min Amount</label>
+                        <label className="left-label">
+                            <Translate content="bots.trailing_stop.min_amount" />
+                        </label>
                         <input
                             name="minAmount"
                             id="minAmount"
@@ -131,7 +140,9 @@ class State extends React.Component {
                     </div>
                 </div>
                 <div className="content-block">
-                    <label className="left-label">Stoploss</label>
+                    <label className="left-label">
+                        <Translate content="bots.trailing_stop.stoploss" />
+                    </label>
                     <input
                         name="stoploss"
                         id="stoploss"
@@ -147,7 +158,9 @@ class State extends React.Component {
                                 : "none"
                         }}
                     />
-                    <label className="left-label">Trailing Percent, %</label>
+                    <label className="left-label">
+                        <Translate content="bots.trailing_stop.trailing_percent" />
+                    </label>
                     <input
                         name="percent"
                         id="percent"
@@ -170,7 +183,7 @@ class State extends React.Component {
                     disabled={this.props.bot.run}
                     style={{marginLeft: 50, marginBottom: 30}}
                 >
-                    Update
+                    <Translate content="bots.common.update" />
                 </button>
             </div>
         );
