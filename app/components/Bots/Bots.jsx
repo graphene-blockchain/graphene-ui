@@ -3,10 +3,11 @@ import BotManager from "lib/bots";
 import AccountStore from "stores/AccountStore";
 import {connect} from "alt-react";
 import Translate from "react-translate-component";
+import {Redirect} from "react-router-dom";
 
 class Bots extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.strategies = BotManager.strategies;
         this.state = {
@@ -87,7 +88,9 @@ class Bots extends React.Component {
 
     render() {
         //console.log("start render main page", this.props)
-        if (this.props.currentAccount === null) return null;
+        if (this.props.currentAccount === null) {
+            return <Redirect to={"/"} />;
+        }
 
         let CreateForm = this.strategies[this.state.selectStrategy].create;
 
@@ -204,7 +207,9 @@ export default connect(
         },
         getProps() {
             return {
-                currentAccount: AccountStore.getState().currentAccount
+                currentAccount:
+                    AccountStore.getState().currentAccount ||
+                    AccountStore.getState().passwordAccount
             };
         }
     }
