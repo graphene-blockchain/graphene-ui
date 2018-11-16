@@ -1133,7 +1133,29 @@ class Header extends React.Component {
                                     </Link>
                                 </li>
                             )}
-
+                            <li className="column-hide-small">
+                                <Link
+                                    style={{flexFlow: "row"}}
+                                    to={"/bots"}
+                                    className={cnames({
+                                        active: active.indexOf("/bots") !== -1
+                                    })}
+                                >
+                                    <Icon
+                                        size="1_5x"
+                                        style={{
+                                            position: "relative",
+                                            top: 0,
+                                            left: -8
+                                        }}
+                                        name="transfer"
+                                        title="icons.transfer"
+                                    />
+                                    <span>
+                                        <Translate content="header.bots" />
+                                    </span>
+                                </Link>
+                            </li>
                             {/* Dynamic Menu Item */}
                             <li>{dynamicMenuItem}</li>
                         </ul>

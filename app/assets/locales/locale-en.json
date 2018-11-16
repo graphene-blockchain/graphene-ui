@@ -944,6 +944,7 @@
         "account_notify": "The active account is now %(account)s",
         "account_value": "Account value",
         "accounts_manage": "Manage Accounts",
+        "bots": "Bots",
         "collateral_ratio": "Collateral ratio",
         "create_account": "Create Account",
         "create_asset": "Create Asset",
@@ -1894,6 +1895,43 @@
         "withdraw": {
             "finalNumber": "Actual amount ：%(final_number)s",
             "winAmount": "Minimum amount: %(min_amount)s %(asset)s"
+        }
+    },
+    "bots": {
+        "asset_selector": {
+            "wait": "Please wait...",
+            "placeholder": "Your asset"
+        },
+        "common": {
+            "select_strategy": "Select strategy:",
+            "create": "Create",
+            "bot_state": "Bot state:",
+            "start": "Start",
+            "stop": "Stop",
+            "delete": "Delete",
+            "update": "Update",
+            "select_bot": "Please, select bot",
+            "name": "Name",
+            "base": "Base",
+            "quote": "Quote",
+            "asset": "Asset",
+            "balance": "Balance",
+            "amount": "Amount in order"
+        },
+        "spread_trande": {
+            "balance_percent": "balance %",
+            "balance_value": "value",
+            "spread": "Spread, %",
+            "default_price": "Default Price",
+            "get_price_from_market": "Get price from market"
+        },
+        "trailing_stop": {
+            "sell_asset": "Sell asset",
+            "get_asset": "Get asset",
+            "amount": "Amount",
+            "min_amount": "Min amount",
+            "stoploss": "Stoploss",
+            "trailing_percent": "Trailing Percent, %"
         }
     }
 }
