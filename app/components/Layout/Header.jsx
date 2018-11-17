@@ -1152,7 +1152,7 @@ class Header extends React.Component {
                                         title="icons.bots"
                                     />
                                     <span>
-                                        <Translate content="header.bots" />
+                                        <Translate content="header.bots_beta" />
                                     </span>
                                 </Link>
                             </li>
