@@ -152,7 +152,7 @@ class Dashboard extends React.Component {
                         quote={pair[0]}
                         base={pair[1]}
                         invert={pair[2]}
-                        hide={validMarkets > 29}
+                        hide={validMarkets > 35}
                     />
                 );
             })

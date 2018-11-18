@@ -30,10 +30,10 @@ require("file-loader?name=asset-symbols/[name].png!./rudex.krm.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.wls.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.smoke.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.viz.png");
+require("file-loader?name=asset-symbols/[name].png!./rudex.yoyow.png");
 
 // 3rd party assets
 require("file-loader?name=asset-symbols/[name].png!./obits.png");
-require("file-loader?name=asset-symbols/[name].png!./yoyow.png");
 require("file-loader?name=asset-symbols/[name].png!./hero.png");
 require("file-loader?name=asset-symbols/[name].png!./ruble.png");
 require("file-loader?name=asset-symbols/[name].png!./escrow.ruble.png");
