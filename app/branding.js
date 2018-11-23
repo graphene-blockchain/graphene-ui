@@ -77,7 +77,7 @@ export function getUnits(chainId = "4018d784") {
  */
 
 export function getMyMarketsBases() {
-    return ["BTS", "RUBLE", "USD", "RUDEX.BTC", "RUDEX.EOS", "CNY"];
+    return ["BTS", "RUDEX.BTC", "RUDEX.EOS", "RUBLE", "USD", "CNY"];
 }
 
 /**
