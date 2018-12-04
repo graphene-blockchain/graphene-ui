@@ -131,8 +131,9 @@ class Footer extends React.Component {
 
     getNodeIndexByURL(url) {
         let nodes = this.props.defaults.apiServer;
-
-        let index = nodes.findIndex(node => node.url === url);
+        let index = nodes.findIndex(
+            node => !!node && !!node.url && node.url === url
+        );
         if (index === -1) {
             return null;
         }
@@ -147,6 +148,10 @@ class Footer extends React.Component {
     }
 
     getNode(node = {url: "", operator: ""}) {
+        if (!node || !node.url) {
+            throw "Node is undefined of has no url";
+        }
+
         const {props} = this;
 
         let title = node.operator + " " + !!node.location ? node.location : "";
@@ -157,7 +162,10 @@ class Footer extends React.Component {
         return {
             name: title,
             url: node.url,
-            ping: props.apiLatencies[node.url]
+            ping:
+                node.url in props.apiLatencies
+                    ? props.apiLatencies[node.url]
+                    : -1
         };
     }
 
