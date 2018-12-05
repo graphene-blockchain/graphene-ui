@@ -147,12 +147,6 @@ export const settingsAPIs = {
             contact: "telegram:mtopenledger"
         },
         {
-            url: "wss://bitshares.nu/ws",
-            location: "Stockholm",
-            region: "Northern Europe",
-            country: "Sweden"
-        },
-        {
             url: "wss://bit.btsabc.org/ws",
             region: "Eastern Asia",
             country: "China",
@@ -170,6 +164,7 @@ export const settingsAPIs = {
         },
         {
             url: "wss://japan.bitshares.apasia.tech/ws",
+            location: "Tokyo",
             country: "Japan",
             region: "Southeastern Asia",
             operator: "Flash Infrastructure Worker",
@@ -256,14 +251,6 @@ export const settingsAPIs = {
             contact: "telegram:murda_ra"
         },
         {
-            url: "wss://bitshares.nu/ws",
-            location: "Stockholm",
-            region: "Northern Europe",
-            country: "Sweden",
-            operator: "Flash Infrastructure Worker",
-            contact: "telegram:StaflunD"
-        },
-        {
             url: "wss://api.open-asset.tech/ws",
             location: "Frankfurt",
             region: "Western Europe",
@@ -321,8 +308,11 @@ export const settingsAPIs = {
         },
         {
             url: "wss://dex.rnglab.org",
-            location: "Netherlands",
-            operator: "Witness: rnglab"
+            region: "Northern Europe",
+            country: "Netherlands",
+            location: "Amsterdam",
+            operator: "Witness: rnglab",
+            contact: "keybase:rnglab"
         },
         {
             url: "wss://la.dexnode.net/ws",
@@ -348,7 +338,6 @@ export const settingsAPIs = {
             operator: "Witness: xeldal",
             contact: "telegram:xeldal"
         },
-        {url: "wss://btsza.co.za:8091/ws", location: "Cape Town, South Africa"},
         {
             url: "wss://api.bts.blckchnd.com",
             region: "Western Europe",
@@ -438,9 +427,11 @@ export const settingsAPIs = {
         },
         {
             url: "wss://api.btsxchng.com",
-            location:
-                "Global (Asia Pacific (Singapore) / US East (N. Virginia) / EU (London))",
-            operator: "Witness: elmato"
+            region: "Multiple",
+            country: "Worldwide",
+            location: "Singapore / N. Virginia / London",
+            operator: "Witness: elmato",
+            contact: "telegram:elmato"
         },
         {
             url: "wss://api.bts.network/",
@@ -490,8 +481,11 @@ export const settingsAPIs = {
         },
         {
             url: "wss://bts.proxyhosts.info/wss",
-            location: "Germany",
-            operator: "Witness: verbaltech2"
+            region: "Western Europe",
+            country: "Germany",
+            location: "",
+            operator: "Witness: verbaltech2",
+            contact: "keybase:jgaltman"
         },
         {
             url: "wss://bts.open.icowallet.net/ws",
@@ -500,6 +494,22 @@ export const settingsAPIs = {
             location: "Hangzhou",
             operator: "Witness: magicwallet.witness",
             contact: "telegram:plus_wave"
+        },
+        {
+            url: "wss://de.bts.dcn.cx/ws",
+            region: "Western Europe",
+            country: "Germany",
+            location: "Nuremberg",
+            operator: "Witness: fla01",
+            contact: "telegram:Otherego;telegram:BarefootMouse"
+        },
+        {
+            url: "wss://fi.bts.dcn.cx/ws",
+            region: "Northern Europe",
+            country: "Finland",
+            location: "Helsinki",
+            operator: "Witness: fla01",
+            contact: "telegram:Otherego;telegram:BarefootMouse"
         },
         {
             url: "wss://crazybit.online",
@@ -675,7 +685,15 @@ export const settingsAPIs = {
             region: "TESTNET - Northern America",
             country: "U.S.A.",
             location: "Dallas",
-            operator: "APAsia",
+            operator: "Flash Infrastructure Worker",
+            contact: "telegram:murda_ra"
+        },
+        {
+            url: "wss://testnet-eu.bitshares.apasia.tech/ws",
+            region: "TESTNET - Northern Europe",
+            country: "Netherlands",
+            location: "Amsterdam",
+            operator: "Flash Infrastructure Worker",
             contact: "telegram:murda_ra"
         },
         {
@@ -687,12 +705,12 @@ export const settingsAPIs = {
             contact: "telegram:Zapata_42"
         },
         {
-            url: "wss://citadel.li/node",
-            region: "Western Europe",
-            country: "Iceland",
-            location: "Reykjavik",
-            operator: "CITADEL",
-            contact: "email:citadel.li;support"
+            url: "wss://testnet.bts.dcn.cx/ws",
+            region: "TESTNET - Europe",
+            country: "Germany / Finland",
+            location: "Nurenberg / Helsinki",
+            operator: "Witness: fla-test",
+            contact: "telegram:Otherego;telegram:BarefootMouse"
         }
     ],
     DEFAULT_FAUCET: getFaucet().url,
