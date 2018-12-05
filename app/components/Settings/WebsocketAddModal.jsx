@@ -1,8 +1,5 @@
 import React from "react";
 import Translate from "react-translate-component";
-import Trigger from "react-foundation-apps/src/trigger";
-import BaseModal from "../Modal/BaseModal";
-import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import SettingsActions from "actions/SettingsActions";
 
 const ws = "ws://";
@@ -22,6 +19,8 @@ class WebsocketAddModal extends React.Component {
             addError: null,
             existsError: null
         };
+
+        this.onRemoveSubmit = this.onRemoveSubmit.bind(this);
     }
 
     onServerInput(e) {
@@ -52,20 +51,6 @@ class WebsocketAddModal extends React.Component {
         this.setState({name: e.target.value});
     }
 
-    show(e, url, name) {
-        let state = {};
-        if (e.target.id.indexOf("add") !== -1) {
-            state.type = "add";
-        } else if (e.target.id.indexOf("remove") !== -1) {
-            state.type = "remove";
-            state.remove = {url, name};
-        }
-
-        this.setState(state);
-
-        ZfApi.publish("ws_modal_" + state.type, "open");
-    }
-
     close() {
         ZfApi.publish("ws_modal_" + this.state.type, "close");
     }
@@ -79,14 +64,14 @@ class WebsocketAddModal extends React.Component {
             ws: this.state.protocol === "https:" ? wss : ws,
             name: ""
         });
-        this.close();
+        this.props.onAddNodeClose();
     }
 
     onRemoveSubmit(e) {
         e.preventDefault();
         let removeIndex;
         this.props.apis.forEach((api, index) => {
-            if (api.url === this.state.remove.url) {
+            if (api.url === this.props.removeNode.url) {
                 removeIndex = index;
             }
         });
@@ -101,19 +86,33 @@ class WebsocketAddModal extends React.Component {
         }
 
         SettingsActions.removeWS(removeIndex);
-        this.close();
+        this.props.onRemoveNodeClose();
     }
 
     _renderAddModal() {
         let labelStyle = {padding: 0, color: "white"};
 
         return (
-            <BaseModal
+            <Modal
+                visible={this.props.isAddNodeModalVisible}
                 id="ws_modal_add"
                 ref="ws_modal_add"
                 overlay={true}
-                onCancel={this.props.onClose}
+                onCancel={this.props.onAddNodeClose}
                 overlayClose={false}
+                footer={[
+                    <Button
+                        key="confirm"
+                        type="primary"
+                        disabled={this.state.addError || this.state.existsError}
+                        onClick={this.onAddSubmit.bind(this)}
+                    >
+                        {counterpart.translate("transfer.confirm")}
+                    </Button>,
+                    <Button key="cancel" onClick={this.props.onAddNodeClose}>
+                        {counterpart.translate("account.perm.cancel")}
+                    </Button>
+                ]}
             >
                 <div className="grid-content">
                     <Translate component="h3" content="settings.add_ws" />
@@ -174,7 +173,7 @@ class WebsocketAddModal extends React.Component {
                         </div>
                     </form>
                 </div>
-            </BaseModal>
+            </Modal>
         );
     }
 
@@ -219,6 +218,46 @@ class WebsocketAddModal extends React.Component {
                     </form>
                 </div>
             </BaseModal>
+        );
+    }
+
+    _renderRemoveModal() {
+        if (!this.props.api) {
+            return null;
+        }
+
+        const footer = [
+            <Button key="submit" onClick={this.onRemoveSubmit}>
+                {counterpart.translate("transfer.confirm")}
+            </Button>,
+            <Button
+                key="cancel"
+                type="primary"
+                onClick={this.props.onRemoveNodeClose}
+            >
+                {counterpart.translate("modal.cancel")}
+            </Button>
+        ];
+
+        return (
+            <Modal
+                onCancel={this.props.onRemoveNodeClose}
+                title={counterpart.translate("settings.remove_ws")}
+                visible={this.props.isRemoveNodeModalVisible}
+                footer={footer}
+            >
+                <div className="grid-content no-overflow">
+                    <section className="block-list">
+                        <p>
+                            <Translate
+                                component="span"
+                                content="settings.confirm_remove"
+                                with={{name: this.props.removeNode.name}}
+                            />
+                        </p>
+                    </section>
+                </div>
+            </Modal>
         );
     }
 
