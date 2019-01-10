@@ -614,8 +614,10 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                     if (
                         input_coin_info.backingCoinType !=
                             pair.outputCoinType &&
+                        output_coin_info &&
                         output_coin_info.backingCoinType !=
                             pair.inputCoinType &&
+                        input_coin_info &&
                         input_coin_info.restricted == false &&
                         output_coin_info.restricted == false
                     ) {
@@ -1018,12 +1020,13 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                         output_coin_info.backingCoinType != pair.inputCoinType
                     ) {
                         if (
-                            active_wallets.indexOf(
-                                input_coin_info.walletType
-                            ) != -1 &&
-                            active_wallets.indexOf(
-                                output_coin_info.walletType
-                            ) != -1
+                            output_coin_info &&
+                            output_coin_info.backingCoinType !=
+                                pair.inputCoinType &&
+                            pair.outputCoinType &&
+                            input_coin_info &&
+                            input_coin_info.backingCoinType !=
+                                pair.outputCoinType
                         ) {
                         }
                     }
