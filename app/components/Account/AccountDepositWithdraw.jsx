@@ -442,14 +442,14 @@ class AccountDepositWithdraw extends React.Component {
             )
         });
 
-        serList.push({
-            name: "Winex",
-            template: (
-                <div>
-                    <WinexGateway account={account} provider="Winex" />
-                </div>
-            )
-        });
+        // serList.push({
+        //     name: "Winex",
+        //     template: (
+        //         <div>
+        //             <WinexGateway account={account} provider="Winex" />
+        //         </div>
+        //     )
+        // });
 
         return serList;
     }
