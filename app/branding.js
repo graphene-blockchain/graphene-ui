@@ -137,7 +137,6 @@ export function getMyMarketsQuotes() {
             "RUDEX.SBD",
             "RUDEX.KRM",
             "RUDEX.SCR",
-            "RUDEX.DGB",
             "RUDEX.EOS",
             "RUDEX.GRC",
             "RUDEX.SMOKE",
@@ -146,7 +145,7 @@ export function getMyMarketsQuotes() {
             "PPY"
         ],
         // winTokens: ["WIN.ETC", "WIN.ETH", "WIN.HSR"],
-        otherTokens: ["HERTZ", "HERO", "OBITS", "ZEPH"]
+        otherTokens: ["HERTZ"]
     };
 
     let allTokens = [];
@@ -167,7 +166,6 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "PPY"],
         ["BTS", "RUDEX.ETH"],
         ["BTS", "RUDEX.BTC"],
-        ["BTS", "RUDEX.DGB"],
         ["RUBLE", "RUDEX.GOLOS"],
         ["RUBLE", "RUDEX.GBG"],
         ["BTS", "RUDEX.STEEM"],
@@ -184,9 +182,6 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "CNY"],
         ["BTS", "GOLD"],
         ["BTS", "SILVER"],
-        ["BTS", "HERO"],
-        ["BTS", "OBITS"],
-        ["BTS", "ZEPH"],
         ["BTS", "HERTZ"]
     ].filter(a => {
         if (!quotes.length) return true;
