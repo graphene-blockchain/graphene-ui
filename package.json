@@ -1,6 +1,6 @@
 {
     "name": "RuDEX-light",
-    "version": "2.0.190126",
+    "version": "2.0.190128",
     "description": "Advanced wallet interface for the BitShares financial blockchain.",
     "homepage": "https://github.com/blckchnd/rudex-ui",
     "author": "RuDEX Team <support@rudex.org>",
@@ -217,8 +217,8 @@
         "copyfiles": "^1.2.0",
         "cross-env": "^5.0.5",
         "css-loader": "^0.28.11",
-        "electron": "^4.0.2",
-        "electron-builder": "^20.13.2",
+        "electron": "^2.0.13",
+        "electron-builder": "^20.31.2",
         "es6-promise": "^3.0.2",
         "eslint": "^4.19.0",
         "eslint-plugin-json": "^1.2.0",
