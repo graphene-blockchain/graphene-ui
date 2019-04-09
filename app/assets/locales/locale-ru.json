@@ -1290,7 +1290,7 @@
         "asset_issue": "Выпустить {amount} {to}, используя {account}",
         "asset_reserve": "Сжечь (зарезервировать) {amount} с помощью {account}",
         "asset_settle": "Запросить погашение {amount} на {account}",
-        "asset_update": "Обновить актив %(asset)s, используя аккаунт {account}",
+        "asset_update": "Обновить актив {asset}, используя аккаунт {account}",
         "call_order_update": "Изменить {debtSymbol} долг {account} на {debt} и залог на {collateral}",
         "committee_member_update_global_parameters": "Обновить глобальные параметры комитета {account}",
         "expires": "Истекает",
