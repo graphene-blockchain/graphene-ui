@@ -253,6 +253,7 @@ class RuDexGateway extends React.Component {
                                 receive_asset={coin.symbol}
                                 receive_coin_type={coin.symbol.toLowerCase()}
                                 supports_output_memos={coin.memoSupport}
+                                memo_version={coin.memoVersion}
                                 min_amount={coin.minAmount}
                                 withdraw_fee={coin.withdrawFee}
                                 deposit_fee={coin.depositFee}

@@ -34,6 +34,7 @@ class RuDexGatewayDepositRequest extends React.Component {
         deprecated_message: PropTypes.string,
         action: PropTypes.string,
         supports_output_memos: PropTypes.bool.isRequired,
+        memo_version: PropTypes.number,
         min_amount: PropTypes.number,
         deposit_fee: PropTypes.number,
         withdraw_fee: PropTypes.number,
@@ -213,7 +214,12 @@ class RuDexGatewayDepositRequest extends React.Component {
                 <span>{this.props.deposit_account}</span>
             );
             clipboardText = this.props.deposit_account;
-            memoText = "dex:" + this.props.account.get("name");
+            if (!!this.props.memo_version && this.props.memo_version === 2) {
+                memoText =
+                    "btsid-" + this.props.account.get("id").replace("1.2.", "");
+            } else {
+                memoText = "dex:" + this.props.account.get("name");
+            }
             deposit_memo = <span>{memoText}</span>;
             var withdraw_memo_prefix = this.props.deposit_coin_type + ":";
         } else {
