@@ -1923,7 +1923,10 @@
             "quote": "Quote",
             "asset": "Asset",
             "balance": "Balance",
-            "amount": "Amount in order"
+            "amount": "Amount in order",
+            "balance_percent": "balance %",
+            "balance_value": "value",
+            "spread": "Spread, %"
         },
         "spread_trande": {
             "balance_percent": "balance %",
@@ -1939,6 +1942,9 @@
             "min_amount": "Min amount",
             "stoploss": "Stoploss",
             "trailing_percent": "Trailing Percent, %"
+        },
+        "percent_up": {
+            "distance": "Distance, %"
         }
     }
 }

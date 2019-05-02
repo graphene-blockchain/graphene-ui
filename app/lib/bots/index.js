@@ -1,5 +1,6 @@
 import SpreadTrade from "./SpreadTrade";
 import TrailingStop from "./TrailingStop";
+import PercentUp from "./PercentUp";
 //import RelativeOrders from "./RelativeOrders";
 import Storage from "stores/BotsStorage";
 
@@ -8,8 +9,9 @@ var bots = {};
 export default {
     strategies: {
         SpreadTrade,
-        TrailingStop
-        //RelativeOrders
+        TrailingStop,
+        //RelativeOrders,
+        PercentUp
     },
 
     create(strategy, account, initData) {
