@@ -9,11 +9,11 @@ import Translate from "react-translate-component";
 class Create extends React.Component {
     state = {
         name: "",
-        base: "BTS",
-        quote: "CNY",
+        base: "CNY",
+        quote: "BTS",
         amount: 1,
         percentAmount: false,
-        balance: "-",
+        balance: "",
         spread: 1,
         distance: "1.5",
         validate: ["name"]

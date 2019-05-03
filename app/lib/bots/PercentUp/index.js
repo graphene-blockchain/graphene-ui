@@ -106,9 +106,11 @@ class PercentUp {
                       .div(100)
                       .toNumber()
                 : state.amount,
-            orders = await Apis.db.get_objects(
-                state.orders.map(order => order.id)
-            ),
+            orders = (await Apis.db.get_objects(
+                state.orders.map(order => order.id).filter(id => id)
+            ))
+                .map(order => order && order.id)
+                .filter(id => id),
             processOrders = state.orders.filter(
                 order => !orders.includes(order.id)
             );
@@ -119,12 +121,18 @@ class PercentUp {
                 if (!["", "-"].includes(state.balance))
                     state.balance = Number(state.balance) + Number(order.base);
             } else {
-                let price = BigNumber(order.base)
-                        .div(order.quote)
-                        .times(1 + Number(state.spread) / 100),
-                    baseAmount = price.times(order.base).toNumber();
+                let price = BigNumber(order.quote)
+                        .div(order.base)
+                        .times(1 - Number(state.spread) / 100),
+                    baseAmount = BigNumber(order.quote)
+                        .div(price)
+                        .toNumber();
 
-                log(`buy: ${price} ${this.base.symbol}/${this.quote.symbol}`);
+                log(
+                    `buy: ${price.toNumber()} ${this.base.symbol}/${
+                        this.quote.symbol
+                    }`
+                );
                 let obj = await this.account.buy(
                     this.base.symbol,
                     this.quote.symbol,
@@ -142,31 +150,30 @@ class PercentUp {
 
         let lowPrice = null;
         state.orders.forEach(order => {
-            let price = BigNumber(order.base).div(order.quote);
+            let price = BigNumber(order.quote).div(order.base);
             if (!lowPrice || price.isLessThan(lowPrice)) lowPrice = price;
         });
 
         let ticker = await Apis.db.get_ticker(
-                this.base.symbol,
-                this.quote.symbol
+                this.quote.symbol,
+                this.base.symbol
             ),
             price = BigNumber(ticker.lowest_ask)
                 .plus(ticker.highest_bid)
-                .div(2)
-                .toNumber();
+                .div(2);
 
         if (
             balance > amount &&
             (!lowPrice ||
                 lowPrice
-                    .div(1 + Number(state.distance) / 100)
-                    .isGreateThan(price))
+                    .times(1 - Number(state.distance) / 100)
+                    .isGreaterThan(price))
         ) {
             let obj = await this.account.sell(
                     this.base.symbol,
                     this.quote.symbol,
                     amount,
-                    price
+                    price.toNumber()
                 ),
                 order = {
                     state: "sell",
@@ -178,11 +185,17 @@ class PercentUp {
                 };
 
             state.orders.push(order);
-            log(`sell: ${price} ${this.base.symbol}/${this.quote.symbol}`);
+            log(
+                `sell: ${price.toNumber()} ${this.base.symbol}/${
+                    this.quote.symbol
+                }`
+            );
 
             if (!["", "-"].includes(state.balance))
                 state.balance = Number(state.balance) - amount;
         }
+
+        state.orders = state.orders.filter(order => order.id !== null);
 
         this.storage.write(state);
     };
