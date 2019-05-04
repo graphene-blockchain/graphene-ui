@@ -1,7 +1,5 @@
 import React from "react";
 import BotManager from "lib/bots";
-import Apis from "lib/bots/apis";
-import {debounce} from "lodash-es";
 import AssetSelector from "../libs/AssetSelector";
 import Input from "../libs/Input";
 import Translate from "react-translate-component";
