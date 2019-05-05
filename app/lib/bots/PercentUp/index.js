@@ -100,12 +100,13 @@ class PercentUp {
                     : state.balance === ""
                         ? accountBalances.base
                         : Math.min(accountBalances.base, state.balance),
-            amount = state.percentAmount
-                ? BigNumber(balance)
-                      .times(state.amount)
-                      .div(100)
-                      .toNumber()
-                : state.amount,
+            amount =
+                state.percentAmount.toString() == "true"
+                    ? BigNumber(balance)
+                          .times(state.amount)
+                          .div(100)
+                          .toNumber()
+                    : state.amount,
             orders = (await Apis.db.get_objects(
                 state.orders.map(order => order.id).filter(id => id)
             ))

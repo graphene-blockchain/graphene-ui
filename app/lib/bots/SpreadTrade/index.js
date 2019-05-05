@@ -147,18 +147,20 @@ class SpreadTrade {
                     : state.quote.balance === ""
                         ? accountBalances.quote
                         : Math.min(accountBalances.quote, state.quote.balance),
-            baseAmount = state.base.percent
-                ? BigNumber(baseBalance)
-                      .times(state.base.amount)
-                      .div(100)
-                      .toNumber()
-                : state.base.amount,
-            quoteAmount = state.quote.percent
-                ? BigNumber(quoteBalance)
-                      .times(state.quote.amount)
-                      .div(100)
-                      .toNumber()
-                : state.quote.amount;
+            baseAmount =
+                state.base.percent.toString() == "true"
+                    ? BigNumber(baseBalance)
+                          .times(state.base.amount)
+                          .div(100)
+                          .toNumber()
+                    : state.base.amount,
+            quoteAmount =
+                state.quote.percent.toString() == "true"
+                    ? BigNumber(quoteBalance)
+                          .times(state.quote.amount)
+                          .div(100)
+                          .toNumber()
+                    : state.quote.amount;
 
         console.log("prices", buyPrice, feedPrice, sellPrice);
         console.log("orders", buyOrder, sellOrder);
