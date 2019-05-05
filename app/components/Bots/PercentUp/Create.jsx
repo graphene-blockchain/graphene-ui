@@ -1,6 +1,8 @@
 import React from "react";
 import BotManager from "lib/bots";
 import AssetSelector from "../libs/AssetSelector";
+import Apis from "lib/bots/apis";
+import {debounce} from "lodash-es";
 import Input from "../libs/Input";
 import Translate from "react-translate-component";
 
@@ -15,6 +17,24 @@ class Create extends React.Component {
         spread: 1,
         distance: "1.5",
         validate: ["name"]
+    };
+
+    componentDidMount() {
+        this.assetValidate = debounce(this.assetValidate, 200);
+    }
+
+    assetValidate = async name => {
+        let asset = this.state[name];
+        let blockchainAssets = (await Apis.db.list_assets(asset, 1))[0];
+        let validate = this.state.validate;
+
+        if (asset !== blockchainAssets.symbol) validate.push(name);
+        else {
+            validate = validate.filter(input => input !== name);
+        }
+
+        this.setState({validate});
+        this.props.enableCreate(this.state.validate.length == 0);
     };
 
     handleChange = event => {
