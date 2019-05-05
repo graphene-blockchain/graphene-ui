@@ -162,6 +162,15 @@ class PercentUp {
                 .plus(ticker.highest_bid)
                 .div(2);
 
+        log(
+            `[${
+                state.name
+            }] Orders exists: ${!!lowPrice}, balance > amount: ${balance >
+                amount}, lowPrice - price > distance: ${!!lowPrice &&
+                lowPrice
+                    .times(1 - Number(state.distance) / 100)
+                    .isGreaterThan(price)}`
+        );
         if (
             balance > amount &&
             (!lowPrice ||
