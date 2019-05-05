@@ -115,6 +115,8 @@ class PercentUp {
                 order => !orders.includes(order.id)
             );
 
+        console.log("account", this.account, balance, amount);
+
         let promises = processOrders.map(async order => {
             if (order.state === "buy") {
                 order.id = null;
