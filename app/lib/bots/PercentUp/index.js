@@ -122,22 +122,21 @@ class PercentUp {
                     state.balance = Number(state.balance) + Number(order.base);
             } else {
                 let price = BigNumber(order.quote)
-                        .div(order.base)
-                        .times(1 - Number(state.spread) / 100),
-                    baseAmount = BigNumber(order.quote)
-                        .div(price)
-                        .toNumber();
+                    .div(order.base)
+                    .times(1 - Number(state.spread) / 100);
 
                 log(
                     `buy: ${price.toNumber()} ${this.base.symbol}/${
                         this.quote.symbol
                     }`
                 );
-                let obj = await this.account.buy(
-                    this.base.symbol,
+                let obj = await this.account.sell(
                     this.quote.symbol,
-                    baseAmount,
-                    price.toNumber()
+                    this.base.symbol,
+                    Math.min(accountBalances.quote, state.quote),
+                    BigNumber(1)
+                        .div(price)
+                        .toNumber()
                 );
 
                 order.state = "buy";
