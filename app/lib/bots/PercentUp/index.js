@@ -116,8 +116,6 @@ class PercentUp {
                 order => !orders.includes(order.id)
             );
 
-        console.log("account", this.account, balance, amount);
-
         let promises = processOrders.map(async order => {
             if (order.state === "buy") {
                 order.id = null;
@@ -125,8 +123,12 @@ class PercentUp {
                     state.balance = Number(state.balance) + Number(order.base);
             } else {
                 let price = BigNumber(order.quote)
-                    .div(order.base)
-                    .times(1 - Number(state.spread) / 100);
+                        .div(order.base)
+                        .times(1 - Number(state.spread) / 100),
+                    quoteBalance = Math.min(
+                        Number(accountBalances.quote),
+                        Number(order.quote)
+                    );
 
                 log(
                     `buy: ${price.toNumber()} ${this.base.symbol}/${
@@ -136,7 +138,7 @@ class PercentUp {
                 let obj = await this.account.sell(
                     this.quote.symbol,
                     this.base.symbol,
-                    Math.min(accountBalances.quote, state.quote),
+                    quoteBalance,
                     BigNumber(1)
                         .div(price)
                         .toNumber()
@@ -144,7 +146,9 @@ class PercentUp {
 
                 order.state = "buy";
                 order.id = obj ? obj.id : "1.7.0";
-                order.base = baseAmount;
+                order.base = BigNumber(quoteBalance)
+                    .div(price)
+                    .toNumber();
             }
         });
 
