@@ -80,7 +80,7 @@ class PercentUp {
 
     checkOrders = async () => {
         let state = this.storage.read(),
-            {log} = this.logger,
+            log = (...args) => this.logger.log(`[${state.name}]`, ...args),
             accountBalances = (await this.account.balances(
                 this.base.id,
                 this.quote.id
@@ -116,39 +116,67 @@ class PercentUp {
                 order => !orders.includes(order.id)
             );
 
+        if (processOrders.length > 0) await this.base.update();
+
         let promises = processOrders.map(async order => {
             if (order.state === "buy") {
                 order.id = null;
-                if (!["", "-"].includes(state.balance))
-                    state.balance = Number(state.balance) + Number(order.base);
-            } else {
-                let price = BigNumber(order.quote)
-                        .div(order.base)
-                        .times(1 - Number(state.spread) / 100),
-                    quoteBalance = Math.min(
-                        Number(accountBalances.quote),
-                        Number(order.quote)
+                if (!["", "-"].includes(state.balance)) {
+                    let amountToMarket = Math.floor(
+                        BigNumber(this.base.options.market_fee_percent)
+                            .div(100 * 100)
+                            .times(order.base)
+                            .times(10 ** this.base.precision)
+                            .toString()
                     );
+                    state.balance =
+                        Number(state.balance) +
+                        Number(order.base) -
+                        (amountToMarket !== 0
+                            ? BigNumber(amountToMarket)
+                                  .div(10 ** this.base.precision)
+                                  .toNumber()
+                            : this.base.options.market_fee_percent !== 0
+                                ? 10 ** -this.base.precision
+                                : 0);
+                }
+            } else {
+                let quoteAssetAmount = {
+                        asset_id: this.quote.id,
+                        amount: Math.min(
+                            Number(accountBalances.quote),
+                            Number(order.quote)
+                        )
+                    },
+                    percentOnMarket = BigNumber(
+                        this.base.options.market_fee_percent
+                    ).div(100 * 100),
+                    baseAssetAmount = {
+                        asset_id: this.base.id,
+                        amount: BigNumber(order.base).times(
+                            1 +
+                                Number(state.spread) / 100 +
+                                percentOnMarket.toNumber()
+                        )
+                    };
 
                 log(
-                    `buy: ${price.toNumber()} ${this.base.symbol}/${
-                        this.quote.symbol
-                    }`
+                    `buy ${
+                        this.base.symbol
+                    }: amount=${baseAssetAmount.amount.toNumber()} price=${BigNumber(
+                        quoteAssetAmount.amount
+                    )
+                        .div(baseAssetAmount.amount)
+                        .toNumber()} ${this.base.symbol}/${this.quote.symbol}`
                 );
                 let obj = await this.account.sell(
-                    this.quote.symbol,
-                    this.base.symbol,
-                    quoteBalance,
-                    BigNumber(1)
-                        .div(price)
-                        .toNumber()
+                    quoteAssetAmount,
+                    baseAssetAmount
                 );
 
                 order.state = "buy";
                 order.id = obj ? obj.id : "1.7.0";
-                order.base = BigNumber(quoteBalance)
-                    .div(price)
-                    .toNumber();
+                order.base = baseAssetAmount.amount.toNumber();
             }
         });
 
@@ -164,14 +192,10 @@ class PercentUp {
                 this.quote.symbol,
                 this.base.symbol
             ),
-            price = BigNumber(ticker.lowest_ask)
-                .plus(ticker.highest_bid)
-                .div(2);
+            price = BigNumber(ticker.lowest_ask);
 
         log(
-            `[${
-                state.name
-            }] Orders exists: ${!!lowPrice}, balance > amount: ${balance >
+            `Orders exists: ${!!lowPrice}, balance > amount: ${balance >
                 amount}, lowPrice - price > distance: ${!!lowPrice &&
                 lowPrice
                     .times(1 - Number(state.distance) / 100)
@@ -184,26 +208,29 @@ class PercentUp {
                     .times(1 - Number(state.distance) / 100)
                     .isGreaterThan(price))
         ) {
-            let obj = await this.account.sell(
-                    this.base.symbol,
-                    this.quote.symbol,
-                    amount,
-                    price.toNumber()
-                ),
+            let baseAssetAmount = {
+                    asset_id: this.base.id,
+                    amount
+                },
+                quoteAssetAmount = {
+                    asset_id: this.quote.id,
+                    amount: price.times(amount)
+                },
+                obj = await this.account.buy(quoteAssetAmount, baseAssetAmount),
                 order = {
                     state: "sell",
                     base: amount,
-                    quote: BigNumber(amount)
-                        .times(price)
-                        .toNumber(),
+                    quote: quoteAssetAmount.amount.toNumber(),
                     id: obj ? obj.id : "1.7.0"
                 };
 
             state.orders.push(order);
             log(
-                `sell: ${price.toNumber()} ${this.base.symbol}/${
-                    this.quote.symbol
-                }`
+                `sell ${
+                    this.base.symbol
+                }: amount=${amount}, price=${price.toNumber()} ${
+                    this.base.symbol
+                }/${this.quote.symbol}`
             );
 
             if (!["", "-"].includes(state.balance))

@@ -1,10 +1,12 @@
 import Apis from "lib/bots/apis";
 
 class Asset {
-    static get(obj, name) {
+    static get(_, name) {
         if (this[name]) return this[name];
 
-        return this.getAsset(name);
+        return /^1\.3\.\d+$/.test(name) || !isNaN(name)
+            ? this.id(name)
+            : this.getAsset(name);
     }
 
     static async getAsset(_symbol) {

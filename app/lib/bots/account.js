@@ -33,16 +33,31 @@ class Account {
         amount,
         price,
         fill_or_kill = false,
-        expire = "2020-02-02T02:02:02"
+        expire = "2025-02-02T02:02:02"
     ) {
         await this.promise;
 
-        let buyAsset = await Assets[buySymbol],
-            baseAsset = await Assets[baseSymbol],
-            buyAmount = Math.floor(amount * 10 ** buyAsset.precision),
+        let buyAsset = await Assets[
+                typeof buySymbol === "object" ? buySymbol.asset_id : buySymbol
+            ],
+            baseAsset = await Assets[
+                typeof baseSymbol === "object"
+                    ? baseSymbol.asset_id
+                    : baseSymbol
+            ],
+            buyAmount = Math.floor(
+                BigNumber(
+                    typeof buySymbol === "object" ? buySymbol.amount : amount
+                )
+                    .times(10 ** buyAsset.precision)
+                    .toString()
+            ),
             sellAmount = Math.floor(
-                BigNumber(amount)
-                    .times(price * 10 ** baseAsset.precision)
+                (typeof baseSymbol === "object"
+                    ? BigNumber(baseSymbol.amount)
+                    : BigNumber(amount).times(price)
+                )
+                    .times(10 ** baseAsset.precision)
                     .toString()
             );
 
@@ -70,16 +85,33 @@ class Account {
         amount,
         price,
         fill_or_kill = false,
-        expire = "2020-02-02T02:02:02"
+        expire = "2025-02-02T02:02:02"
     ) {
         await this.promise;
 
-        let sellAsset = await Assets[sellSymbol],
-            baseAsset = await Assets[baseSymbol],
-            sellAmount = Math.floor(amount * 10 ** sellAsset.precision),
+        let sellAsset = await Assets[
+                typeof sellSymbol === "object"
+                    ? sellSymbol.asset_id
+                    : sellSymbol
+            ],
+            baseAsset = await Assets[
+                typeof baseSymbol === "object"
+                    ? baseSymbol.asset_id
+                    : baseSymbol
+            ],
+            sellAmount = Math.floor(
+                BigNumber(
+                    typeof sellSymbol === "object" ? sellSymbol.amount : amount
+                )
+                    .times(10 ** sellAsset.precision)
+                    .toString()
+            ),
             buyAmount = Math.floor(
-                BigNumber(amount)
-                    .times(price * 10 ** baseAsset.precision)
+                (typeof baseSymbol === "object"
+                    ? BigNumber(baseSymbol.amount)
+                    : BigNumber(amount).times(price)
+                )
+                    .times(10 ** baseAsset.precision)
                     .toString()
             );
 
