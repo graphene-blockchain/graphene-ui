@@ -114,7 +114,13 @@ class PercentUp {
                 .filter(id => id),
             processOrders = state.orders.filter(
                 order => !orders.includes(order.id)
-            );
+            ),
+            orderFee = BigNumber(
+                (await Apis.db.get_global_properties()).parameters.current_fees
+                    .parameters[1][1].fee
+            )
+                .div(10 ** 5)
+                .toNumber();
 
         if (processOrders.length > 0) await this.base.update();
 
@@ -141,23 +147,36 @@ class PercentUp {
                                 : 0);
                 }
             } else {
-                let quoteAssetAmount = {
+                let forQuoteFee =
+                        this.quote.symbol === "BTS"
+                            ? (isNaN(order.fee) ? orderFee : order.fee) +
+                              orderFee
+                            : 0,
+                    forBaseFee =
+                        this.base.symbol === "BTS"
+                            ? (isNaN(order.fee) ? orderFee : order.fee) +
+                              orderFee
+                            : 0,
+                    quoteAssetAmount = {
                         asset_id: this.quote.id,
-                        amount: Math.min(
-                            Number(accountBalances.quote),
-                            Number(order.quote)
-                        )
+                        amount:
+                            Math.min(
+                                Number(accountBalances.quote),
+                                Number(order.quote)
+                            ) - forQuoteFee
                     },
                     percentOnMarket = BigNumber(
                         this.base.options.market_fee_percent
                     ).div(100 * 100),
                     baseAssetAmount = {
                         asset_id: this.base.id,
-                        amount: BigNumber(order.base).times(
-                            1 +
-                                Number(state.spread) / 100 +
-                                percentOnMarket.toNumber()
-                        )
+                        amount: BigNumber(order.base)
+                            .times(
+                                1 +
+                                    Number(state.spread) / 100 +
+                                    percentOnMarket.toNumber()
+                            )
+                            .plus(forBaseFee)
                     };
 
                 log(
@@ -188,40 +207,67 @@ class PercentUp {
             if (!lowPrice || price.isLessThan(lowPrice)) lowPrice = price;
         });
 
-        let ticker = await Apis.db.get_ticker(
-                this.quote.symbol,
-                this.base.symbol
-            ),
-            price = BigNumber(ticker.lowest_ask);
+        let orderBook = await Apis.db.get_order_book(
+            this.quote.symbol,
+            this.base.symbol,
+            50
+        );
+
+        let quoteAmount = BigNumber(0),
+            baseAmount = BigNumber(0);
+        for (let i = 0; i < orderBook.asks.length; i++) {
+            let ask = orderBook.asks[i];
+
+            let quote = BigNumber(ask.base);
+            let base = BigNumber(ask.quote);
+            let diffBase = BigNumber(amount).minus(baseAmount);
+
+            if (base.isEqualTo(diffBase)) {
+                quoteAmount = quoteAmount.plus(quote);
+                baseAmount = baseAmount.plus(base);
+                break;
+            } else if (base.isLessThan(diffBase)) {
+                quoteAmount = quoteAmount.plus(quote);
+                baseAmount = baseAmount.plus(base);
+            } else if (base.isGreaterThan(diffBase)) {
+                baseAmount = baseAmount.plus(diffBase);
+                quoteAmount = quoteAmount.plus(
+                    BigNumber(ask.price).times(diffBase)
+                );
+                break;
+            }
+        }
+
+        let price = quoteAmount.div(baseAmount),
+            isGreaterDistance =
+                !!lowPrice &&
+                lowPrice
+                    .minus(price)
+                    .abs()
+                    .div(lowPrice)
+                    .times(100)
+                    .isGreaterThan(state.distance);
 
         log(
             `Orders exists: ${!!lowPrice}, balance > amount: ${balance >
-                amount}, lowPrice - price > distance: ${!!lowPrice &&
-                lowPrice
-                    .times(1 - Number(state.distance) / 100)
-                    .isGreaterThan(price)}`
+                amount}, lowPrice - price > distance: ${isGreaterDistance}`
         );
-        if (
-            balance > amount &&
-            (!lowPrice ||
-                lowPrice
-                    .times(1 - Number(state.distance) / 100)
-                    .isGreaterThan(price))
-        ) {
+        if (balance > amount && (!lowPrice || isGreaterDistance)) {
             let baseAssetAmount = {
                     asset_id: this.base.id,
                     amount
                 },
                 quoteAssetAmount = {
                     asset_id: this.quote.id,
-                    amount: price.times(amount)
+                    amount: quoteAmount
                 },
                 obj = await this.account.buy(quoteAssetAmount, baseAssetAmount),
                 order = {
                     state: "sell",
                     base: amount,
                     quote: quoteAssetAmount.amount.toNumber(),
-                    id: obj ? obj.id : "1.7.0"
+                    id: obj ? obj.id : "1.7.0",
+                    fee: orderFee
                 };
 
             state.orders.push(order);
