@@ -11,7 +11,7 @@ class Create extends React.Component {
         name: "",
         base: "CNY",
         quote: "BTS",
-        amount: 1,
+        amount: 100,
         percentAmount: false,
         balance: "",
         spread: 1,
