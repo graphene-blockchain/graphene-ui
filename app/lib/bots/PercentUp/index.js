@@ -201,12 +201,6 @@ class PercentUp {
 
         await Promise.all(promises);
 
-        let lowPrice = null;
-        state.orders.forEach(order => {
-            let price = BigNumber(order.quote).div(order.base);
-            if (!lowPrice || price.isLessThan(lowPrice)) lowPrice = price;
-        });
-
         let orderBook = await Apis.db.get_order_book(
             this.quote.symbol,
             this.base.symbol,
@@ -239,14 +233,28 @@ class PercentUp {
         }
 
         let price = quoteAmount.div(baseAmount),
-            isGreaterDistance =
-                !!lowPrice &&
-                lowPrice
+            lowPrice = null;
+
+        state.orders.forEach(order => {
+            let orderPrice = BigNumber(order.quote).div(order.base);
+            if (
+                !lowPrice ||
+                orderPrice
                     .minus(price)
                     .abs()
-                    .div(lowPrice)
-                    .times(100)
-                    .isGreaterThan(state.distance);
+                    .isLessThan(lowPrice.minus(price).abs())
+            )
+                lowPrice = orderPrice;
+        });
+
+        let isGreaterDistance =
+            !!lowPrice &&
+            lowPrice
+                .minus(price)
+                .abs()
+                .div(lowPrice)
+                .times(100)
+                .isGreaterThan(state.distance);
 
         log(
             `Orders exists: ${!!lowPrice}, balance > amount: ${balance >
