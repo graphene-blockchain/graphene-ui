@@ -22,6 +22,7 @@ import Immutable from "immutable";
 
 const alignRight = {textAlign: "right"};
 const alignLeft = {textAlign: "left"};
+
 /**
  *  Given a collateral position object (call order) and account,
  *  display it in a pretty way
@@ -193,14 +194,38 @@ class MarginPosition extends React.Component {
         }
     }
 
+    _getTargetCollateralRatio() {
+        const co = this.props.object && this.props.object.toJS();
+
+        return co && !isNaN(co.target_collateral_ratio)
+            ? co.target_collateral_ratio / 1000
+            : 0;
+    }
+
     render() {
         let {debtAsset, collateralAsset, object} = this.props;
-        const co = object.toJS();
+
+        let has_order = object != null;
+
+        let co = has_order ? object.toJS() : null;
         const cr = this._getCollateralRatio();
         const d = utils.get_asset_amount(co.debt, this.props.debtAsset);
         const balance = this._getBalance();
 
         const statusClass = this._getStatusClass();
+
+        const debt_amount = has_order ? co.debt : 0;
+        const collateral_amount = has_order ? co.collateral : 0;
+        const collateral_asset = has_order
+            ? co.call_price.base.asset_id
+            : collateralAsset.get("id");
+        const target_collateral_ratio = this._getTargetCollateralRatio();
+
+        let mcr = this.props.debtAsset.getIn([
+            "bitasset",
+            "current_feed",
+            "maintenance_collateral_ratio"
+        ]);
 
         return (
             <tr className="margin-row">
@@ -214,6 +239,7 @@ class MarginPosition extends React.Component {
                         <AssetName noTip name={debtAsset.get("symbol")} />
                     </Link>
                 </td>
+
                 <td style={alignRight}>
                     <FormattedAsset
                         amount={balance}
@@ -221,84 +247,109 @@ class MarginPosition extends React.Component {
                         hide_asset
                     />
                 </td>
+
                 <td style={alignRight}>
-                    <FormattedAsset
-                        amount={co.debt}
-                        asset={co.call_price.quote.asset_id}
-                        hide_asset
-                    />
+                    {has_order ? (
+                        <FormattedAsset
+                            amount={co.debt}
+                            asset={co.call_price.quote.asset_id}
+                            hide_asset
+                        />
+                    ) : null}
                 </td>
+
                 <td style={alignRight} className="column-hide-medium">
                     <FormattedAsset
-                        decimalOffset={5}
-                        amount={co.collateral}
-                        asset={co.call_price.base.asset_id}
+                        decimalOffset={3}
+                        amount={collateral_amount}
+                        asset={collateral_asset}
                     />
                 </td>
-                <td
-                    data-place="bottom"
-                    data-tip={this._getCRTip()}
-                    className={"center-content " + statusClass}
-                >
-                    {utils.format_number(cr, 2)}
+
+                <td>
+                    <div
+                        data-place="bottom"
+                        data-tip={this._getCRTip()}
+                        className={"center-content " + statusClass}
+                    >
+                        {utils.format_number(cr, 2)}
+                    </div>
                 </td>
-                <td style={alignRight}>
-                    <TotalBalanceValue
-                        noTip
-                        balances={List()}
-                        debt={{[debtAsset.get("id")]: co.debt}}
-                        collateral={{
-                            [collateralAsset.get("id")]: parseInt(
-                                co.collateral,
-                                10
-                            )
-                        }}
-                        hide_asset
-                    />
+
+                <td style={alignRight} className="column-hide-medium-2">
+                    {target_collateral_ratio
+                        ? utils.format_number(target_collateral_ratio, 2)
+                        : null}
                 </td>
-                <td style={alignRight} className={"column-hide-small"}>
-                    <FormattedPrice
-                        base_amount={co.call_price.base.amount}
-                        base_asset={co.call_price.base.asset_id}
-                        quote_amount={co.call_price.quote.amount}
-                        quote_asset={co.call_price.quote.asset_id}
-                        hide_symbols
-                    />
+
+                <td style={alignRight} className="column-hide-medium-1">
+                    {has_order ? (
+                        <TotalBalanceValue
+                            noTip
+                            balances={List()}
+                            debt={{[debtAsset.get("id")]: co.debt}}
+                            collateral={{
+                                [collateralAsset.get("id")]: parseInt(
+                                    co.collateral,
+                                    10
+                                )
+                            }}
+                            hide_asset
+                        />
+                    ) : null}
                 </td>
-                <td style={alignRight} className={"column-hide-small"}>
-                    <FormattedPrice
-                        base_amount={debtAsset.getIn([
-                            "bitasset",
-                            "current_feed",
-                            "settlement_price",
-                            "base",
-                            "amount"
-                        ])}
-                        base_asset={co.call_price.quote.asset_id}
-                        quote_amount={debtAsset.getIn([
-                            "bitasset",
-                            "current_feed",
-                            "settlement_price",
-                            "quote",
-                            "amount"
-                        ])}
-                        quote_asset={co.call_price.base.asset_id}
-                        hide_symbols
-                    />
+
+                <td style={alignRight} className="column-hide-small-2">
+                    {has_order ? (
+                        <FormattedPrice
+                            base_amount={collateral_amount}
+                            base_asset={collateralAsset.get("id")}
+                            quote_amount={debt_amount * (mcr / 1000)}
+                            quote_asset={debtAsset.get("id")}
+                            hide_symbols
+                        />
+                    ) : null}
                 </td>
+
+                <td style={alignRight} className="column-hide-small-1">
+                    {has_order ? (
+                        <FormattedPrice
+                            base_amount={debtAsset.getIn([
+                                "bitasset",
+                                "current_feed",
+                                "settlement_price",
+                                "base",
+                                "amount"
+                            ])}
+                            base_asset={co.call_price.quote.asset_id}
+                            quote_amount={debtAsset.getIn([
+                                "bitasset",
+                                "current_feed",
+                                "settlement_price",
+                                "quote",
+                                "amount"
+                            ])}
+                            quote_asset={co.call_price.base.asset_id}
+                            hide_symbols
+                        />
+                    ) : null}
+                </td>
+
                 <td
                     className={"center-content column-hide-small"}
                     style={alignLeft}
                 >
-                    <FormattedPrice
-                        base_amount={co.call_price.base.amount}
-                        base_asset={co.call_price.base.asset_id}
-                        quote_amount={co.call_price.quote.amount}
-                        quote_asset={co.call_price.quote.asset_id}
-                        hide_value
-                    />
+                    {has_order ? (
+                        <FormattedPrice
+                            base_amount={co.call_price.base.amount}
+                            base_asset={co.call_price.base.asset_id}
+                            quote_amount={co.call_price.quote.amount}
+                            quote_asset={co.call_price.quote.asset_id}
+                            hide_value
+                        />
+                    ) : null}
                 </td>
-                {/* <td><AssetName name={debtAsset.get("symbol")} />/<AssetName name={collateralAsset.get("symbol")} /></td> */}
+
                 <td style={{textAlign: "center"}}>
                     <Link
                         to={`/market/${debtAsset.get(
@@ -313,6 +364,7 @@ class MarginPosition extends React.Component {
                         />
                     </Link>
                 </td>
+
                 <td>
                     <div
                         data-place="left"
@@ -330,23 +382,26 @@ class MarginPosition extends React.Component {
                         </a>
                     </div>
                 </td>
+
                 <td>
-                    <div
-                        data-place="left"
-                        data-tip={counterpart.translate(
-                            "tooltip.close_position",
-                            {amount: d, asset: debtAsset.get("symbol")}
-                        )}
-                        style={{paddingBottom: 5}}
-                    >
-                        <a onClick={this._onClosePosition.bind(this)}>
-                            <Icon
-                                name="cross-circle"
-                                title="icons.cross_circle.close_position"
-                                className="icon-14px"
-                            />
-                        </a>
-                    </div>
+                    {has_order ? (
+                        <div
+                            data-place="left"
+                            data-tip={counterpart.translate(
+                                "tooltip.close_position",
+                                {amount: d, asset: debtAsset.get("symbol")}
+                            )}
+                            style={{paddingBottom: 5}}
+                        >
+                            <a onClick={this._onClosePosition.bind(this)}>
+                                <Icon
+                                    name="cross-circle"
+                                    title="icons.cross_circle.close_position"
+                                    className="icon-14px"
+                                />
+                            </a>
+                        </div>
+                    ) : null}
                     {debtAsset ? (
                         <BorrowModal
                             ref={"cp_modal_" + co.call_price.quote.asset_id}
@@ -365,6 +420,7 @@ class MarginPosition extends React.Component {
         );
     }
 }
+
 MarginPosition = BindToChainState(MarginPosition);
 
 class MarginPositionWrapper extends React.Component {
@@ -490,13 +546,14 @@ class MarginPositionPlaceHolder extends React.Component {
                 </td>
                 <td style={alignRight} className="column-hide-medium">
                     <FormattedAsset
-                        decimalOffset={5}
+                        decimalOffset={3}
                         amount={0}
                         asset={collateralAsset.get("id")}
                     />
                 </td>
                 <td />
                 <td style={alignRight} />
+                <td style={alignRight} className={"column-hide-small"} />
                 <td style={alignRight} className={"column-hide-small"} />
                 <td style={alignRight} className={"column-hide-small"} />
                 <td
@@ -662,6 +719,18 @@ const CollateralTable = ({
                         </div>
                     </th>
                     <th>
+                        <div
+                            className="tooltip inline-block"
+                            data-place="top"
+                            data-tip={counterpart.translate(
+                                "borrow.target_collateral_ratio"
+                            )}
+                        >
+                            <Translate content="borrow.target_collateral_ratio_short" />
+                        </div>
+                    </th>
+
+                    <th>
                         <TranslateWithLinks
                             noLink
                             string="account.total"
@@ -691,6 +760,7 @@ const CollateralTable = ({
                     <th className="column-hide-small" style={alignLeft}>
                         <Translate content="explorer.assets.units" />
                     </th>
+
                     <th style={{textAlign: "center"}}>
                         <Translate content="exchange.market" />
                     </th>

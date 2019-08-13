@@ -410,6 +410,7 @@
         "no_valid": "Для %(asset_symbol)s нет действующих котировок",
         "pay_max_debt": "Выплатить максимальный долг",
         "target_collateral_ratio": "Планируемый коэффициент обеспечения",
+        "target_collateral_ratio_short": "TCR",
         "title": "%(asset_symbol)s маржа",
         "update": "Обновить",
         "use_max": "Использовать максимум"

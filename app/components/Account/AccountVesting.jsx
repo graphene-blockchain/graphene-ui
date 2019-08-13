@@ -38,7 +38,9 @@ class VestingBalance extends React.Component {
             earned = vb.policy[1].coin_seconds_earned;
             vestingPeriod = vb.policy[1].vesting_seconds;
             availablePercent =
-                vestingPeriod === 0 ? 1 : earned / (vestingPeriod * balance);
+                vestingPeriod === 0 || vb.balance_type == "market_fee_sharing"
+                    ? 1
+                    : earned / (vestingPeriod * balance);
         }
 
         if (!cvbAsset) {
@@ -82,7 +84,8 @@ class VestingBalance extends React.Component {
                                     ),
                                     0
                                 )}
-                                &nbsp;<Translate content="account.member.coindays" />
+                                &nbsp;
+                                <Translate content="account.member.coindays" />
                             </td>
                         </tr>
                         <tr>
@@ -98,7 +101,8 @@ class VestingBalance extends React.Component {
                                     ),
                                     0
                                 )}
-                                &nbsp;<Translate content="account.member.coindays" />
+                                &nbsp;
+                                <Translate content="account.member.coindays" />
                             </td>
                         </tr>
                         <tr>
@@ -119,8 +123,8 @@ class VestingBalance extends React.Component {
                                 <Translate content="account.member.available" />
                             </td>
                             <td>
-                                {utils.format_number(availablePercent * 100, 2)}%
-                                /{" "}
+                                {utils.format_number(availablePercent * 100, 2)}
+                                % /{" "}
                                 <FormattedAsset
                                     amount={
                                         availablePercent * vb.balance.amount

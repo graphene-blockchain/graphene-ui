@@ -15,8 +15,8 @@ class WalletActions {
     }
 
     /** Make an existing wallet active or create a wallet (and make it active).
-        If <b>wallet_name</b> does not exist, provide a <b>create_wallet_password</b>.
-    */
+     If <b>wallet_name</b> does not exist, provide a <b>create_wallet_password</b>.
+     */
     setWallet(wallet_name, create_wallet_password, brnkey) {
         WalletUnlockActions.lock();
         if (!wallet_name) wallet_name = "default";
@@ -286,7 +286,8 @@ class WalletActions {
             earned = cvb.policy[1].coin_seconds_earned,
             vestingPeriod = cvb.policy[1].vesting_seconds,
             availablePercent =
-                (forceAll || vestingPeriod) === 0
+                (forceAll || vestingPeriod) === 0 ||
+                cvb.balance_type == "market_fee_sharing"
                     ? 1
                     : earned / (vestingPeriod * balance);
 
@@ -308,8 +309,8 @@ class WalletActions {
     }
 
     /** @parm balances is an array of balance objects with two
-        additional values: {vested_balance, public_key_string}
-    */
+     additional values: {vested_balance, public_key_string}
+     */
     importBalance(account_name_or_id, balances, broadcast) {
         return dispatch => {
             return new Promise((resolve, reject) => {
