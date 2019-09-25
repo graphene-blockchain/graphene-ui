@@ -878,6 +878,8 @@
             "min_amount_error": "Please enter number >= minimum",
             "openledger_notice1": "Please see the official stance of OpenLedger on usage of their gateways:",
             "openledger_notice1_informed": "I have read and am informed about OpenLedgers position.",
+            "rudex_notice1": "Please see the Service Agreement of RuDEX for usage of their gateways",
+            "rudex_notice1_informed": "I have read and agree with RuDEX Service Agreement.",
             "support_block": "For support, please contact RuDEX at:",
             "under_construction": "Under Construction",
             "confirmations": {

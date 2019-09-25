@@ -133,7 +133,7 @@ class Dashboard extends React.Component {
                 // HACK: Show all defined markets
                 validMarkets++;
                 let className = "";
-                if (validMarkets > 15) {
+                if (validMarkets > 18) {
                     className += ` show-for-${
                         !accountCount ? "xlarge" : "large"
                     }`;

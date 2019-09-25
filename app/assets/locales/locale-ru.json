@@ -873,6 +873,8 @@
             "min_amount_error": "Пожалуйста введите число >= минимума",
             "openledger_notice1": "Ознакомьтесь с официальной позицией OpenLedger по использованию их шлюзов:",
             "openledger_notice1_informed": "Я ознакомился с позицией OpenLedger.",
+            "rudex_notice1": "Ознакомьтесь с соглашением от RuDEX по использованию шлюзов",
+            "rudex_notice1_informed": "Я ознакомился с соглашением об оказании услуг шлюза RuDEX",
             "support_block": "Для получения поддержки, пожалуйста, свяжитесь с RuDEX по адресу:",
             "under_construction": "Технические работы",
             "confirmations": {
