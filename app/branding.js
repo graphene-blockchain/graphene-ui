@@ -165,14 +165,14 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.BTC", "RUDEX.ETH"],
         ["RUDEX.BTC", "RUDEX.STEEM"],
 
+        ["BTS", "CNY"],
         ["BTS", "USD"],
         ["BTS", "EUR"],
-        ["BTS", "CNY"],
         ["BTS", "RUBLE"],
         //["BTS", "GOLD"],
 
-        ["BTS", "RUDEX.EOS"],
         ["BTS", "RUDEX.BTC"],
+        ["BTS", "RUDEX.EOS"],
         ["BTS", "PPY"],
         ["BTS", "RUDEX.ETH"],
 

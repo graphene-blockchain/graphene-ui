@@ -173,7 +173,12 @@ class ProposalApproveModal extends React.Component {
             <form className="grid-block vertical full-width-content">
                 <div className="grid-container">
                     <div className="content-block">
-                        <h4>{isAdd ? "Add approval" : "Remove approval"}</h4>
+                        <Translate
+                            content={`modal.proposals.actions.${
+                                this.props.action
+                            }`}
+                            component="h4"
+                        />
                     </div>
                     <div
                         className="content-block"

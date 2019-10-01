@@ -216,7 +216,7 @@ class AccountDepositWithdraw extends React.Component {
 
                     {rudexService === "gateway" && rudexGatewayCoins.length ? (
                         <div>
-                            <p>
+                            <div>
                                 <Translate
                                     href={
                                         this.props.currentLocale == "ru"
@@ -227,9 +227,7 @@ class AccountDepositWithdraw extends React.Component {
                                     component="a"
                                     target="_blank"
                                 />
-                            </p>
 
-                            <p>
                                 <h5>
                                     <input
                                         type="checkbox"
@@ -243,7 +241,7 @@ class AccountDepositWithdraw extends React.Component {
                                     -{" "}
                                     <Translate content="gateway.rudex.rudex_notice1_informed" />
                                 </h5>
-                            </p>
+                            </div>
 
                             <hr />
                             {RudexNotice1Informed ? (
@@ -309,14 +307,14 @@ class AccountDepositWithdraw extends React.Component {
                     {olService === "gateway" &&
                     openLedgerGatewayCoins.length ? (
                         <div>
-                            <p>
+                            <div>
                                 <Translate
                                     style={{
                                         color: "darkred",
                                         marginBottom: "1em",
                                         display: "block"
                                     }}
-                                    component="h6"
+                                    component="h5"
                                     content="gateway.rudex.openledger_notice1"
                                 />
                                 <a
@@ -325,10 +323,8 @@ class AccountDepositWithdraw extends React.Component {
                                 >
                                     https://blog.openledger.info/2017/12/18/openledger-official-web-sites-get-updates-by-the-first
                                 </a>
-                            </p>
 
-                            <p>
-                                <h6>
+                                <h5>
                                     <input
                                         type="checkbox"
                                         defaultChecked={
@@ -340,8 +336,8 @@ class AccountDepositWithdraw extends React.Component {
                                     />{" "}
                                     -{" "}
                                     <Translate content="gateway.rudex.openledger_notice1_informed" />
-                                </h6>
-                            </p>
+                                </h5>
+                            </div>
 
                             <hr />
                             {olNotice1Informed ? (

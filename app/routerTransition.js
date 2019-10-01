@@ -1,5 +1,6 @@
 import {Apis, Manager} from "bitsharesjs-ws";
 import {ChainStore} from "bitsharesjs";
+import hirestime from "hirestime";
 
 // Stores
 import iDB from "idb-instance";

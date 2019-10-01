@@ -105,7 +105,7 @@ class InitError extends React.Component {
                 <div className="grid-container">
                     <div className="grid-content no-overflow">
                         <br />
-                        <Translate component="h3" content={`app_init.title`} />
+                        <Translate component="h3" content={"app_init.title"} />
 
                         <Form layout="vertical">
                             <Form.Item
@@ -142,13 +142,13 @@ class InitError extends React.Component {
                                 {this.props.rpc_connection_status === "open" ? (
                                     <span className="txtlabel success">
                                         <Translate
-                                            content={`app_init.connected`}
+                                            content={"app_init.connected"}
                                         />
                                     </span>
                                 ) : (
                                     <span className="txtlabel warning">
                                         <Translate
-                                            content={`app_init.not_connected`}
+                                            content={"app_init.not_connected"}
                                         />
                                     </span>
                                 )}
@@ -158,13 +158,13 @@ class InitError extends React.Component {
                                 type={"primary"}
                                 onClick={this.onReloadClick}
                             >
-                                {counterpart.translate(`app_init.retry`)}
+                                {counterpart.translate("app_init.retry")}
                             </Button>
                             <Button
                                 style={{marginLeft: "16px"}}
                                 onClick={this.onReset.bind(this)}
                             >
-                                {counterpart.translate(`settings.reset`)}
+                                {counterpart.translate("settings.reset")}
                             </Button>
                         </Form>
 

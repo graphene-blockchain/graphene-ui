@@ -31,6 +31,7 @@ class Settings extends React.Component {
             "unit",
             "browser_notifications",
             "showSettles",
+            "showProposedTx",
             "walletLockTimeout",
             "themes",
             "showAssetPercent"
@@ -245,6 +246,7 @@ class Settings extends React.Component {
                 break;
 
             case "showSettles":
+            case "showProposedTx":
             case "showAssetPercent":
             case "passwordLogin":
                 let reference = defaults[setting][0];
