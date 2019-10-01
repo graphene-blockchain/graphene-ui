@@ -136,6 +136,7 @@ class SettingsStore {
             faucet_address: settingsAPIs.DEFAULT_FAUCET,
             unit: "RUBLE",
             showSettles: false,
+            showProposedTx: false,
             showAssetPercent: false,
             walletLockTimeout: 60 * 10,
             themes: getDefaultTheme(),
@@ -171,6 +172,7 @@ class SettingsStore {
             apiServer: settingsAPIs.WS_NODE_LIST.slice(0), // clone all default servers as configured in apiConfig.js
             unit: getUnits(this._getChainId()),
             showSettles: [{translate: "yes"}, {translate: "no"}],
+            showProposedTx: [{translate: "yes"}, {translate: "no"}],
             showAssetPercent: [{translate: "yes"}, {translate: "no"}],
             themes: [
                 "darkTheme",
@@ -469,9 +471,9 @@ class SettingsStore {
             };
             let coreAsset = coreAssets[this.starredKey] || "BTS";
             /*
-            * Update units depending on the chain, also make sure the 0 index
-            * asset is always the correct CORE asset name
-            */
+             * Update units depending on the chain, also make sure the 0 index
+             * asset is always the correct CORE asset name
+             */
             this.onUpdateUnits();
             this.defaults.unit[0] = coreAsset;
 

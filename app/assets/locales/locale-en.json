@@ -20,6 +20,7 @@
         "contacts": "Contacts",
         "create_account": "Create account",
         "create_new": "Create A New Account",
+        "deactivate_suspicious_proposals": "Hide approve for suspicious proposals",
         "deposit": "Deposit BTS",
         "deposit_address": "Your deposit address is your account name",
         "deposit_withdraw": "Deposit/Withdraw",
@@ -415,6 +416,7 @@
         "no_valid": "No valid feeds for %(asset_symbol)s",
         "pay_max_debt": "Pay Max Debt",
         "target_collateral_ratio": "Target Collateral Ratio",
+        "target_collateral_ratio_short": "TCR",
         "title": "%(asset_symbol)s Margin",
         "update": "Update",
         "use_max": "Use Max"
@@ -877,6 +879,8 @@
             "min_amount_error": "Please enter number >= minimum",
             "openledger_notice1": "Please see the official stance of OpenLedger on usage of their gateways:",
             "openledger_notice1_informed": "I have read and am informed about OpenLedgers position.",
+            "rudex_notice1": "Please see the Service Agreement of RuDEX for usage of their gateways",
+            "rudex_notice1_informed": "I have read and agree with RuDEX Service Agreement.",
             "support_block": "For support, please contact RuDEX at:",
             "under_construction": "Under Construction",
             "confirmations": {
@@ -1161,11 +1165,16 @@
         },
         "ok": "OK",
         "proposals": {
-            "approval_add": "Approval to add",
-            "approval_remove": "Approval to remove",
-            "key_approval_add": "Key approval to add",
-            "key_approval_remove": "Key approval to remove",
-            "pay_with": "Pay with account"
+            "actions": {
+                "approve": "Утвердить предложение",
+                "delete": "Отклонить предложение навсегда",
+                "reject": "Отклонить предложение"
+            },
+            "approval_add": "Утверждение к добавлению",
+            "approval_remove": "Утверждение к удалению",
+            "key_approval_add": "Подтверждение ключей к добавлению",
+            "key_approval_remove": "Подтверждение ключей к удалению",
+            "pay_with": "Оплатить с аккаунта"
         },
         "qrcode": {
             "input_message": "Please enter a password used to encrypt the QR code.<br />An empty password will show an unencrypted QR code.",
@@ -1287,6 +1296,8 @@
     },
     "proposal": {
         "action": "Actions",
+        "add": "Add",
+        "add_vote": "Add vote for",
         "approve": "Approve",
         "approvers": "Approver(s)",
         "asset_create": "Create the asset %(asset)s using the account {account}",
@@ -1295,15 +1306,24 @@
         "asset_settle": "Request a settlement of {amount} for {account}",
         "asset_update": "Update the asset {asset} using the account {account}",
         "call_order_update": "Change {account} {debtSymbol} debt by {debt} and collateral by {collateral}",
+        "changes_to_active": "Changes to active",
+        "changes_to_memo": "Changes to memo",
+        "changes_to_owner": "Changes to owner",
         "committee_member_update_global_parameters": "Update committee global parameters by {account}",
+        "danger_operation": "Dangerous operation",
+        "delete": "Permanently reject",
         "expires": "Expires",
         "feed_producer": "Update the feed producers for the asset {asset} using the account {account}",
         "limit_order_buy": "Place an order to buy {amount} at {price} for {account}",
         "limit_order_create": "Place an order to buy %(buy_amount)s for %(sell_amount)s for %(account)s",
         "limit_order_sell": "Place an order to sell {amount} at {price} for {account}",
         "override_transfer": "Transfer {amount} from {from} to {to} by authority of {issuer}",
+        "permission_changes": "Permission changes",
         "proposals": "Proposals",
         "reject": "Reject",
+        "remove": "Remove",
+        "remove_vote": "Remove vote for",
+        "set_threshold": "Set threshold to %(threshold)s",
         "status": "Status",
         "transfer": "Transfer {amount} from {from} to {to}",
         "update": {
@@ -1314,8 +1334,17 @@
             "owner_approvals_to_add": "Owner approvals to add",
             "owner_approvals_to_remove": "Owner approvals to remove"
         },
-        "update_account": "Update account data for {account}",
-        "vesting_balance_withdraw": "Withdraw {amount} from vesting balance of {account}"
+        "update_account": "Update account data for {account} {change}",
+        "updated": {
+            "active_approvals_to_add": "Active approval(s) added",
+            "active_approvals_to_remove": "Active approval(s) removed",
+            "key_approvals_to_add": "Key approval(s) added",
+            "key_approvals_to_remove": "Key approval(s) removed",
+            "owner_approvals_to_add": "Owner approval(s) added",
+            "owner_approvals_to_remove": "Owner approval(s) removed"
+        },
+        "vesting_balance_withdraw": "Withdraw {amount} from vesting balance of {account}",
+        "votes": "Votes"
     },
     "proposal_create": {
         "expiration_time": "Expiration time",
@@ -1338,6 +1367,7 @@
         "refcode_optional": "Referral Code (optional)"
     },
     "settings": {
+        "showProposedTx": "Show proposed transactions in dashboard",
         "access": "Nodes",
         "access_text": "",
         "accounts": "Accounts",
@@ -1475,6 +1505,8 @@
         "over_limit": "The bridge does not have enough of the desired asset for this buy order",
         "propose_scam": "This proposal was created by a known scammer, do not approve it!",
         "propose_tip": "Propose another user to initiate a transaction",
+        "propose_unhide": "Do not uncheck this unless you know what you are doing",
+        "propose_unknown": "This proposal was created by or targets an unknown account (not in contacts or whitelist). Beware of scam attempts and carefully check the contained operations.",
         "proxy_remove": "You have a proxy set, to remove it simply clear this input field",
         "proxy_search": "Search for an account to be used as your proxy for voting",
         "settle": "Settling will let you convert your holdings of %(asset)s to %(backingAsset)s after a delay of %(settleDelay)s hours, at a price equal to the feed price at that time.",

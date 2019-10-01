@@ -160,25 +160,39 @@ export function getMyMarketsQuotes() {
  */
 export function getFeaturedMarkets(quotes = []) {
     return [
+        ["RUDEX.BTC", "RUDEX.EOS"],
+        ["RUDEX.BTC", "BTS"],
+        ["RUDEX.BTC", "RUDEX.ETH"],
+        ["RUDEX.BTC", "RUDEX.STEEM"],
+
+        ["BTS", "CNY"],
+        ["BTS", "USD"],
+        ["BTS", "EUR"],
         ["BTS", "RUBLE"],
+        //["BTS", "GOLD"],
+
+        ["BTS", "RUDEX.BTC"],
+        ["BTS", "RUDEX.EOS"],
         ["BTS", "PPY"],
         ["BTS", "RUDEX.ETH"],
-        ["BTS", "RUDEX.BTC"],
+
+        ["BTS", "RUDEX.GOLOS"],
+        ["RUDEX.BTC", "RUDEX.GOLOS"],
+        ["BTS", "RUDEX.GBG"],
+        ["RUDEX.BTC", "RUDEX.GBG"],
+
         ["RUBLE", "RUDEX.GOLOS"],
         ["RUBLE", "RUDEX.GBG"],
         ["BTS", "RUDEX.STEEM"],
         ["BTS", "RUDEX.SBD"],
+
         ["BTS", "RUDEX.KRM"],
-        ["BTS", "RUDEX.EOS"],
         ["BTS", "RUDEX.GRC"],
         ["BTS", "RUDEX.SMOKE"],
-        ["BTS", "RUDEX.WLS"],
-        ["BTS", "USD"],
-        ["BTS", "EUR"],
-        ["BTS", "CNY"],
-        ["BTS", "GOLD"],
-        ["BTS", "SILVER"],
-        ["BTS", "HERTZ"]
+        ["BTS", "RUDEX.WLS"]
+
+        //["BTS", "SILVER"],
+        //["BTS", "HERTZ"]
     ].filter(a => {
         if (!quotes.length) return true;
         return quotes.indexOf(a[0]) !== -1;

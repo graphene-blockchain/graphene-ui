@@ -19,6 +19,9 @@ import BalanceWrapper from "./BalanceWrapper";
 import AccountTreemap from "./AccountTreemap";
 import AssetWrapper from "../Utility/AssetWrapper";
 import AccountPortfolioList from "./AccountPortfolioList";
+import {Switch} from "bitshares-ui-style-guide";
+import counterpart from "counterpart";
+import {Tooltip} from "antd";
 
 class AccountOverview extends React.Component {
     constructor(props) {
@@ -40,7 +43,8 @@ class AccountOverview extends React.Component {
                 // "OPEN.MAID",
                 // "OPEN.STEEM",
                 // "OPEN.DASH"
-            ]
+            ],
+            hideFishingProposals: true
         };
 
         this._handleFilterInput = this._handleFilterInput.bind(this);
@@ -91,6 +95,12 @@ class AccountOverview extends React.Component {
         });
         SettingsActions.changeViewSetting({
             shownAssets
+        });
+    }
+
+    _toggleHideProposal() {
+        this.setState({
+            hideFishingProposals: !this.state.hideFishingProposals
         });
     }
 
@@ -628,7 +638,8 @@ class AccountOverview extends React.Component {
                             </Tab>
 
                             {account.get("proposals") &&
-                            account.get("proposals").size ? (
+                            account.get("proposals").size &&
+                            this.props.settings.get("showProposedTx") ? (
                                 <Tab
                                     title="explorer.proposals.title"
                                     subText={String(
@@ -637,9 +648,37 @@ class AccountOverview extends React.Component {
                                             : 0
                                     )}
                                 >
+                                    <div
+                                        onClick={this._toggleHideProposal.bind(
+                                            this
+                                        )}
+                                        style={{cursor: "pointer"}}
+                                    >
+                                        <Tooltip
+                                            title={counterpart.translate(
+                                                "tooltip.propose_unhide"
+                                            )}
+                                            placement="bottom"
+                                        >
+                                            <Switch
+                                                style={{margin: 16}}
+                                                checked={
+                                                    this.state
+                                                        .hideFishingProposals
+                                                }
+                                                onChange={this._toggleHideProposal.bind(
+                                                    this
+                                                )}
+                                            />
+                                            <Translate content="account.deactivate_suspicious_proposals" />
+                                        </Tooltip>
+                                    </div>
                                     <Proposals
                                         className="dashboard-table"
-                                        account={account.get("id")}
+                                        account={account}
+                                        hideFishingProposals={
+                                            this.state.hideFishingProposals
+                                        }
                                     />
                                 </Tab>
                             ) : null}

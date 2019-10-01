@@ -116,31 +116,43 @@ class Asset extends React.Component {
                 sqr = 1000;
             }
 
-            try {
-                const feedPrice = new FeedPrice({
-                    priceObject: settlePrice,
-                    market_base: this.props.asset.get("id"),
-                    sqr,
-                    assets
-                });
+            const feedPrice = new FeedPrice({
+                priceObject: settlePrice,
+                market_base: this.props.asset.get("id"),
+                sqr,
+                assets
+            });
 
-                Apis.instance()
-                    .db_api()
-                    .exec("get_call_orders", [this.props.asset.get("id"), 300])
-                    .then(call_orders => {
-                        let callOrders = call_orders.map(c => {
-                            return new CallOrder(
-                                c,
-                                assets,
-                                this.props.asset.get("id"),
-                                feedPrice,
-                                isPredictionMarket
-                            );
+            if (!!feedPrice) {
+                try {
+                    let mcr = this.props.asset.getIn([
+                        "bitasset",
+                        "current_feed",
+                        "maintenance_collateral_ratio"
+                    ]);
+
+                    Apis.instance()
+                        .db_api()
+                        .exec("get_call_orders", [
+                            this.props.asset.get("id"),
+                            300
+                        ])
+                        .then(call_orders => {
+                            let callOrders = call_orders.map(c => {
+                                return new CallOrder(
+                                    c,
+                                    assets,
+                                    this.props.asset.get("id"),
+                                    feedPrice,
+                                    mcr,
+                                    isPredictionMarket
+                                );
+                            });
+                            this.setState({callOrders});
                         });
-                        this.setState({callOrders});
-                    });
-            } catch (e) {
-                // console.log(err);
+                } catch (e) {
+                    // console.log(err);
+                }
             }
         }
     }
@@ -357,7 +369,7 @@ class Asset extends React.Component {
                 <td>
                     <Translate content="explorer.asset.summary.market_fee" />
                 </td>
-                <td> {options.market_fee_percent / 100.0} % </td>
+                <td> {options.market_fee_percent / 100.0} %</td>
             </tr>
         ) : null;
 
@@ -507,7 +519,7 @@ class Asset extends React.Component {
                             <td>
                                 <Translate content="explorer.asset.price_feed.force_settlement_offset" />
                             </td>
-                            <td> {settlementOffset / 100}% </td>
+                            <td> {settlementOffset / 100}%</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1298,6 +1310,7 @@ class AssetContainer extends React.Component {
         return <Asset {...this.props} backingAsset={backingAsset} />;
     }
 }
+
 AssetContainer = AssetWrapper(AssetContainer, {
     withDynamic: true
 });

@@ -45,7 +45,8 @@ class AccountDepositWithdraw extends React.Component {
             citadelService: props.viewSettings.get("citadelService", "bridge"),
             metaService: props.viewSettings.get("metaService", "bridge"),
             activeService: props.viewSettings.get("activeService", 0),
-            olNotice1Informed: false
+            olNotice1Informed: false,
+            RudexNotice1Informed: false
         };
     }
 
@@ -71,7 +72,10 @@ class AccountDepositWithdraw extends React.Component {
             nextState.citadelService !== this.state.citadelService ||
             nextState.metaService !== this.state.metaService ||
             nextState.activeService !== this.state.activeService ||
-            nextState.olNotice1Informed !== this.state.olNotice1Informed
+            nextState.olNotice1Informed !== this.state.olNotice1Informed ||
+            nextState.RudexNotice1Informed !==
+                this.state.RudexNotice1Informed ||
+            nextProps.currentLocale !== this.props.currentLocale
         );
     }
 
@@ -115,6 +119,12 @@ class AccountDepositWithdraw extends React.Component {
         });
     }
 
+    onRudexNotice1Informed() {
+        this.setState({
+            RudexNotice1Informed: !this.state.RudexNotice1Informed
+        });
+    }
+
     toggleCitadelService(service) {
         this.setState({
             citadelService: service
@@ -154,8 +164,14 @@ class AccountDepositWithdraw extends React.Component {
             btService,
             rudexService,
             olNotice1Informed,
+            RudexNotice1Informed,
             citadelService
         } = this.state;
+
+        let agreement_ru =
+            "https://rudex.freshdesk.com/support/solutions/articles/35000138247-cоглашение-об-оказании-услуг-шлюза";
+        let agreement_en =
+            "https://rudex.freshdesk.com/support/solutions/articles/35000138245-gateway-service-agreement";
 
         serList.push({
             name: "RuDEX (RUDEX.X)",
@@ -199,15 +215,47 @@ class AccountDepositWithdraw extends React.Component {
                     </div>
 
                     {rudexService === "gateway" && rudexGatewayCoins.length ? (
-                        <RuDexGateway
-                            account={account}
-                            coins={rudexGatewayCoins}
-                        />
+                        <div>
+                            <div>
+                                <Translate
+                                    href={
+                                        this.props.currentLocale == "ru"
+                                            ? agreement_ru
+                                            : agreement_en
+                                    }
+                                    content="gateway.rudex.rudex_notice1"
+                                    component="a"
+                                    target="_blank"
+                                />
+
+                                <h5>
+                                    <input
+                                        type="checkbox"
+                                        defaultChecked={
+                                            this.state.RudexNotice1Informed
+                                        }
+                                        onChange={this.onRudexNotice1Informed.bind(
+                                            this
+                                        )}
+                                    />{" "}
+                                    -{" "}
+                                    <Translate content="gateway.rudex.rudex_notice1_informed" />
+                                </h5>
+                            </div>
+
+                            <hr />
+                            {RudexNotice1Informed ? (
+                                <RuDexGateway
+                                    account={account}
+                                    coins={rudexGatewayCoins}
+                                />
+                            ) : null}
+                        </div>
                     ) : null}
 
                     {rudexService === "fiat" ? (
                         <div>
-                            <RuDexFiatDepositWithdrawal account={account} />
+                            {/*<RuDexFiatDepositWithdrawal account={account} />*/}
                         </div>
                     ) : null}
                 </div>
@@ -259,7 +307,7 @@ class AccountDepositWithdraw extends React.Component {
                     {olService === "gateway" &&
                     openLedgerGatewayCoins.length ? (
                         <div>
-                            <p>
+                            <div>
                                 <Translate
                                     style={{
                                         color: "darkred",
@@ -275,9 +323,7 @@ class AccountDepositWithdraw extends React.Component {
                                 >
                                     https://blog.openledger.info/2017/12/18/openledger-official-web-sites-get-updates-by-the-first
                                 </a>
-                            </p>
 
-                            <p>
                                 <h5>
                                     <input
                                         type="checkbox"
@@ -291,7 +337,7 @@ class AccountDepositWithdraw extends React.Component {
                                     -{" "}
                                     <Translate content="gateway.rudex.openledger_notice1_informed" />
                                 </h5>
-                            </p>
+                            </div>
 
                             <hr />
                             {olNotice1Informed ? (
@@ -591,6 +637,7 @@ class AccountDepositWithdraw extends React.Component {
         );
     }
 }
+
 AccountDepositWithdraw = BindToChainState(AccountDepositWithdraw);
 
 class DepositStoreWrapper extends React.Component {
@@ -613,6 +660,7 @@ export default connect(
             return {
                 account: AccountStore.getState().currentAccount,
                 viewSettings: SettingsStore.getState().viewSettings,
+                currentLocale: SettingsStore.getState().settings.get("locale"),
                 openLedgerBackedCoins: GatewayStore.getState().backedCoins.get(
                     "OPEN",
                     []

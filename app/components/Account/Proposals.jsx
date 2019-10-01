@@ -16,6 +16,8 @@ import counterpart from "counterpart";
 import pu from "common/permission_utils";
 import LinkToAccountById from "../Utility/LinkToAccountById";
 import AccountStore from "stores/AccountStore";
+import accountUtils from "common/account_utils";
+import {Tooltip} from "antd";
 
 class Proposals extends Component {
     static propTypes = {
@@ -26,14 +28,17 @@ class Proposals extends Component {
         super();
 
         this.forceUpdate = this.forceUpdate.bind(this);
+
+        this._isScam = this._isScam.bind(this);
+        this._isUnknown = this._isUnknown.bind(this);
     }
 
     componentDidMount() {
         /*
-        * Account objects don't get updated by underlying proposal changes, but
-        * the ChainStore does, so in order to update this component when a proposal
-        * changes, we need to update it whenever the ChainStore itself updates
-        */
+         * Account objects don't get updated by underlying proposal changes, but
+         * the ChainStore does, so in order to update this component when a proposal
+         * changes, we need to update it whenever the ChainStore itself updates
+         */
         ChainStore.subscribe(this.forceUpdate);
     }
 
@@ -53,6 +58,108 @@ class Proposals extends Component {
             proposal.available_owner_approvals.length ||
             proposal.available_key_approvals.length
         );
+    }
+
+    _isScam(proposal) {
+        let isScam = false;
+
+        let touchedAccounts = [];
+        proposal.operations.forEach(o => {
+            if (o.get(0) == 6) {
+                touchedAccounts.push(
+                    o.getIn([1, "active", "account_auths", 0, 0])
+                );
+                touchedAccounts.push(
+                    o.getIn([1, "owner", "account_auths", 0, 0])
+                );
+            } else {
+                touchedAccounts.push(o.getIn([1, "to"]));
+            }
+        });
+
+        let proposer = proposal.proposal.get("proposer");
+
+        touchedAccounts.push(proposer);
+
+        /* if (__DEV__) {
+            console.log(
+                "Proposed transactions: ",
+                proposal,
+                " touching accounts ",
+                touchedAccounts
+            );
+        } */
+
+        touchedAccounts.forEach(_account => {
+            if (accountUtils.isKnownScammer(_account)) {
+                isScam = true;
+            }
+            if (
+                this.props.account.get("blacklisted_accounts").some(item => {
+                    return item === _account;
+                })
+            ) {
+                isScam = true;
+            }
+        });
+        return isScam;
+    }
+
+    _isUnknown(proposal) {
+        let isUnknown = true;
+
+        let touchedAccounts = [];
+        proposal.operations.forEach(o => {
+            if (o.get(0) == 6) {
+                touchedAccounts.push(
+                    o.getIn([1, "active", "account_auths", 0, 0])
+                );
+                touchedAccounts.push(
+                    o.getIn([1, "owner", "account_auths", 0, 0])
+                );
+            } else {
+                touchedAccounts.push(o.getIn([1, "to"]));
+            }
+        });
+
+        let proposer = proposal.proposal.get("proposer");
+
+        touchedAccounts.push(proposer);
+        touchedAccounts.forEach(_account => {
+            if (
+                this.props.account.get("whitelisted_accounts").some(item => {
+                    return item === _account;
+                })
+            ) {
+                isUnknown = false;
+            }
+            let starred = AccountStore.getState().starredAccounts;
+            if (
+                starred.some(item => {
+                    let name = ChainStore.getAccount(item, false);
+                    if (!!name) {
+                        return name.get("id") == _account;
+                    } else {
+                        return false;
+                    }
+                })
+            ) {
+                isUnknown = false;
+            }
+            let contacts = AccountStore.getState().accountContacts;
+            if (
+                contacts.some(item => {
+                    let name = ChainStore.getAccount(item, false);
+                    if (!!name) {
+                        return name.get("id") == _account;
+                    }
+                    return false;
+                })
+            ) {
+                isUnknown = false;
+            }
+        });
+        return isUnknown;
     }
 
     render() {
@@ -83,13 +190,11 @@ class Proposals extends Component {
                 );
             })
             .reduce((result, proposal, index) => {
-                let isScam = false;
                 const id = proposal.proposal.get("id");
                 const proposer = proposal.proposal.get("proposer");
                 const expiration = proposal.proposal.get("expiration_time");
                 let text = proposal.operations
                     .map((o, index) => {
-                        if (o.getIn([1, "to"]) === "1.2.153124") isScam = true;
                         return (
                             <ProposedOperation
                                 key={
@@ -186,6 +291,9 @@ class Proposals extends Component {
 
                 const canApprove = accountNames.length + keyNames.length > 0;
 
+                let isScam = this._isScam(proposal);
+                let isUnknown = this._isUnknown(proposal);
+
                 result.push(
                     <tr
                         className="top-left-align"
@@ -212,36 +320,53 @@ class Proposals extends Component {
                             />
                         </td>
                         <td className="approval-buttons">
-                            {isScam ? (
-                                <div
-                                    data-tip={counterpart.translate(
+                            {isScam && (
+                                <Tooltip
+                                    title={counterpart.translate(
                                         "tooltip.propose_scam"
                                     )}
-                                    className="tooltip has-error scam-error"
                                 >
-                                    SCAM
-                                </div>
-                            ) : (
-                                <button
-                                    onClick={
-                                        canApprove
-                                            ? this._onApproveModal.bind(
-                                                  this,
-                                                  proposalId,
-                                                  "approve"
-                                              )
-                                            : () => {}
-                                    }
-                                    className={
-                                        "button primary hollow" +
-                                        (canApprove ? "" : " hidden")
-                                    }
-                                >
-                                    <span>
-                                        <Translate content="proposal.approve" />
+                                    <span className="tooltip has-error scam-error">
+                                        SCAM ATTEMPT
                                     </span>
-                                </button>
+                                </Tooltip>
                             )}
+                            {this.props.hideFishingProposals &&
+                                !isScam &&
+                                isUnknown && (
+                                    <Tooltip
+                                        title={counterpart.translate(
+                                            "tooltip.propose_unknown"
+                                        )}
+                                    >
+                                        <div className="tooltip has-error scam-error">
+                                            UNKNOWN SOURCE
+                                        </div>
+                                    </Tooltip>
+                                )}
+                            {!isScam &&
+                                (!isUnknown ||
+                                    !this.props.hideFishingProposals) && (
+                                    <button
+                                        onClick={
+                                            canApprove
+                                                ? this._onApproveModal.bind(
+                                                      this,
+                                                      proposalId,
+                                                      "approve"
+                                                  )
+                                                : () => {}
+                                        }
+                                        className={
+                                            "button primary hollow" +
+                                            (canApprove ? "" : " hidden")
+                                        }
+                                    >
+                                        <span>
+                                            <Translate content="proposal.approve" />
+                                        </span>
+                                    </button>
+                                )}
                             <ProposalApproveModal
                                 ref={proposalId + "_" + "approve"}
                                 modalId={proposalId + "_" + "approve"}
@@ -267,6 +392,23 @@ class Proposals extends Component {
                                 account={proposal.account.get("id")}
                                 proposal={proposalId}
                                 action="reject"
+                            />
+                            <button
+                                onClick={this._onApproveModal.bind(
+                                    this,
+                                    proposalId,
+                                    "delete"
+                                )}
+                                className="button primary hollow"
+                            >
+                                <Translate content="proposal.delete" />
+                            </button>
+                            <ProposalApproveModal
+                                ref={proposalId + "_" + "delete"}
+                                modalId={proposalId + "_" + "delete"}
+                                account={proposal.account.get("id")}
+                                proposal={proposalId}
+                                action="delete"
                             />
                         </td>
                     </tr>

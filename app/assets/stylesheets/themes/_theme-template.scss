@@ -636,7 +636,7 @@
         }
         > tbody > tr > td {
             border-bottom-color: $dark-text-color;
-            font-size: 0.8rem;
+            font-size: 0.875rem;
         }
         &.table-hover > tbody > tr:hover > td,
         .table-hover > tbody > tr:hover > th {
@@ -2222,7 +2222,7 @@
     }
     .logo {
         padding-top: 0.7rem;
-        padding-bottom: 0.8rem;
+        padding-bottom: 0.875rem;
     }
     .dropdown-wrapper:after {
         display: none;
