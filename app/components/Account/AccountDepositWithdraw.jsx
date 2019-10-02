@@ -469,7 +469,7 @@ class AccountDepositWithdraw extends React.Component {
         //     )
         // });
 
-        serList.push({
+        /*        serList.push({
             name: "BitKapital",
             template: (
                 <BitKapital
@@ -477,7 +477,7 @@ class AccountDepositWithdraw extends React.Component {
                     account={account}
                 />
             )
-        });
+        });*/
 
         serList.push({
             name: "GDEX",

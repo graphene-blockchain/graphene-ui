@@ -77,7 +77,8 @@ export function getUnits(chainId = "4018d784") {
  */
 
 export function getMyMarketsBases() {
-    return ["BTS", "RUDEX.BTC", "RUDEX.EOS", "RUBLE", "USD", "CNY"];
+    //return ["BTS", "RUDEX.BTC", "RUDEX.EOS", "RUBLE", "USD", "CNY"];
+    return ["BTS", "RUDEX.BTC", "RUDEX.EOS"];
 }
 
 /**
@@ -88,14 +89,14 @@ export function getMyMarketsBases() {
 export function getMyMarketsQuotes() {
     let tokens = {
         nativeTokens: [
-            "BTC",
-            "BTS",
-            "CNY",
-            "EUR",
-            "GOLD",
-            "RUBLE",
-            "SILVER",
-            "USD"
+            //"BTC",
+            "BTS"
+            ///"CNY",
+            //"EUR",
+            //"GOLD",
+            //"RUBLE",
+            //"SILVER",
+            //"USD"
         ],
         //bridgeTokens: ["BRIDGE.BCO", "BRIDGE.BTC", "BRIDGE.MONA", "BRIDGE.ZNY"],
         //gdexTokens: ["GDEX.BTC", "GDEX.BTO", "GDEX.EOS", "GDEX.ETH"],
@@ -131,19 +132,20 @@ export function getMyMarketsQuotes() {
         rudexTokens: [
             "RUDEX.BTC",
             "RUDEX.ETH",
-            "RUDEX.GOLOS",
-            "RUDEX.GBG",
+            "RUDEX.EOS",
+            "PPY",
             "RUDEX.STEEM",
             "RUDEX.SBD",
+            "RUDEX.GOLOS",
+            "RUDEX.GBG",
             "RUDEX.KRM",
-            "RUDEX.EOS",
             "RUDEX.GRC",
-            "RUDEX.SMOKE",
             "RUDEX.WLS",
-            "PPY"
+            "RUDEX.SMOKE"
         ],
         // winTokens: ["WIN.ETC", "WIN.ETH", "WIN.HSR"],
-        otherTokens: ["HERTZ"]
+        //otherTokens: ["HERTZ"]
+        otherTokens: []
     };
 
     let allTokens = [];
@@ -163,28 +165,30 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.BTC", "RUDEX.EOS"],
         ["RUDEX.BTC", "BTS"],
         ["RUDEX.BTC", "RUDEX.ETH"],
-        ["RUDEX.BTC", "RUDEX.STEEM"],
+        ["RUDEX.BTC", "PPY"],
 
-        ["BTS", "CNY"],
-        ["BTS", "USD"],
-        ["BTS", "EUR"],
-        ["BTS", "RUBLE"],
+        //["BTS", "CNY"],
+        //["BTS", "USD"],
+        //["BTS", "EUR"],
+        //["BTS", "RUBLE"],
         //["BTS", "GOLD"],
 
-        ["BTS", "RUDEX.BTC"],
         ["BTS", "RUDEX.EOS"],
-        ["BTS", "PPY"],
+        ["BTS", "RUDEX.BTC"],
         ["BTS", "RUDEX.ETH"],
+        ["BTS", "PPY"],
 
         ["BTS", "RUDEX.GOLOS"],
         ["RUDEX.BTC", "RUDEX.GOLOS"],
         ["BTS", "RUDEX.GBG"],
         ["RUDEX.BTC", "RUDEX.GBG"],
 
-        ["RUBLE", "RUDEX.GOLOS"],
-        ["RUBLE", "RUDEX.GBG"],
+        //["RUBLE", "RUDEX.GOLOS"],
+        //["RUBLE", "RUDEX.GBG"],
         ["BTS", "RUDEX.STEEM"],
+        ["RUDEX.BTC", "RUDEX.STEEM"],
         ["BTS", "RUDEX.SBD"],
+        ["RUDEX.BTC", "RUDEX.SBD"],
 
         ["BTS", "RUDEX.KRM"],
         ["BTS", "RUDEX.GRC"],

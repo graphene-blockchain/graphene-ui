@@ -11,10 +11,8 @@ env:
         - GITHUB_REPO: blckchnd/rudex-ui
         - ORGANIZATION_REPO: blckchnd/rudex.org
         - WALLET_REPO: blckchnd/market.rudex.org
-        - STAGING_REPO: blckchnd/staging.rudex.org
-        - DEVELOP_REPO: blckchnd/develop.rudex.org
         - CXX=g++-4.8
-        - secure: "deD+B8xDM7cguX+PbeOSLh30mi6gHAdlqQphP63ZSCuFbL6hQU7MMb8nmBdBpIuaG2rX5GejSqPWTKt+/MSgQNHMTvRnzG1l1JtDTEAky8ssMyxI+HWiRe7Ic+1pFR0qUBAcPVN3MgPtW3Za47v1IyDyaR/0GdSREdy2KvmwBOWMoT23ubA1QlEhFO7uOlium4gJ6trxNPwfXkNHiMzanpVFyRQljY1PNGEPRzRzyWPNvZ4Pq5yNKnFFcW+afhvsTtK8AoeMFDeKhDF2yva8U0IMCZzrSKWwCIhkhJPii7pPT2LNlpjwVKXn16dRRVKO2tImmWtMpgbJjiNTRzVC4Y30+F7XPc97SpTKfGvoaH/iSZpTT1la0gHgoeBB32y6buPKnF7M2UNwTt2eGXpg/JHyperyQ25ey9EQBk/vHNxS9M3jcfkoXneBOnwICHgrzfamHxmMsiXnNDDriyPqIY9kFGQubqEF74cvBxhPLmfxJCPyHx7BY9ioiAlcgzWqJDOp/ADLjpoh44rUCpQH26Zg0N9efOuLUhuTAa54/9rboWZLxjxEvJ5qfTe+eHMW1r2RzoMJqWOhkbMs4f/qqGY42nqWhiibdSAZzIBuPYt/m9kdQ33930dKWoIkJwqZ2Il+T3FWJtzaguuoxKKYzsok9c/6FY7MbSSPaPw+fjg="
+        - secure: gM32UpksN/vPxqBPVgIzs7v0jyE/vCpXA1CBHuL4o4/3ZJ5uf1IZc3h8qThMT+3nJBS5GFi4PS6769uhvsnSMBbgnTrPmXAm/HMrWAzzxklxjsE3a0MmCvG4kcXSwTpe0mjOL+VVHcleGpc7fktIz1ILo9SOxky39NZZagrvSboMgVrzq031zBm1hUl08bs17YJeE6L2nC77ZqQgovtcJTgf/f8D4WUNbsDm/sTJZqLV6jXgQQcpEfbpptS9vZdcpC+uc69adVYekWb2bc6l1Ms6sLickRh9xHkuKuMEcfGh244in0XCxGE87BqAE/lR+hLt4bAsY0QceVLy6bK0k3I0mdGc3hqTO7wrvZTTbQz/ppENFct6b/G99QSyc+cxgMC+vNYVHd6FYdWMnVsFbrgtZEDmIKt7/dusU7y35Es2ypHA3d5fgf+h6/o8bOr5rJ94cgtbwB7D64QQtn6/treECSEAnSSi0yhKXSgfq91QZZ4kearVgxQVSlRWWD0lPKxWvdktvIqZNh4SJUAc0BWm6mmd1/w0zWUJw3is3u7kcB7w5Id88Ci6SgMKvcODsrBJ4uy+JciwEqf2uo0Duv1LyQdZfst9bv4hN1jUh28HWO00urGyjkQT43YURRVa8HcquDgsrE6DZdI/OB9ciMVEVAI1SXfG+2ViGC4eXk8=
 addons:
     apt:
         sources:
@@ -36,7 +34,7 @@ deploy:
     name: $TRAVIS_TAG
     body: Automated release from Travis CI with added files from AppVeyor build
     api_key:
-        secure: "n+dpQi+eVJRGEEyAySYXOzIjS6ObFvGCGGdY2EhZhIMIB2U2FWIdzzhNBP4xLo2SnFgk9shLvIHHBQ5H5vyHaAICtbwQM5KLAHOXIEYzZ6q3G4/RJiSsNe7X/ZfQZ/cXZVIjOKXM2ZLQtMcV5uLZB3pwW5H2zBAYbPYjLtlIpbe4CI+RuPjVRYHks3Xf0RJifXINFwm4t9DMgV9AH0LD/N635IE1dA9eF4nr2naxSrpOVYgj1LETvZ21A9/cBAzfynB2gbva/ElWLKk07iiuWABSnyjo1dWDhCzcrQkuBGf+L5IkMcmZncN5zpscgzJQzTMYN9RYhvERqvKgc18O9QLaNcG06TlmulHwIGpbA3KNASShhckMq8WvWPQ0cPdLSIvHoql354Lz3CvCCwCdkf3+zGBgz3uA+U8p7seufSDseEFJ2On5kOO8ZsQyG0JBTVzjyQfh0EbNaxo40ZiZZTONP+C+TIS7owpVTS/2Ask7nNW7bWw9aQ61h82ub7IeCXoH2ouRRMDmikxMbRm254sEqnpCyaKO9XwApVFjgJn4mP8s7URxyVcLnMvfVmjkBJCSwmka0y1Z00oC2W4/FP3WsbIOelIQ+8Ew1M4YOoFC402H/XiQyW47Dm58UxzSZavRJMnUx5uCphxoKUUdkD+lMwB2K/4AaQFQM3GnJ9U="
+        secure: gM32UpksN/vPxqBPVgIzs7v0jyE/vCpXA1CBHuL4o4/3ZJ5uf1IZc3h8qThMT+3nJBS5GFi4PS6769uhvsnSMBbgnTrPmXAm/HMrWAzzxklxjsE3a0MmCvG4kcXSwTpe0mjOL+VVHcleGpc7fktIz1ILo9SOxky39NZZagrvSboMgVrzq031zBm1hUl08bs17YJeE6L2nC77ZqQgovtcJTgf/f8D4WUNbsDm/sTJZqLV6jXgQQcpEfbpptS9vZdcpC+uc69adVYekWb2bc6l1Ms6sLickRh9xHkuKuMEcfGh244in0XCxGE87BqAE/lR+hLt4bAsY0QceVLy6bK0k3I0mdGc3hqTO7wrvZTTbQz/ppENFct6b/G99QSyc+cxgMC+vNYVHd6FYdWMnVsFbrgtZEDmIKt7/dusU7y35Es2ypHA3d5fgf+h6/o8bOr5rJ94cgtbwB7D64QQtn6/treECSEAnSSi0yhKXSgfq91QZZ4kearVgxQVSlRWWD0lPKxWvdktvIqZNh4SJUAc0BWm6mmd1/w0zWUJw3is3u7kcB7w5Id88Ci6SgMKvcODsrBJ4uy+JciwEqf2uo0Duv1LyQdZfst9bv4hN1jUh28HWO00urGyjkQT43YURRVa8HcquDgsrE6DZdI/OB9ciMVEVAI1SXfG+2ViGC4eXk8=
     file_glob: true
     file:
         - build/binaries/RuDEX*
