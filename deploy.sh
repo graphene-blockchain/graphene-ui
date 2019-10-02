@@ -21,7 +21,7 @@ then
     echo "Pushing new wallet subdomain repo"
     git clone https://github.com:${GITHUB_TOKEN}@github.com/${WALLET_REPO} $TRAVIS_BUILD_DIR/market.rudex.org
     cd $TRAVIS_BUILD_DIR/market.rudex.org
-    git checkout gh-pages
+    git checkout master
     rm -rf ./*
     git checkout ./CNAME
     cp -Rv $TRAVIS_BUILD_DIR/build/hash-history/* .

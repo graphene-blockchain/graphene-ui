@@ -12,7 +12,7 @@ env:
         - ORGANIZATION_REPO: blckchnd/rudex.org
         - WALLET_REPO: blckchnd/market.rudex.org
         - CXX=g++-4.8
-        - secure: gM32UpksN/vPxqBPVgIzs7v0jyE/vCpXA1CBHuL4o4/3ZJ5uf1IZc3h8qThMT+3nJBS5GFi4PS6769uhvsnSMBbgnTrPmXAm/HMrWAzzxklxjsE3a0MmCvG4kcXSwTpe0mjOL+VVHcleGpc7fktIz1ILo9SOxky39NZZagrvSboMgVrzq031zBm1hUl08bs17YJeE6L2nC77ZqQgovtcJTgf/f8D4WUNbsDm/sTJZqLV6jXgQQcpEfbpptS9vZdcpC+uc69adVYekWb2bc6l1Ms6sLickRh9xHkuKuMEcfGh244in0XCxGE87BqAE/lR+hLt4bAsY0QceVLy6bK0k3I0mdGc3hqTO7wrvZTTbQz/ppENFct6b/G99QSyc+cxgMC+vNYVHd6FYdWMnVsFbrgtZEDmIKt7/dusU7y35Es2ypHA3d5fgf+h6/o8bOr5rJ94cgtbwB7D64QQtn6/treECSEAnSSi0yhKXSgfq91QZZ4kearVgxQVSlRWWD0lPKxWvdktvIqZNh4SJUAc0BWm6mmd1/w0zWUJw3is3u7kcB7w5Id88Ci6SgMKvcODsrBJ4uy+JciwEqf2uo0Duv1LyQdZfst9bv4hN1jUh28HWO00urGyjkQT43YURRVa8HcquDgsrE6DZdI/OB9ciMVEVAI1SXfG+2ViGC4eXk8=
+        - secure: jXsuQpFsda5rZYCJiXYZD0l2KAVlqNElE5tWxS+8kVjQ92lcjXJr3vP+e68CqlM38WVh0lQ8SFkubpkI3y22MnPDpSUKWw2HZm1abc1A4zzk9advI7FJ/hHMJcC6NE0yI06o4S3xazSVpxmlp3arUjn5SaJrzY9ALCvSKuFVBQV7CD2T1A1N6XtSwYY+OYEmkJazwy+oh/7IWBpoqqI3jjU9x+uhn38QNAAezM2sOHXcXhfpdD2oAwdAeiGrhSusLI3PXMV8962pbTJzhCpjZCJy1GEgj8xdzrEocrmMe/LtefXEGBEN4CBm9RJDCBG8XmKwVpjwd2hLsuL1jvWX6ArsFzsi3MOMEmb/JqkoWDPAk8TpzH6pbF5+8P7jWyeDFxEKP69tfhyCZB5z4sTbYoLKSO2H47MwzoyK97AKu55v93gADCZVoun4O92Ez/U77HNFWEFXvMlfSUzSL80zRAanKrATzRF2k1MkTWtOVeRSqvlRat/CQz2OVm2oJwcJE1oi6wyLeaHK0xA+LeL+vQTs4SmxzohhhMUA5A9uoNX0BASVstj4yB7HBbHWTq6xUToD6v31vTxV1UJN3KE88XKQaxGELranxabqLsR+VUt2CNIU9oFNQguVnCJ9RS2FJwZHW7qE1MQm0Jk//dXgAw6AA2phvi9p/zA774IrxCw=
 addons:
     apt:
         sources:
@@ -27,14 +27,14 @@ install:
     - npm install -g npm@6
     - npm ci
 script: "./build.sh"
-#after_success: "./deploy.sh"
+after_success: "./deploy.sh"
 deploy:
     provider: releases
     tag_name: $TRAVIS_TAG
     name: $TRAVIS_TAG
     body: Automated release from Travis CI with added files from AppVeyor build
     api_key:
-        secure: gM32UpksN/vPxqBPVgIzs7v0jyE/vCpXA1CBHuL4o4/3ZJ5uf1IZc3h8qThMT+3nJBS5GFi4PS6769uhvsnSMBbgnTrPmXAm/HMrWAzzxklxjsE3a0MmCvG4kcXSwTpe0mjOL+VVHcleGpc7fktIz1ILo9SOxky39NZZagrvSboMgVrzq031zBm1hUl08bs17YJeE6L2nC77ZqQgovtcJTgf/f8D4WUNbsDm/sTJZqLV6jXgQQcpEfbpptS9vZdcpC+uc69adVYekWb2bc6l1Ms6sLickRh9xHkuKuMEcfGh244in0XCxGE87BqAE/lR+hLt4bAsY0QceVLy6bK0k3I0mdGc3hqTO7wrvZTTbQz/ppENFct6b/G99QSyc+cxgMC+vNYVHd6FYdWMnVsFbrgtZEDmIKt7/dusU7y35Es2ypHA3d5fgf+h6/o8bOr5rJ94cgtbwB7D64QQtn6/treECSEAnSSi0yhKXSgfq91QZZ4kearVgxQVSlRWWD0lPKxWvdktvIqZNh4SJUAc0BWm6mmd1/w0zWUJw3is3u7kcB7w5Id88Ci6SgMKvcODsrBJ4uy+JciwEqf2uo0Duv1LyQdZfst9bv4hN1jUh28HWO00urGyjkQT43YURRVa8HcquDgsrE6DZdI/OB9ciMVEVAI1SXfG+2ViGC4eXk8=
+        secure: jXsuQpFsda5rZYCJiXYZD0l2KAVlqNElE5tWxS+8kVjQ92lcjXJr3vP+e68CqlM38WVh0lQ8SFkubpkI3y22MnPDpSUKWw2HZm1abc1A4zzk9advI7FJ/hHMJcC6NE0yI06o4S3xazSVpxmlp3arUjn5SaJrzY9ALCvSKuFVBQV7CD2T1A1N6XtSwYY+OYEmkJazwy+oh/7IWBpoqqI3jjU9x+uhn38QNAAezM2sOHXcXhfpdD2oAwdAeiGrhSusLI3PXMV8962pbTJzhCpjZCJy1GEgj8xdzrEocrmMe/LtefXEGBEN4CBm9RJDCBG8XmKwVpjwd2hLsuL1jvWX6ArsFzsi3MOMEmb/JqkoWDPAk8TpzH6pbF5+8P7jWyeDFxEKP69tfhyCZB5z4sTbYoLKSO2H47MwzoyK97AKu55v93gADCZVoun4O92Ez/U77HNFWEFXvMlfSUzSL80zRAanKrATzRF2k1MkTWtOVeRSqvlRat/CQz2OVm2oJwcJE1oi6wyLeaHK0xA+LeL+vQTs4SmxzohhhMUA5A9uoNX0BASVstj4yB7HBbHWTq6xUToD6v31vTxV1UJN3KE88XKQaxGELranxabqLsR+VUt2CNIU9oFNQguVnCJ9RS2FJwZHW7qE1MQm0Jk//dXgAw6AA2phvi9p/zA774IrxCw=
     file_glob: true
     file:
         - build/binaries/RuDEX*
