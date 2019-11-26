@@ -262,13 +262,14 @@ class AccountDepositWithdraw extends React.Component {
             )
         });
 
+        /*
         serList.push({
             name: "Openledger (OPEN.X)",
             template: (
                 <div className="content-block">
-                    {/* <div className="float-right">
+                    {/!* <div className="float-right">
                      <a href="https://www.ccedk.com/" target="__blank" rel="noopener noreferrer"><Translate content="gateway.website" /></a>
-                     </div> */}
+                     </div> *!/}
                     <div
                         className="service-selector"
                         style={{marginBottom: "2rem"}}
@@ -306,49 +307,49 @@ class AccountDepositWithdraw extends React.Component {
 
                     {olService === "gateway" &&
                     openLedgerGatewayCoins.length ? (
-                        <div>
                             <div>
-                                <Translate
-                                    style={{
-                                        color: "darkred",
-                                        marginBottom: "1em",
-                                        display: "block"
-                                    }}
-                                    component="h5"
-                                    content="gateway.rudex.openledger_notice1"
-                                />
-                                <a
-                                    href="https://blog.openledger.info/2017/12/18/openledger-official-web-sites-get-updates-by-the-first"
-                                    target="_blank"
-                                >
+                                <div>
+                                    <Translate
+                                        style={{
+                                            color: "darkred",
+                                            marginBottom: "1em",
+                                            display: "block"
+                                        }}
+                                        component="h5"
+                                        content="gateway.rudex.openledger_notice1"
+                                    />
+                                    <a
+                                        href="https://blog.openledger.info/2017/12/18/openledger-official-web-sites-get-updates-by-the-first"
+                                        target="_blank"
+                                    >
                                     https://blog.openledger.info/2017/12/18/openledger-official-web-sites-get-updates-by-the-first
-                                </a>
+                                    </a>
 
-                                <h5>
-                                    <input
-                                        type="checkbox"
-                                        defaultChecked={
-                                            this.state.olNotice1Informed
-                                        }
-                                        onChange={this.onolNotice1Informed.bind(
-                                            this
-                                        )}
-                                    />{" "}
+                                    <h5>
+                                        <input
+                                            type="checkbox"
+                                            defaultChecked={
+                                                this.state.olNotice1Informed
+                                            }
+                                            onChange={this.onolNotice1Informed.bind(
+                                                this
+                                            )}
+                                        />{" "}
                                     -{" "}
-                                    <Translate content="gateway.rudex.openledger_notice1_informed" />
-                                </h5>
-                            </div>
+                                        <Translate content="gateway.rudex.openledger_notice1_informed" />
+                                    </h5>
+                                </div>
 
-                            <hr />
-                            {olNotice1Informed ? (
-                                <OpenledgerGateway
-                                    account={account}
-                                    coins={openLedgerGatewayCoins}
-                                    provider="openledger"
-                                />
-                            ) : null}
-                        </div>
-                    ) : null}
+                                <hr />
+                                {olNotice1Informed ? (
+                                    <OpenledgerGateway
+                                        account={account}
+                                        coins={openLedgerGatewayCoins}
+                                        provider="openledger"
+                                    />
+                                ) : null}
+                            </div>
+                        ) : null}
 
                     {olService === "fiat" ? (
                         <div>
@@ -373,6 +374,7 @@ class AccountDepositWithdraw extends React.Component {
                 </div>
             )
         });
+*/
 
         // serList.push({
         //     name: "BlockTrades",
