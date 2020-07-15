@@ -173,7 +173,7 @@ class News extends React.Component {
 
         if (this.state.currentLocale === "ru") {
             api = api_ru.api;
-            api.setWebSocket("wss://api.golos.blckchnd.com/ws");
+            api.setWebSocket("wss://api.golos.id/ws");
         } else api = api_en.api;
 
         api.getDiscussionsByBlog(query)
