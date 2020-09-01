@@ -62,7 +62,11 @@ class AssetImage extends React.Component {
                 ref={imgName.toLowerCase()}
                 className="column-hide-small"
                 onError={this._onError.bind(this, imgName)}
-                style={{maxWidth: this.props.maxWidth, marginRight: 5}}
+                style={{
+                    maxWidth: this.props.maxWidth,
+                    marginRight: 5,
+                    marginTop: "-3px"
+                }}
                 src={`${__BASE_URL__}asset-symbols/${imgName.toLowerCase()}.png`}
             />
         );

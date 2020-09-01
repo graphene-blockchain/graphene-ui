@@ -14,10 +14,11 @@ import utils from "common/utils";
 import counterpart from "counterpart";
 import PropTypes from "prop-types";
 import CopyToClipboard from "react-copy-to-clipboard";
-import {Modal} from "bitshares-ui-style-guide";
+import {Modal, Button} from "bitshares-ui-style-guide";
 import {availableGateways} from "lib/common/gateways";
 
 import {Notification} from "bitshares-ui-style-guide";
+import QRCode from "qrcode.react";
 
 class RuDexGatewayDepositRequest extends React.Component {
     static propTypes = {
@@ -48,13 +49,19 @@ class RuDexGatewayDepositRequest extends React.Component {
         this.deposit_address_cache = new RuDexDepositAddressCache();
 
         this.state = {
+            isQrModalVisible: false,
+            qrcode: "",
             isModalVisible: false,
             receive_address: null
         };
 
         this.addDepositAddress = this.addDepositAddress.bind(this);
+
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
+
+        this.showQrModal = this.showQrModal.bind(this);
+        this.hideQrModal = this.hideQrModal.bind(this);
     }
 
     showModal() {
@@ -66,6 +73,24 @@ class RuDexGatewayDepositRequest extends React.Component {
     hideModal() {
         this.setState({
             isModalVisible: false
+        });
+    }
+
+    onShowQrcode(text) {
+        this.setState({qrcode: text}, () => {
+            this.showQrModal();
+        });
+    }
+
+    showQrModal() {
+        this.setState({
+            isQrModalVisible: true
+        });
+    }
+
+    hideQrModal() {
+        this.setState({
+            isQrModalVisible: false
         });
     }
 
@@ -95,6 +120,7 @@ class RuDexGatewayDepositRequest extends React.Component {
 
     addDepositAddress(receive_address) {
         let account_name = this.props.account.get("name");
+        console.log("account_name" + account_name);
         this.deposit_address_cache.cacheInputAddress(
             this.props.gateway,
             account_name,
@@ -159,7 +185,8 @@ class RuDexGatewayDepositRequest extends React.Component {
         //     }
         // }
 
-        let receive_address = this.state.receive_address;
+        //let receive_address = this.state.receive_address;
+        let receive_address;
         if (!receive_address) {
             let account_name = this.props.account.get("name");
             receive_address = this.deposit_address_cache.getCachedInputAddress(
@@ -170,6 +197,7 @@ class RuDexGatewayDepositRequest extends React.Component {
             );
         }
 
+        let qrcode = this.state.qrcode;
         let depositConfirmation = null;
         if (this.props.confirmations && this.props.confirmations.type) {
             if (this.props.confirmations.type === "irreversible") {
@@ -410,6 +438,17 @@ class RuDexGatewayDepositRequest extends React.Component {
                                                 </DisableCopyText>
                                             </b>
                                         </td>
+                                        <td>
+                                            <div
+                                                className="button"
+                                                onClick={this.onShowQrcode.bind(
+                                                    this,
+                                                    clipboardText
+                                                )}
+                                            >
+                                                <Translate content="modal.qrcode.label" />
+                                            </div>
+                                        </td>
                                     </tr>
                                     {deposit_memo ? (
                                         <tr>
@@ -422,9 +461,37 @@ class RuDexGatewayDepositRequest extends React.Component {
                                                     MEMO: <b>{deposit_memo}</b>
                                                 </DisableCopyText>
                                             </td>
+                                            <td>
+                                                <div
+                                                    className="button"
+                                                    onClick={this.onShowQrcode.bind(
+                                                        this,
+                                                        memoText
+                                                    )}
+                                                >
+                                                    <Translate content="modal.qrcode.label" />
+                                                </div>
+                                            </td>
                                         </tr>
                                     ) : null}
                                 </tbody>
+                                <Modal
+                                    footer={[
+                                        <Button
+                                            key="close"
+                                            type="primary"
+                                            onClick={this.hideQrModal}
+                                        >
+                                            {counterpart.translate(
+                                                "modal.close"
+                                            )}
+                                        </Button>
+                                    ]}
+                                    visible={this.state.isQrModalVisible}
+                                    onCancel={this.hideQrModal}
+                                >
+                                    <DepositQrCodeModal text={qrcode} />
+                                </Modal>
                             </table>
                             <div
                                 className="button-group"
@@ -609,6 +676,24 @@ class RuDexGatewayDepositRequest extends React.Component {
                 </div>
             );
         }
+    }
+}
+
+class DepositQrCodeModal extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        let text = this.props.text;
+        return (
+            <div className="small-12" style={{textAlign: "center"}}>
+                <QRCode size={200} value={text} />
+                <br />
+                <br />
+                <label style={{textTransform: "none"}}>{text}</label>
+            </div>
+        );
     }
 }
 

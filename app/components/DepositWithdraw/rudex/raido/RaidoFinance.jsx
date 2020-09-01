@@ -1,34 +1,42 @@
 import React from "react";
-import RuDexGatewayDepositRequest from "./RuDexGatewayDepositRequest";
 import Translate from "react-translate-component";
 import {connect} from "alt-react";
 import SettingsStore from "stores/SettingsStore";
 import SettingsActions from "actions/SettingsActions";
-import AssetImage from "../../Utility/AssetImage";
+import AssetImage from "../../../Utility/AssetImage";
 import {
     RecentTransactions,
     TransactionWrapper
 } from "components/Account/RecentTransactions";
 import Immutable from "immutable";
 import cnames from "classnames";
-import LoadingIndicator from "../../LoadingIndicator";
+import LoadingIndicator from "../../../LoadingIndicator";
 
 import Select from "react-select";
 import "react-select/dist/react-select.css";
 
-class RuDexGateway extends React.Component {
+import RaidoDepositRequest from "./RaidoDepositRequest";
+
+class RaidoFinance extends React.Component {
     constructor(props) {
         super();
 
         this.state = {
             activeCoin: this._getActiveCoin(props, {action: "deposit"}),
-            action: props.viewSettings.get("rudexAction", "deposit")
+            action: props.viewSettings.get("rudexActionRaido", "deposit"),
+
+            activePaymentMethod: "CARDE"
         };
+        this._setActiveRaidoCoin = this._setActiveRaidoCoin.bind(this);
+    }
+
+    _setActiveRaidoCoin(meth) {
+        this.setState({activePaymentMethod: meth});
     }
 
     _getActiveCoin(props, state) {
-        let cachedCoin = props.viewSettings.get("activeCoin_rudex", null);
-        let firstTimeCoin = "PPY";
+        let cachedCoin = props.viewSettings.get("activeCoin_Raido", null);
+        let firstTimeCoin = "BTC";
         let activeCoin = cachedCoin ? cachedCoin : firstTimeCoin;
 
         if (state.action === "withdraw") {
@@ -46,16 +54,6 @@ class RuDexGateway extends React.Component {
         }
     }
 
-    /*    onSelectCoin(e) {
-        this.setState({
-            activeCoin: e.target.value
-        });
-
-        let setting = {};
-        setting[`activeCoin_rudex_${this.state.action}`] = e.target.value;
-        SettingsActions.changeViewSetting(setting);
-    }*/
-
     onSelectCoin(e) {
         this.setState({
             activeCoin: e.value
@@ -63,10 +61,11 @@ class RuDexGateway extends React.Component {
 
         let setting = {};
         let coinName = e.value;
+
         if (this.state.action === "withdraw") {
             coinName = this._findCoinBySymbol(this.props, coinName).backingCoin;
         }
-        setting["activeCoin_rudex"] = coinName;
+        setting["activeCoin_Raido"] = coinName;
         SettingsActions.changeViewSetting(setting);
     }
 
@@ -94,7 +93,7 @@ class RuDexGateway extends React.Component {
             activeCoin: activeCoin
         });
 
-        SettingsActions.changeViewSetting({["rudexAction"]: type});
+        SettingsActions.changeViewSetting({["rudexActionRaido"]: type});
     }
 
     render() {
@@ -131,7 +130,7 @@ class RuDexGateway extends React.Component {
                         <div>
                             <AssetImage
                                 replaceNoneToBts={false}
-                                maxWidth={30}
+                                maxWidth={20}
                                 name={prefix + name}
                             />
                             {option.replace("RUDEX.", "")}
@@ -165,13 +164,14 @@ class RuDexGateway extends React.Component {
                                 className="left-label"
                             >
                                 <Translate
-                                    content={"gateway.choose_" + action}
+                                    content={
+                                        "gateway.rudex.buy_crypto.choose_" +
+                                        action
+                                    }
                                 />
                                 :{" "}
                             </label>
                             <Select
-                                //className="external-coin-types bts-select"
-                                //onChange={this.onSelectCoin.bind(this)}
                                 onChange={this.onSelectCoin.bind(this)}
                                 clearable={false}
                                 searchable={false}
@@ -188,10 +188,10 @@ class RuDexGateway extends React.Component {
                             style={{minHeight: "2rem"}}
                             className="left-label"
                         >
-                            <Translate content="gateway.gateway_text" />:
+                            {/*<Translate content="gateway.gateway_text" />:*/}
                         </label>
                         <div style={{paddingBottom: 15}}>
-                            <ul className="button-group segmented no-margin">
+                            {/*                            <ul className="button-group segmented no-margin">
                                 <li
                                     className={
                                         action === "deposit" ? "is-active" : ""
@@ -204,6 +204,7 @@ class RuDexGateway extends React.Component {
                                         )}
                                     >
                                         <Translate content="gateway.deposit" />
+                                        <Translate content="gateway.rudex.buy_crypto.title_tab"/>
                                     </a>
                                 </li>
                                 <li
@@ -220,7 +221,7 @@ class RuDexGateway extends React.Component {
                                         <Translate content="gateway.withdraw" />
                                     </a>
                                 </li>
-                            </ul>
+                            </ul>*/}
                         </div>
                     </div>
                 </div>
@@ -228,7 +229,7 @@ class RuDexGateway extends React.Component {
                 {!coin ? null : (
                     <div>
                         <div style={{marginBottom: 15}}>
-                            <RuDexGatewayDepositRequest
+                            <RaidoDepositRequest
                                 key={`${coin.symbol}`}
                                 gateway={coin.gatewayWallet}
                                 issuer_account={coin.issuer}
@@ -237,19 +238,18 @@ class RuDexGateway extends React.Component {
                                 deposit_asset_name={coin.name}
                                 deposit_coin_type={coin.backingCoin.toLowerCase()}
                                 deposit_account={coin.gatewayWallet}
-                                deposit_wallet_type={coin.walletType}
                                 receive_asset={coin.symbol}
                                 receive_coin_type={coin.symbol.toLowerCase()}
-                                supports_output_memos={coin.supportsMemos}
-                                supportsPublicKey={
-                                    coin.supportsPublicKey || false
-                                }
                                 memoType={coin.memoType}
                                 min_amount={coin.minAmount}
-                                gateFee={coin.gateFee}
-                                asset_precision={coin.precision}
                                 confirmations={coin.confirmations}
                                 action={this.state.action}
+                                activePaymentMethod={
+                                    this.state.activePaymentMethod
+                                }
+                                setActiveRaidoCoin={m =>
+                                    this._setActiveRaidoCoin(m)
+                                }
                             />
                             <label className="left-label">Support</label>
                             <div>
@@ -323,8 +323,61 @@ class RuDexGateway extends React.Component {
     }
 }
 
+RaidoFinance.defaultProps = {
+    coins: [
+        {
+            name: "BTC",
+            description: "Bitcoin - BTC",
+            backingCoin: "BTC",
+            symbol: "RUDEX.BTC",
+            depositAllowed: true,
+            //"withdrawalAllowed": true,
+
+            issuer: "rudex-bitcoin",
+            issuerId: "1.2.852589",
+            //"minAmount": 180000,
+            confirmations: {
+                type: "blocks",
+                value: 3
+            }
+        },
+        {
+            name: "ETH",
+            description: "Ethereum - ETH",
+            backingCoin: "ETH",
+            symbol: "RUDEX.ETH",
+            depositAllowed: true,
+            //"withdrawalAllowed": true,
+
+            issuer: "rudex-ethereum",
+            issuerId: "1.2.852823",
+            //"minAmount": 500000,
+            confirmations: {
+                type: "blocks",
+                value: 30
+            }
+        },
+        {
+            name: "USDT",
+            description: "Tether - USDT (on Ethereum)",
+            backingCoin: "USDT",
+            symbol: "RUDEX.USDT",
+            depositAllowed: true,
+            //"withdrawalAllowed": true,
+
+            issuer: "rudex-usdt",
+            issuerId: "1.2.927458",
+            //"minAmount": 500000,
+            confirmations: {
+                type: "blocks",
+                value: 20
+            }
+        }
+    ]
+};
+
 export default connect(
-    RuDexGateway,
+    RaidoFinance,
     {
         listenTo() {
             return [SettingsStore];

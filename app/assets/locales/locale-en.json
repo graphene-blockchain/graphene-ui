@@ -1264,27 +1264,25 @@
             "support_block": "For support, please contact RuDEX at:",
             "under_construction": "Under Construction",
             "rudex_notice1": "Please see the Service Agreement of RuDEX for usage of their gateways",
-            "rudex_notice1_informed": "I have read and agree with RuDEX Service Agreement.",
-            "listing": {
-                "here": "HERE",
-                "submit_request": "Submit request",
-                "add_coin": "Add coin",
-                "donate_progress": "DONATE PROGRESS",
-                "get_donate_tokens": "GET TOKENs",
-                "loading": "Loading...",
-                "notice_informed": "By submitting a request I confirm that I have read the terms and conditions and I agree with them",
-                "modal": {
-                    "header": "Participate in crowdfunding"
-                },
-                "table": {
-                    "rank": "Rank",
-                    "asset_name": "Asset name (ticker)",
-                    "goal": "Goal",
-                    "donates": "Donates",
-                    "status": "Status",
-                    "progress": "Progress",
-                    "coming_soon": "Coming soon"
-                }
+            "rudex_notice1_informed": "I have read and agree with RuDEX Service Agreement",
+            "rudex_notice_third_party": "Please see Terms of third party service",
+            "rudex_notice1_informed_third_party_service": "I have read and agree with third party service terms",
+            "buy_crypto": {
+                "title": "Buy with ",
+                "title_tab": "Buy crypto",
+                "choose_deposit": "Please, select a cryptocurrency to buy",
+                "choose_withdraw": "Please, select a cryptocurrency to sell",
+                "deposit_summary": "Additional Information",
+                "title2": "You can purchase crypto (BTC, ETH, USDT) to your RuDEX account using debit or credit card (Visa/MasterCard)* or bank wire (SEPA)",
+                "partner": "*service provided by our partner Raido Finance",
+                "buy": "Buy",
+                "buy_inst": "Instructions",
+                "you_give": "I want to spend:",
+                "you_get": "You will receive:",
+                "min_amount": "Minimum amount: ",
+                "max_amount": "Maximum amount: ",
+                "approximate_amount": "* * This is approximate amount. The exact amount will be calculated at the time of completion of the transaction.",
+                "final_text": "The purchased cryptocurrency will be transferred to the account "
             }
         },
         "scan_qr": "Scan QR",
