@@ -71,6 +71,7 @@ class RaidoDepositRequest extends React.Component {
                 in: null,
                 out: null,
                 in_min_fee: 0,
+                withdraw_fee: 0,
 
                 in_fee: 0,
                 commission: 0,
@@ -123,6 +124,8 @@ class RaidoDepositRequest extends React.Component {
 
         for (let i = 0; i < currencies.length; i++) {
             if (currencies[i].code === curr_coin_original) {
+                console.log("withdraw_fee: " + currencies[i].withdraw_fee);
+
                 raido.give = this.state.raido.give;
                 raido.get = currencies[i].code;
 
@@ -132,6 +135,7 @@ class RaidoDepositRequest extends React.Component {
                 raido.out = currencies[i].id;
                 raido.min_deposit = currencies[i].min_deposit;
                 raido.max_deposit = currencies[i].max_deposit;
+                raido.withdraw_fee = currencies[i].withdraw_fee;
 
                 raido.give_decimal = currencies[i].decimal;
 
@@ -225,7 +229,8 @@ class RaidoDepositRequest extends React.Component {
             this.setState({
                 getAmount:
                     Math.ceil(
-                        res_getAmount * Math.pow(10, raido.give_decimal)
+                        (res_getAmount - raido.withdraw_fee * 1) *
+                            Math.pow(10, raido.give_decimal)
                     ) / Math.pow(10, raido.give_decimal)
             });
             this.setState({
@@ -237,7 +242,7 @@ class RaidoDepositRequest extends React.Component {
         } else if (name === "getAmount") {
             res_getAmount = value;
             let res_giveAmount =
-                (raido.price * value) /
+                (raido.price * (value + raido.withdraw_fee * 1)) /
                     ((100 - (raido.commission + raido.in_fee)) / 100) +
                 raido.in_min_fee;
 
@@ -285,6 +290,19 @@ class RaidoDepositRequest extends React.Component {
 
             this.setState({submitAllowed: false});
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return (
+            nextState.raido !== this.state.raido ||
+            nextProps.deposit_coin_type !== this.props.getAmount ||
+            nextState.getAmount !== this.state.getAmount ||
+            nextState.giveAmount !== this.state.giveAmount ||
+            nextProps.receive_asset !== this.props.receive_asset ||
+            nextProps.deposit_asset_name !== this.props.deposit_asset_name ||
+            nextProps.action !== this.props.action ||
+            nextProps.currentLocale !== this.props.currentLocale
+        );
     }
 
     handlePaymentMethod(e) {
@@ -681,6 +699,16 @@ class RaidoDepositRequest extends React.Component {
                                 </div>
 
                                 <div className="ant-col-24">
+                                    <div className={"raido_text_block"}>
+                                        <Translate
+                                            content="gateway.rudex.buy_crypto.withdraw_fee_included"
+                                            withdraw_fee={
+                                                this.state.raido.withdraw_fee
+                                            }
+                                            asset={this.state.raido.get}
+                                        />
+                                    </div>
+
                                     <div className={"raido_text_block"}>
                                         <Translate content="gateway.rudex.buy_crypto.approximate_amount" />
                                     </div>

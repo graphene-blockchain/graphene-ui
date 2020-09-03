@@ -1281,6 +1281,7 @@
                 "you_get": "You will receive:",
                 "min_amount": "Minimum amount: ",
                 "max_amount": "Maximum amount: ",
+                "withdraw_fee_included": "* network fee: %(withdraw_fee)s %(asset)s already included in the deal amount",
                 "approximate_amount": "* * This is approximate amount. The exact amount will be calculated at the time of completion of the transaction.",
                 "final_text": "The purchased cryptocurrency will be transferred to the account "
             }
