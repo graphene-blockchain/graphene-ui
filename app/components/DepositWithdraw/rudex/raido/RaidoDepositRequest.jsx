@@ -24,7 +24,7 @@ class RaidoDepositRequest extends React.Component {
         deposit_asset_name: PropTypes.string,
         deposit_account: PropTypes.string,
         receive_coin_type: PropTypes.string,
-        pro: ChainTypes.ChainAccount,
+        account: ChainTypes.ChainAccount,
         issuer_account: ChainTypes.ChainAccount,
         deposit_asset: PropTypes.string,
         receive_asset: ChainTypes.ChainAsset,
@@ -39,6 +39,8 @@ class RaidoDepositRequest extends React.Component {
         this.deposit_address_cache = new RuDexDepositAddressCache();
 
         this.state = {
+            account_name: null,
+
             receive_address: {
                 address: null,
                 memo: null
@@ -308,19 +310,6 @@ class RaidoDepositRequest extends React.Component {
         this.props.setActiveRaidoCoin(payMethod);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return (
-            nextState.raido !== this.state.raido ||
-            nextProps.deposit_coin_type !== this.props.getAmount ||
-            nextState.getAmount !== this.state.getAmount ||
-            nextState.giveAmount !== this.state.giveAmount ||
-            nextProps.receive_asset !== this.props.receive_asset ||
-            nextProps.deposit_asset_name !== this.props.deposit_asset_name ||
-            nextProps.action !== this.props.action ||
-            nextProps.currentLocale !== this.props.currentLocale
-        );
-    }
-
     _getDepositObject() {
         return {
             inputCoinType: this.props.deposit_coin_type,
@@ -347,16 +336,8 @@ class RaidoDepositRequest extends React.Component {
     _makeUriRaido() {
         let strUri = "";
         let raido = this.state.raido;
-        let receive_address;
-        if (!receive_address) {
-            let account_name = this.props.account.get("name");
-            receive_address = this.deposit_address_cache.getCachedInputAddress(
-                this.props.gateway,
-                account_name,
-                this.props.deposit_coin_type,
-                this.props.receive_coin_type
-            );
-        }
+        let receive_address = this.state.receive_address;
+
         let objParams = {
             affiliate_id: raido.affiliate_id,
             offer_id: 3,
@@ -406,16 +387,18 @@ class RaidoDepositRequest extends React.Component {
             if (!has_nonzero_balance) return emptyRow;
         }
 
-        //let receive_address = this.state.receive_address;
-        let receive_address;
-        if (!receive_address) {
-            let account_name = this.props.account.get("name");
+        let receive_address = this.state.receive_address;
+        if (this.state.account_name === this.props.account.get("name")) {
+            /*            let account_name = this.props.account.get("name");
             receive_address = this.deposit_address_cache.getCachedInputAddress(
                 this.props.gateway,
                 account_name,
                 this.props.deposit_coin_type,
                 this.props.receive_coin_type
-            );
+            );*/
+        } else if (!this.props.supports_output_memos) {
+            requestDepositAddress(this._getDepositObject());
+            return emptyRow;
         }
 
         let depositConfirmation = null;
@@ -448,7 +431,10 @@ class RaidoDepositRequest extends React.Component {
                 <span>{this.props.deposit_account}</span>
             );
         } else {
-            if (!receive_address && !this.props.supportsMemos) {
+            if (
+                (!receive_address || !receive_address.address) &&
+                !this.props.supportsMemos
+            ) {
                 requestDepositAddress(this._getDepositObject());
                 return emptyRow;
             }

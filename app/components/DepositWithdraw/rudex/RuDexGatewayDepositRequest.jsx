@@ -52,7 +52,8 @@ class RuDexGatewayDepositRequest extends React.Component {
             isQrModalVisible: false,
             qrcode: "",
             isModalVisible: false,
-            receive_address: null
+            receive_address: null,
+            account_name: null
         };
 
         this.addDepositAddress = this.addDepositAddress.bind(this);
@@ -120,7 +121,6 @@ class RuDexGatewayDepositRequest extends React.Component {
 
     addDepositAddress(receive_address) {
         let account_name = this.props.account.get("name");
-        console.log("account_name" + account_name);
         this.deposit_address_cache.cacheInputAddress(
             this.props.gateway,
             account_name,
@@ -185,16 +185,18 @@ class RuDexGatewayDepositRequest extends React.Component {
         //     }
         // }
 
-        //let receive_address = this.state.receive_address;
-        let receive_address;
-        if (!receive_address) {
-            let account_name = this.props.account.get("name");
+        let receive_address = this.state.receive_address;
+        if (this.state.account_name === this.props.account.get("name")) {
+            /*            let account_name = this.props.account.get("name");
             receive_address = this.deposit_address_cache.getCachedInputAddress(
                 this.props.gateway,
                 account_name,
                 this.props.deposit_coin_type,
                 this.props.receive_coin_type
-            );
+            );*/
+        } else if (!this.props.supports_output_memos) {
+            requestDepositAddress(this._getDepositObject());
+            return emptyRow;
         }
 
         let qrcode = this.state.qrcode;
@@ -256,7 +258,10 @@ class RuDexGatewayDepositRequest extends React.Component {
             deposit_memo = <span>{memoText}</span>;
             withdraw_memo_prefix = this.props.deposit_coin_type + ":";
         } else {
-            if (!receive_address && !this.props.supportsMemos) {
+            if (
+                (!receive_address || !receive_address.address) &&
+                !this.props.supports_output_memos
+            ) {
                 requestDepositAddress(this._getDepositObject());
                 return emptyRow;
             }
