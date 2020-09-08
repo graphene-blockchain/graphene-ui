@@ -1279,9 +1279,11 @@
                 "buy_inst": "Instructions",
                 "you_give": "I want to spend:",
                 "you_get": "You will receive:",
+                "you_give_placeholder": "Enter amount:",
+                "you_get_placeholder": "Enter amount:",
                 "min_amount": "Minimum amount: ",
                 "max_amount": "Maximum amount: ",
-                "withdraw_fee_included": "* network fee: %(withdraw_fee)s %(asset)s already included in the deal amount",
+                "withdraw_fee_included": "* network fee: %(withdraw_fee)s %(asset)s already included in the total",
                 "approximate_amount": "* * This is approximate amount. The exact amount will be calculated at the time of completion of the transaction.",
                 "final_text": "The purchased cryptocurrency will be transferred to the account "
             }

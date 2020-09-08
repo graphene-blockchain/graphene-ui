@@ -1279,6 +1279,8 @@
                 "buy_inst": "Инструкции",
                 "you_give": "Вы заплатите:",
                 "you_get": "Вы получите:",
+                "you_give_placeholder": "Введите сумму:",
+                "you_get_placeholder": "Введите сумму",
                 "min_amount": "Минимальная сумма: ",
                 "max_amount": "Максимальная сумма: ",
                 "withdraw_fee_included": "* network fee: %(withdraw_fee)s %(asset)s уже включено в сумму сделки",

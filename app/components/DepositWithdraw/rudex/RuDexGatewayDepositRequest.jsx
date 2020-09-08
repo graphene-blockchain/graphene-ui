@@ -187,13 +187,16 @@ class RuDexGatewayDepositRequest extends React.Component {
 
         let receive_address = this.state.receive_address;
         if (this.state.account_name === this.props.account.get("name")) {
-            /*            let account_name = this.props.account.get("name");
-            receive_address = this.deposit_address_cache.getCachedInputAddress(
+            let account_name = this.props.account.get("name");
+            let receive_address_from_cache = this.deposit_address_cache.getCachedInputAddress(
                 this.props.gateway,
                 account_name,
                 this.props.deposit_coin_type,
                 this.props.receive_coin_type
-            );*/
+            );
+            if (receive_address_from_cache !== undefined) {
+                receive_address = receive_address_from_cache;
+            }
         } else if (!this.props.supports_output_memos) {
             requestDepositAddress(this._getDepositObject());
             return emptyRow;

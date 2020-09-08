@@ -124,7 +124,7 @@ class RaidoDepositRequest extends React.Component {
 
         for (let i = 0; i < currencies.length; i++) {
             if (currencies[i].code === curr_coin_original) {
-                console.log("withdraw_fee: " + currencies[i].withdraw_fee);
+                console.log("withdraw_fee: " + currencies[i].withdraw_fee * 1);
 
                 raido.give = this.state.raido.give;
                 raido.get = currencies[i].code;
@@ -135,7 +135,7 @@ class RaidoDepositRequest extends React.Component {
                 raido.out = currencies[i].id;
                 raido.min_deposit = currencies[i].min_deposit;
                 raido.max_deposit = currencies[i].max_deposit;
-                raido.withdraw_fee = currencies[i].withdraw_fee;
+                raido.withdraw_fee = currencies[i].withdraw_fee * 1;
 
                 raido.give_decimal = currencies[i].decimal;
 
@@ -207,7 +207,7 @@ class RaidoDepositRequest extends React.Component {
             value = this.state.getAmount;
         }
 
-        if (value === "") {
+        if (value === "" || value === 0) {
             this.setState({getAmount: ""});
             this.setState({giveAmount: ""});
             return;
@@ -229,7 +229,7 @@ class RaidoDepositRequest extends React.Component {
             this.setState({
                 getAmount:
                     Math.ceil(
-                        (res_getAmount - raido.withdraw_fee * 1) *
+                        (res_getAmount - raido.withdraw_fee) *
                             Math.pow(10, raido.give_decimal)
                     ) / Math.pow(10, raido.give_decimal)
             });
@@ -242,7 +242,7 @@ class RaidoDepositRequest extends React.Component {
         } else if (name === "getAmount") {
             res_getAmount = value;
             let res_giveAmount =
-                (raido.price * (value + raido.withdraw_fee * 1)) /
+                (raido.price * (value + raido.withdraw_fee)) /
                     ((100 - (raido.commission + raido.in_fee)) / 100) +
                 raido.in_min_fee;
 
@@ -407,13 +407,16 @@ class RaidoDepositRequest extends React.Component {
 
         let receive_address = this.state.receive_address;
         if (this.state.account_name === this.props.account.get("name")) {
-            /*            let account_name = this.props.account.get("name");
-            receive_address = this.deposit_address_cache.getCachedInputAddress(
+            let account_name = this.props.account.get("name");
+            let receive_address_from_cache = this.deposit_address_cache.getCachedInputAddress(
                 this.props.gateway,
                 account_name,
                 this.props.deposit_coin_type,
                 this.props.receive_coin_type
-            );*/
+            );
+            if (receive_address_from_cache !== undefined) {
+                receive_address = receive_address_from_cache;
+            }
         } else if (!this.props.supports_output_memos) {
             requestDepositAddress(this._getDepositObject());
             return emptyRow;
@@ -647,7 +650,7 @@ class RaidoDepositRequest extends React.Component {
                                             "giveAmount"
                                         )}
                                         placeholder={counterpart.translate(
-                                            "gateway.rudex.buy_crypto.you_give"
+                                            "gateway.rudex.buy_crypto.you_give_placeholder"
                                         )}
                                         style={{
                                             backgroundImage: `url(\/images\/raido-payment-${this.state.raido.give_raw.toLowerCase()}.png)`
@@ -669,7 +672,7 @@ class RaidoDepositRequest extends React.Component {
                                             "getAmount"
                                         )}
                                         placeholder={counterpart.translate(
-                                            "gateway.rudex.buy_crypto.you_get"
+                                            "gateway.rudex.buy_crypto.you_get_placeholder"
                                         )}
                                         style={{
                                             backgroundImage: `url(\/asset-symbols\/rudex.${this.state.raido.get.toLowerCase()}.png)`
