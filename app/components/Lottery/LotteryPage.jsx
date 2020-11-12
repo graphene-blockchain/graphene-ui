@@ -168,6 +168,11 @@ class LotteryPage extends React.Component {
     }
 
     getContent = () => {
+        let link_ru =
+            "https://golos.id/ru--blokcheijn/@rudex/nachalnoe-raspredelenie-tokenov-blokcheina-graphene-ot-komandy-rudex?invite=rudex";
+        let link_en =
+            "https://steemit.com/blockchain/@rudex/graphene-blockchain-by-rudex-team-initial-distribution-announcement";
+
         return (
             <div className="lotteryTable">
                 <p>
@@ -253,7 +258,13 @@ class LotteryPage extends React.Component {
                                                 lineHeight: "2rem",
                                                 fontSize: "1em"
                                             }}
-                                            href="https://gph.ai"
+                                            href={
+                                                SettingsStore.getState().settings.get(
+                                                    "locale"
+                                                ) == "ru"
+                                                    ? link_ru
+                                                    : link_en
+                                            }
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
