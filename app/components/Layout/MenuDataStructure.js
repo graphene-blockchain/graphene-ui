@@ -73,7 +73,8 @@ class MenuDataStructure {
             allItems.account,
             allItems.market,
             allItems.explorer,
-            allItems.bots
+            /*allItems.bots*/
+            allItems.lottery
         ];
     }
 
@@ -135,6 +136,7 @@ class MenuDataStructure {
 
             allItems.divider,
             allItems.listing,
+            allItems.lottery,
             allItems.news,
             allItems.help,
 
@@ -203,6 +205,7 @@ class MenuDataStructure {
                     "/assets",
                     "/bots",
                     "/listing",
+                    "/lottery",
                     "/news",
                     "/help",
                     "/settings",
@@ -257,8 +260,8 @@ class MenuDataStructure {
                 target: "/bots",
                 icon: "robot",
                 text: "header.bots",
-                inHeaderBehavior: MenuItemType.WhenAccount,
-                inDropdownBehavior: MenuItemType.Never
+                inHeaderBehavior: MenuItemType.Dynamic,
+                inDropdownBehavior: MenuItemType.Always
             }),
             listing: state => ({
                 includePattern: ["/listing"],
@@ -276,6 +279,24 @@ class MenuDataStructure {
                 icon: "listing",
                 text: "header.listing",
                 inHeaderBehavior: MenuItemType.Dynamic,
+                inDropdownBehavior: MenuItemType.Always
+            }),
+            lottery: state => ({
+                includePattern: ["/lottery"],
+                excludePattern: [
+                    //"/account", "account/", "/account/",
+                    "/assets",
+                    "/voting",
+                    "/signedmessages",
+                    "/member-stats",
+                    "/vesting",
+                    "/whitelist",
+                    "/permissions"
+                ],
+                target: "/lottery",
+                icon: "lottery",
+                text: "header.lottery",
+                inHeaderBehavior: MenuItemType.WhenAccount,
                 inDropdownBehavior: MenuItemType.Always
             }),
             follow: state => ({

@@ -164,6 +164,12 @@ const Listing = Loadable({
     loading: LoadingIndicator
 });
 
+const Lottery = Loadable({
+    loader: () =>
+        import(/* webpackChunkName: "Lottery" */ "./components/Lottery/LotteryPage"),
+    loading: LoadingIndicator
+});
+
 import LoginSelector from "./components/LoginSelector";
 import Login from "./components/Login/Login";
 import RegistrationSelector from "./components/Registration/RegistrationSelector";
@@ -517,6 +523,11 @@ class App extends React.Component {
                                     path="/listing"
                                     exact
                                     component={Listing}
+                                />{" "}
+                                <Route
+                                    path="/lottery"
+                                    exact
+                                    component={Lottery}
                                 />
                                 <Redirect
                                     path={"/voting"}
@@ -545,18 +556,15 @@ class App extends React.Component {
                                     component={Block}
                                 />
                                 <Route path="/borrow" component={Borrow} />
-
                                 <Route path="/barter" component={Barter} />
                                 <Route
                                     path="/direct-debit"
                                     component={DirectDebit}
                                 />
-
                                 <Route
                                     path="/spotlight"
                                     component={ShowcaseGrid}
                                 />
-
                                 {/* Wallet backup/restore routes */}
                                 <Route
                                     path="/wallet"
@@ -570,12 +578,10 @@ class App extends React.Component {
                                     path="/existing-account"
                                     component={ExistingAccount}
                                 />
-
                                 <Route
                                     path="/create-worker"
                                     component={CreateWorker}
                                 />
-
                                 {/* Help routes */}
                                 <Route exact path="/help" component={Help} />
                                 <Route

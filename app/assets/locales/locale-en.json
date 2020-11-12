@@ -1353,6 +1353,7 @@
         "accounts_manage": "Manage Accounts",
         "bots": "Bots",
         "listing": "Listing",
+        "lottery": "Lottery",
         "bots_beta": "Bots (beta)",
         "advanced": "Advanced",
         "collateral_ratio": "Collateral ratio",
@@ -1459,6 +1460,7 @@
             "common": "Click to unlock your account",
             "enable_auto_scroll": "Enable auto scroll"
         },
+        "lottery": "Lottery",
         "manage_accounts": "Manage Accounts",
         "minus_circle": {
             "disapproved": "Disapproved",
@@ -3052,6 +3054,45 @@
                 "rule_5": "Listing process is initiated after the crowdfunding goal is reach, and begins with the gateway launch preparation. Please provide the contacts for technical/marketing team, or any other qualified contact."
             },
             "end": "Good luck with your project and welcome to "
+        }
+    },
+    "lottery": {
+        "loading": "Loading, please wait",
+        "buy": "Buy",
+        "reg": "Register ticket",
+        "ticket": " lottery ticket",
+        "more": "More about GPH lottery",
+        "my_stat": {
+            "main": "Your stats:",
+            "regs_all": "Tickets registered:",
+            "win_all": "Tokens won:",
+            "try": "Draws number:"
+        },
+        "all_stat": {
+            "main": "Global stats:",
+            "regs_all": "Total tickets registered:",
+            "win_all": "Total tokens distributed:",
+            "try": "Total number of draws:"
+        },
+        "text": {
+            "main": "How to participate in GPH token distribution",
+            "block_1": "To participate in",
+            "block_11": "via the all win lottery, you first need to buy lottery tickets.",
+            "block_12": "You can do that by visiting the ",
+            "block_13": "You can purchase tickets during whole lottery duration, if the market has tickets available for purchase.",
+            "block_2": "To participate in the distribution you need to register your tickets via the special form (кнопка Register ticket) by sending any amount of tickets (multiples of 1) to the registration account.",
+            "block_3": "The distribution is implemented as an \"instant\" lottery. After sending the lottery tickets to the special account and transaction confirmation (once it is added to an irreversible block) you will see your result (number of tokens won) in the stats section."
+        },
+        "details": {
+            "main": "Details",
+            "trx": "Transaction TXID ",
+            "num_blocks": "Block number",
+            "tickets": "Tickets ",
+            "tokens": "tokens ",
+            "start": "Start from remainder "
+        },
+        "modal": {
+            "header": "Register ticket"
         }
     }
 }

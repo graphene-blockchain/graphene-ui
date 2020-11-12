@@ -128,14 +128,6 @@ export const settingsAPIs = {
             contact: "telegram:blckchnd"
         },
         {
-            url: "wss://dex.iobanker.com:9090",
-            region: "Western Europe",
-            country: "Germany",
-            location: "Frankfurt",
-            operator: "Witness: iobanker-core",
-            contact: "email:admin@iobanker.com"
-        },
-        {
             url: "wss://blockzms.xyz/ws",
             region: "Northern America",
             country: "U.S.A.",
@@ -205,13 +197,6 @@ export const settingsAPIs = {
             contact: "telegram:imyao"
         },
         {
-            url: "wss://api.btsgo.net/ws",
-            region: "Southeastern Asia",
-            location: "Singapore",
-            operator: "Witness: xn-delegate",
-            contact: "wechat:Necklace"
-        },
-        {
             url: "wss://bts.open.icowallet.net/ws",
             region: "Eastern Asia",
             country: "China",
@@ -242,14 +227,6 @@ export const settingsAPIs = {
             location: "Paris",
             operator: "Witness: zapata42-witness",
             contact: "telegram:Zapata_42"
-        },
-        {
-            url: "wss://citadel.li/node",
-            region: "Western Europe",
-            country: "Iceland",
-            location: "Reykjavik",
-            operator: "CITADEL",
-            contact: "email:citadel.li;support"
         },
 
         // Testnet
@@ -302,6 +279,13 @@ export const settingsAPIs = {
         },
         {
             url: "https://explorer.bitshares-kibana.info",
+            region: "N/A",
+            country: "N/A",
+            operator: "N/A",
+            contact: "N/A"
+        },
+        {
+            url: "https://kibana.bts.mobi",
             region: "N/A",
             country: "N/A",
             operator: "N/A",

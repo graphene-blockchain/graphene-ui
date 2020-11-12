@@ -1,0 +1,268 @@
+.lotteryTable {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-spacing: 0;
+    font-size: 1rem;
+    text-transform: none;
+}
+
+.lotteryTable__header,
+.lotteryTable__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.lotteryTable__header {
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.lotteryTable__row {
+    border-bottom: 1px dotted #e3e3e3;
+}
+
+.lotteryTable__cell {
+    padding: 0.5rem 0.25rem;
+    text-align: center;
+}
+
+.lotteryAsset {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.lotteryAssetCard {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.lotteryTableRank {
+    width: 10%;
+}
+
+.lotteryTableLogo {
+    width: 15%;
+}
+
+.lotteryTableAssetName {
+    width: 75%;
+}
+
+.lotteryAssetInfo {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+}
+
+.lotteryAssetInfoData {
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.lotteryTableVotes {
+    width: calc(100% / 3);
+}
+
+.lotteryTableGoal {
+    width: calc(100% / 3);
+}
+
+.lotteryTableStatus {
+    width: calc(100% / 3);
+}
+
+.lotteryTableProgress {
+    width: 25%;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.nowrap {
+    white-space: normal;
+}
+
+.lotteryAssetInfoBlock {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .nowrap {
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .lotteryTable__cell {
+        padding: 0.5rem 0;
+    }
+
+    .lotteryTable__header {
+        display: none;
+    }
+
+    .lotteryAssetCard {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .lotteryAsset {
+        flex-direction: column;
+    }
+
+    .lotteryTableRank {
+        align-self: center;
+    }
+
+    .lotteryTableLogo {
+        width: 15%;
+    }
+
+    .lotteryTableAssetName {
+        width: 75%;
+        align-self: center;
+        padding: 0 0 0.5rem 1rem;
+    }
+
+    .lotteryAssetInfo {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-self: flex-end;
+        justify-content: flex-end;
+    }
+
+    .lotteryAssetInfoData {
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        order: 2;
+    }
+
+    .lotteryTableVotes {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        padding: 0 0 0.5rem 1rem;
+    }
+
+    .lotteryTableGoal {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        padding: 0 0 0.5rem 1rem;
+    }
+
+    .lotteryTableStatus {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        padding: 0 0 0.5rem 1rem;
+    }
+
+    .lotteryTableProgress {
+        width: 15%;
+        align-self: center;
+        order: 1;
+    }
+
+    .lotteryAssetInfoBlock {
+        display: block;
+    }
+}
+
+body .lottery_button .ant-btn-disabled,
+body .lottery_button .ant-btn-disabled.active,
+body .lottery_button .ant-btn-disabled:active,
+body .lottery_button .ant-btn-disabled:focus,
+body .lottery_button .ant-btn-disabled:hover,
+body .lottery_button .ant-btn.disabled,
+body .lottery_button .ant-btn.disabled.active,
+body .lottery_button .ant-btn.disabled:active,
+body .lottery_button .ant-btn.disabled:focus,
+body .lottery_button .ant-btn.disabled:hover,
+body .lottery_button .ant-btn[disabled],
+body .lottery_button .ant-btn[disabled].active,
+body .lottery_button .ant-btn[disabled]:active,
+body .lottery_button .ant-btn[disabled]:focus,
+body .lottery_button .ant-btn[disabled]:hover {
+    color: red !important;
+    border-color: red !important;
+}
+
+.lotteryTable__cell.lotteryTableVotes a {
+    border: 1px solid #00a9e0;
+    display: block;
+    padding: 4px 6px 3px 0px;
+    border-radius: 3px;
+}
+
+@media only screen and (max-width: 468px) {
+    .lotteryTable__cell.lotteryTableVotes a {
+        position: absolute;
+        right: 20px;
+    }
+}
+
+.coin-soon {
+    border: 1px solid grey !important;
+    color: grey !important;
+}
+
+.lotteryTable__cell.lotteryTableVotes a:hover {
+    border-color: #1652f0;
+}
+
+/*
+Lottery Table
+*/
+
+table.lotteryTable div.lotteryBlock {
+    border-bottom: 2px solid #7b7b7a;
+    border-top: 2px solid #7b7b7a;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    color: #7b7b7a;
+}
+
+table.lotteryTable {
+    font-size: 16px;
+    /*width: 50%;*/
+}
+
+table.lotteryTable tr,
+table.lotteryTable td {
+    /*font-size: 16px;*/
+    width: 32%;
+}
+
+table.lotteryTable {
+    /*border: 1px solid red;*/
+    padding: 5px;
+}
+
+table.lotteryTable tr,
+table.lotteryTable td {
+    /*border: 1px solid blue;*/
+    padding: 5px;
+}
+
+.accDetails {
+    margin: 20px;
+}

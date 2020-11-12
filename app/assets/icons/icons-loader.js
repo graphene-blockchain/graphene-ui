@@ -37,6 +37,7 @@ let icons = [
     "key",
     "list",
     "listing",
+    "lottery",
     "locked",
     "minus-circle",
     "news",

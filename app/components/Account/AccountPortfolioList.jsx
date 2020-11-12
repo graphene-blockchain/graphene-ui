@@ -536,14 +536,14 @@ class AccountPortfolioList extends React.Component {
             if (
                 symbol == "PPY" ||
                 symbol == "DONATE" ||
-                symbol == "BTS" ||
-                symbol == "CNY" ||
-                symbol == "USD" ||
-                symbol == "EUR" ||
-                symbol == "RUBLE" ||
-                symbol == "BTC" ||
-                symbol == "GOLD" ||
-                symbol == "SILVER"
+                symbol == "BTS" //||
+                //symbol == "CNY" ||
+                //symbol == "USD" ||
+                //symbol == "EUR" ||
+                //symbol == "RUBLE" ||
+                //symbol == "BTC" ||
+                //symbol == "GOLD" ||
+                //symbol == "SILVER"
             )
                 return symbol;
 

@@ -94,7 +94,7 @@ export function getUnits() {
     if (_isTestnet()) {
         return ["TEST"];
     }
-    return ["BTS", "RUBLE", "EUR", "RUDEX.BTC", "RUDEX.USDT"];
+    return ["BTS", "RUDEX.BTC", "RUDEX.USDT"];
 }
 
 export function getDefaultMarket() {
@@ -113,7 +113,7 @@ export function getMyMarketsBases() {
     if (_isTestnet()) {
         return ["TEST"];
     }
-    return ["BTS", "RUDEX.USDT", "RUDEX.BTC", "RUBLE"];
+    return ["BTS", "RUDEX.USDT", "RUDEX.BTC"];
 }
 
 /**
@@ -128,13 +128,13 @@ export function getMyMarketsQuotes() {
     let tokens = {
         nativeTokens: [
             //"BTC",
-            "BTS",
+            "BTS"
             //"CNY",
             //"USD",
-            "EUR",
+            //"EUR",
             //"GOLD",
             //"KRW",
-            "RUBLE"
+            //"RUBLE"
             //"SILVER",
             //"USD"
         ],
@@ -157,7 +157,9 @@ export function getMyMarketsQuotes() {
             "RUDEX.XBT",
             "RUDEX.RUB",
             "RUDEX.OIL",
-            "RUDEX.XAU"
+            "RUDEX.XAU",
+
+            "RUDEX.LOTTERY"
 
             //"RUDEX.GRC",
             //"RUDEX.GBG",
@@ -180,7 +182,8 @@ export function getMyMarketsQuotes() {
  */
 export function getGroupedMPAsRuDEX() {
     let tokens = {
-        listed: ["EUR", "RUBLE"],
+        //listed: ["EUR", "RUBLE"],
+        listed: [],
         rudex: [
             //RuDEX MPA-s
             "RUDEX.XBS",
@@ -205,8 +208,8 @@ export function getFeaturedMarkets(quotes = []) {
     }
     return [
         //BTS
-        ["BTS", "EUR"],
-        ["BTS", "RUBLE"],
+        //["BTS", "EUR"],
+        //["BTS", "RUBLE"],
         ["BTS", "RUDEX.XBS"], //MPA
 
         ["BTS", "PPY"],
@@ -218,9 +221,9 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "RUDEX.GOLOS"],
         ["BTS", "RUDEX.STEEM"],
         ["BTS", "RUDEX.WLS"],
-        ["BTS", "RUDEX.SMOKE"],
+        ["BTS", "RUDEX.SMOKE"], //MPA
 
-        ["RUBLE", "BTS"],
+        /*["RUBLE", "BTS"],
         ["RUBLE", "PPY"],
         ["RUBLE", "RUDEX.BTC"],
         ["RUBLE", "RUDEX.USDT"],
@@ -230,9 +233,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUBLE", "RUDEX.STEEM"],
         ["RUBLE", "RUDEX.WLS"],
         ["RUBLE", "RUDEX.SMOKE"],
-        ["RUBLE", "RUDEX.RUB"], //MPA
-
-        //USDT
+        ["RUBLE", "RUDEX.RUB"], */ //USDT
         ["RUDEX.USDT", "BTS"],
         ["RUDEX.USDT", "PPY"],
         ["RUDEX.USDT", "RUDEX.NBS"],
@@ -244,7 +245,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.USDT", "RUDEX.WLS"],
         ["RUDEX.USDT", "RUDEX.SMOKE"],
         ["RUDEX.USDT", "RUDEX.PZM"],
-        ["RUDEX.USDT", "RUBLE"],
+        //["RUDEX.USDT", "RUBLE"],
         ["RUDEX.USDT", "RUDEX.XBS"], //MPA
         ["RUDEX.USDT", "RUDEX.XBT"], //MPA
         ["RUDEX.USDT", "RUDEX.OIL"], //MPA
@@ -263,7 +264,8 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.BTC", "RUDEX.WLS"],
         ["RUDEX.BTC", "RUDEX.SMOKE"],
         ["RUDEX.BTC", "DONATE"],
-        ["RUDEX.BTC", "RUBLE"],
+        ["RUDEX.BTC", "RUDEX.LOTTERY"],
+        //["RUDEX.BTC", "RUBLE"],
         ["RUDEX.BTC", "RUDEX.XBT"] //MPA
     ].filter(a => {
         if (!quotes.length) return true;

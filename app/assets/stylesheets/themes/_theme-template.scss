@@ -2880,3 +2880,16 @@ div.customizable-column--selector--dropdown {
     border: 1px solid red;
     padding: 5px;
 }
+
+.header-container .menu-group .menu-bar li.lottery_a a,
+.header-container .menu-group .menu-bar li.lottery_a a.active,
+.header-container .menu-group .menu-bar li.lottery_a a:hover {
+    background-color: #ff7a00 !important;
+    color: white !important;
+}
+
+.header-container .menu-group .menu-bar li.lottery_a a svg path,
+.header-container .menu-group .menu-bar li.lottery_a a.active svg path,
+.header-container .menu-group .menu-bar li.lottery_a a:hover svg path {
+    fill: white !important;
+}

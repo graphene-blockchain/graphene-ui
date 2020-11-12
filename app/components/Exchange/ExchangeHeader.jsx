@@ -70,15 +70,15 @@ export default class ExchangeHeader extends React.Component {
         let coins = [
             "BTS",
 
-            "BTC",
-            "CNY",
-            "USD",
-            "EUR",
-            "RUBLE",
-            "KRW",
-            "GBP",
-            "GOLD",
-            "SILVER",
+            //"BTC",
+            //"CNY",
+            //"USD",
+            //"EUR",
+            //"RUBLE",
+            //"KRW",
+            //"GBP",
+            //"GOLD",
+            //"SILVER",
 
             "PPY",
             "DONATE"
