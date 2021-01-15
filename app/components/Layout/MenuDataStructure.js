@@ -73,8 +73,7 @@ class MenuDataStructure {
             allItems.account,
             allItems.market,
             allItems.explorer,
-            /*allItems.bots*/
-            allItems.lottery
+            allItems.bots
         ];
     }
 
@@ -260,8 +259,8 @@ class MenuDataStructure {
                 target: "/bots",
                 icon: "robot",
                 text: "header.bots",
-                inHeaderBehavior: MenuItemType.Dynamic,
-                inDropdownBehavior: MenuItemType.Always
+                inHeaderBehavior: MenuItemType.Always,
+                inDropdownBehavior: MenuItemType.WhenNotInHeader
             }),
             listing: state => ({
                 includePattern: ["/listing"],
@@ -296,7 +295,7 @@ class MenuDataStructure {
                 target: "/lottery",
                 icon: "lottery",
                 text: "header.lottery",
-                inHeaderBehavior: MenuItemType.WhenAccount,
+                inHeaderBehavior: MenuItemType.Dynamic,
                 inDropdownBehavior: MenuItemType.Always
             }),
             follow: state => ({

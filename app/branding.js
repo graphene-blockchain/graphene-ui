@@ -151,6 +151,7 @@ export function getMyMarketsQuotes() {
             "RUDEX.SMOKE",
             "RUDEX.PZM",
             "RUDEX.NBS",
+            "RUDEX.XMR",
 
             //RuDEX MPA-s
             "RUDEX.XBS",
@@ -217,11 +218,12 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "RUDEX.BTC"],
         ["BTS", "RUDEX.USDT"],
         ["BTS", "RUDEX.ETH"],
+        ["BTS", "RUDEX.XMR"],
         ["BTS", "RUDEX.EOS"],
         ["BTS", "RUDEX.GOLOS"],
         ["BTS", "RUDEX.STEEM"],
         ["BTS", "RUDEX.WLS"],
-        ["BTS", "RUDEX.SMOKE"], //MPA
+        ["BTS", "RUDEX.SMOKE"], //USDT
 
         /*["RUBLE", "BTS"],
         ["RUBLE", "PPY"],
@@ -233,8 +235,10 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUBLE", "RUDEX.STEEM"],
         ["RUBLE", "RUDEX.WLS"],
         ["RUBLE", "RUDEX.SMOKE"],
-        ["RUBLE", "RUDEX.RUB"], */ //USDT
-        ["RUDEX.USDT", "BTS"],
+        ["RUBLE", "RUDEX.RUB"], */ [
+            "RUDEX.USDT",
+            "BTS"
+        ],
         ["RUDEX.USDT", "PPY"],
         ["RUDEX.USDT", "RUDEX.NBS"],
         ["RUDEX.USDT", "RUDEX.BTC"],
@@ -245,7 +249,9 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.USDT", "RUDEX.WLS"],
         ["RUDEX.USDT", "RUDEX.SMOKE"],
         ["RUDEX.USDT", "RUDEX.PZM"],
+        ["RUDEX.USDT", "RUDEX.XMR"],
         //["RUDEX.USDT", "RUBLE"],
+
         ["RUDEX.USDT", "RUDEX.XBS"], //MPA
         ["RUDEX.USDT", "RUDEX.XBT"], //MPA
         ["RUDEX.USDT", "RUDEX.OIL"], //MPA
@@ -258,13 +264,14 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.BTC", "RUDEX.NBS"],
         ["RUDEX.BTC", "RUDEX.USDT"],
         ["RUDEX.BTC", "RUDEX.ETH"],
+        ["RUDEX.BTC", "RUDEX.XMR"],
         ["RUDEX.BTC", "RUDEX.EOS"],
         ["RUDEX.BTC", "RUDEX.GOLOS"],
         ["RUDEX.BTC", "RUDEX.STEEM"],
         ["RUDEX.BTC", "RUDEX.WLS"],
         ["RUDEX.BTC", "RUDEX.SMOKE"],
         ["RUDEX.BTC", "DONATE"],
-        ["RUDEX.BTC", "RUDEX.LOTTERY"],
+        //["RUDEX.BTC", "RUDEX.LOTTERY"],
         //["RUDEX.BTC", "RUBLE"],
         ["RUDEX.BTC", "RUDEX.XBT"] //MPA
     ].filter(a => {
@@ -348,13 +355,13 @@ export function getConfigurationAsset() {
 export function getListingCoins() {
     return [
         //soon: true, (for TON example)
-        {
+        /*        {
             name: "Monero",
             ticker: "XMR",
             account: "rudex-monero",
             goal: 5000,
             votes: 0
-        },
+        },*/
         {
             name: "Litecoin",
             ticker: "LTC",

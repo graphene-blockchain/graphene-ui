@@ -49,6 +49,8 @@ class AccountOverview extends React.Component {
                 "RUDEX.WLS",
                 "RUDEX.SMOKE",
                 "RUDEX.PZM",
+                "RUDEX.NBS",
+                "RUDEX.XMR",
 
                 "RUDEX.GRC",
                 "RUDEX.GBG",

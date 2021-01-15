@@ -612,7 +612,7 @@ class Footer extends React.Component {
                                         style={{
                                             height: "22px"
                                         }}
-                                        src={"/images/google-play.png"}
+                                        src={`${__BASE_URL__}images/google-play.png`}
                                     />
                                 </a>
                                 <a
@@ -631,7 +631,7 @@ class Footer extends React.Component {
                                         style={{
                                             height: "22px"
                                         }}
-                                        src={"/images/coinmarketcap.png"}
+                                        src={`${__BASE_URL__}images/coinmarketcap.png`}
                                     />
                                 </a>
                             </div>

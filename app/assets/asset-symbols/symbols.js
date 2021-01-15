@@ -11,7 +11,6 @@ require("file-loader?name=asset-symbols/[name].png!./bts.png");
 //require("file-loader?name=asset-symbols/silver.png!./silver.png");
 
 // rudex assets
-require("file-loader?name=asset-symbols/[name].png!./donate.png");
 require("file-loader?name=asset-symbols/[name].png!./ppy.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.btc.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.usdt.png");
@@ -23,6 +22,7 @@ require("file-loader?name=asset-symbols/[name].png!./rudex.smoke.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.wls.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.pzm.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.nbs.png");
+require("file-loader?name=asset-symbols/[name].png!./rudex.xmr.png");
 
 require("file-loader?name=asset-symbols/[name].png!./rudex.dgb.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.gbg.png");
@@ -40,7 +40,8 @@ require("file-loader?name=asset-symbols/[name].png!./rudex.rub.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.oil.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.xau.png");
 
-//Lottery
+//RuDEX others
+require("file-loader?name=asset-symbols/[name].png!./donate.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.lottery.png");
 
 // 3rd party assets

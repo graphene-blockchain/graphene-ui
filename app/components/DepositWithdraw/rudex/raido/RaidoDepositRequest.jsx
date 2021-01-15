@@ -653,7 +653,7 @@ class RaidoDepositRequest extends React.Component {
                                             "gateway.rudex.buy_crypto.you_give_placeholder"
                                         )}
                                         style={{
-                                            backgroundImage: `url(\/images\/raido-payment-${this.state.raido.give_raw.toLowerCase()}.png)`
+                                            backgroundImage: `url(${__BASE_URL__}images\/raido-payment-${this.state.raido.give_raw.toLowerCase()}.png)`
                                         }}
                                     />
                                 </div>
@@ -675,7 +675,7 @@ class RaidoDepositRequest extends React.Component {
                                             "gateway.rudex.buy_crypto.you_get_placeholder"
                                         )}
                                         style={{
-                                            backgroundImage: `url(\/asset-symbols\/rudex.${this.state.raido.get.toLowerCase()}.png)`
+                                            backgroundImage: `url(${__BASE_URL__}asset-symbols\/rudex.${this.state.raido.get.toLowerCase()}.png)`
                                         }}
                                     />
                                     <span

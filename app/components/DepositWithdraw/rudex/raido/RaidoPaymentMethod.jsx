@@ -25,7 +25,13 @@ class RaidoPaymentMethod extends React.Component {
                         onClick={this.props.onClick()}
                     />
                     {title}
-                    <img src={"/images/raido-payment-" + payment_id + ".png"} />
+                    <img
+                        src={
+                            `${__BASE_URL__}images/raido-payment-` +
+                            payment_id +
+                            ".png"
+                        }
+                    />
                 </label>
             </div>
         );

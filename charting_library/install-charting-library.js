@@ -12,8 +12,9 @@ function getMD5Digest(file) {
 var outputFilePath = path.join(__dirname, "charting_library.zip");
 const outputFile = fs.createWriteStream(outputFilePath);
 
-http.get("https://bitshares.org/assets/charting_library.zip", (response) => {
-    response.pipe(outputFile);    
+//http.get("https://bitshares.org/assets/charting_library.zip", (response) => {=
+http.get("https://files.rudex.org/rudex/charting_library_original.zip", (response) => {
+    response.pipe(outputFile);
 }).on("error", (err) => {
     console.error("Failed to download charting_library archive");
     console.error(err);
