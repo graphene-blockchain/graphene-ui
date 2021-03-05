@@ -1626,13 +1626,13 @@
             "submit": "ОК"
         },
         "create_lock": {
-            "amount": "Amount to lock",
-            "from": "Account to lock from",
-            "submit": "Lock",
-            "targetType": "Lock Type",
-            "title": "Create Lock",
-            "type_warning": "Please choose a lock type.",
-            "warning_message": "Note that locked assets must be requested to unlock, and can only be claimed back after the unlock period has passed. Current unlock period would be %(lock_days)s days"
+            "amount": "Сумма для блокировки",
+            "from": "Аккаунт, от которого требуется заблокировать",
+            "submit": "Заблокировать",
+            "targetType": "Тип блокировки",
+            "title": "Создать блокировку",
+            "type_warning": "Пожалуйста, выберите тип блокировки",
+            "warning_message": "Обратите внимание, что заблокированные активы должны быть запрошены для разблокировки и могут быть востребованы только после истечения периода разблокировки. Текущий период разблокировки будет %(lock_days) дней"
         },
         "deposit": {
             "address_generation_error": "Не удается сгенерировать адрес",
@@ -1828,18 +1828,18 @@
         "publish_feed": "{account} опубликовал котировки {price}",
         "reg_account": "{registrar} зарегистрировал аккаунт {new_account}",
         "set_proxy": "{account} установил {proxy} в качестве своего прокси для голосования",
-        "ticket_create": "{account} locked away {amount} in a ticket",
+        "ticket_create": "{account} заблокировал {amount} в блокировке",
         "ticket_types": {
-            "0": "Liquid",
-            "1": "Claimable 180 days after unlock request",
-            "2": "Claimable 360 days after unlock request",
-            "3": "Claimable 720 days after unlock request",
-            "4": "Locked forever",
-            "liquid": "Liquid",
-            "lock_180_days": "Claimable 180 days after unlock request",
-            "lock_360_days": "Claimable 360 days after unlock request",
-            "lock_720_days": "Claimable 720 days after unlock request",
-            "lock_forever": "Locked forever"
+            "0": "Ликвид",
+            "1": "Требуется 180 дней после запроса на разблокировку",
+            "2": "Требуется 360 дней после запроса на разблокировку",
+            "3": "Требуется 720 дней после запроса на разблокировку",
+            "4": "Заблокировать навсегда",
+            "liquid": "Ликвид",
+            "lock_180_days": "Требуется 180 дней после запроса на разблокировку",
+            "lock_360_days": "Требуется 360 дней после запроса на разблокировку",
+            "lock_720_days": "Требуется 720 дней после запроса на разблокировку",
+            "lock_forever": "Заблокировать навсегда"
         },
         "transfer": "{from} отправил {amount} на {to}",
         "transfer_account": "Владение {account} передано {to}",
@@ -2626,7 +2626,7 @@
             "proposal_create": "Создание предложения",
             "proposal_delete": "Удаление предложения",
             "proposal_update": "Обновление предложения",
-            "ticket_create": "Create ticket",
+            "ticket_create": "Создать блокировку",
             "transfer": "Перевод",
             "transfer_from_blind": "Перевод со слепого аккаунта",
             "transfer_to_blind": "Перевод на слепой аккаунт",
@@ -2766,8 +2766,8 @@
     "voting": {
         "create_ticket": "Lock 1 {asset}",
         "description": "Блокчейн BitShares позволяет держателям его базового токена BTS голосовать за производителей блоков (заверителей), членов комитета (управления блокчейном), рабочие предложения (оплата блокчейном задач и стратегических решений через Предложения/Опросы).",
-        "increase_voting_power": "Create Lock",
-        "ticket_explanation": "Obtain voting power by locking away the core token BTS.",
+        "increase_voting_power": "Увеличить силу голоса",
+        "ticket_explanation": "Получите право голоса, заблокировав основной токен BTS.",
         "title": "Голосование"
     },
     "walkthrough": {
