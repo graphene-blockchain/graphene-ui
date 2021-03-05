@@ -616,7 +616,6 @@ class SendModal extends React.Component {
                                         this
                                     )}
                                     typeahead={true}
-                                    includeMyActiveAccounts={false}
                                     tabIndex={tabIndex++}
                                 />
 

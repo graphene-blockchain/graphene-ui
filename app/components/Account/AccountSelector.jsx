@@ -52,7 +52,6 @@ class AccountSelector extends React.Component {
         allowUppercase: PropTypes.bool, // use it if you need to allow uppercase letters
         typeahead: PropTypes.bool,
         excludeAccounts: PropTypes.array, // array of accounts to exclude from the typeahead
-        includeMyActiveAccounts: PropTypes.bool, // whether to include my active accounts in the list
         focus: PropTypes.bool,
         disabled: PropTypes.bool,
         editable: PropTypes.bool,
@@ -64,7 +63,6 @@ class AccountSelector extends React.Component {
     static defaultProps = {
         autosubscribe: false,
         excludeAccounts: [],
-        includeMyActiveAccounts: true,
         disabled: null,
         editable: null,
         locked: false,
@@ -88,11 +86,9 @@ class AccountSelector extends React.Component {
         if (accountName) {
             this._addThisToIndex(accountName);
         }
-        if (this.props.includeMyActiveAccounts) {
-            this.props.myActiveAccounts.map(a => {
-                this._addThisToIndex(a);
-            });
-        }
+        this.props.myActiveAccounts.map(a => {
+            this._addThisToIndex(a);
+        });
         this.props.contacts.map(a => {
             this._addThisToIndex(a);
         });
@@ -462,7 +458,18 @@ class AccountSelector extends React.Component {
             error ||
             disableActionButton;
 
-        if (selectedAccount && selectedAccount.isKnownScammer) {
+        if (selectedAccount && selectedAccount.isOwnAccount) {
+            linked_status = (
+                <Tooltip
+                    placement="top"
+                    title={counterpart.translate("tooltip.own_account")}
+                >
+                    <span className="tooltip green">
+                        <AntIcon type="user" />
+                    </span>
+                </Tooltip>
+            );
+        } else if (selectedAccount && selectedAccount.isKnownScammer) {
             linked_status = (
                 <Tooltip
                     placement="top"
@@ -482,17 +489,6 @@ class AccountSelector extends React.Component {
                 >
                     <span className="tooltip green">
                         <AntIcon type="star" theme="filled" />
-                    </span>
-                </Tooltip>
-            );
-        } else if (selectedAccount && selectedAccount.isOwnAccount) {
-            linked_status = (
-                <Tooltip
-                    placement="top"
-                    title={counterpart.translate("tooltip.own_account")}
-                >
-                    <span className="tooltip green">
-                        <AntIcon type="user" />
                     </span>
                 </Tooltip>
             );
@@ -527,8 +523,7 @@ class AccountSelector extends React.Component {
                         return null;
                     }
                     if (
-                        (this.props.includeMyActiveAccount &&
-                            account.data.isOwnAccount) ||
+                        account.data.isOwnAccount ||
                         (!this.props.locked && account.data.isContact) ||
                         (accountName && account.data.name === accountName)
                     ) {
@@ -553,12 +548,14 @@ class AccountSelector extends React.Component {
                             value={account.data.name}
                             disabled={account.data.disabled ? true : undefined}
                         >
+                            {account.data.isOwnAccount ? (
+                                <AntIcon type="user" />
+                            ) : null}
+                            {account.data.isContact ? (
+                                <AntIcon type="star" />
+                            ) : null}
                             {account.data.isKnownScammer ? (
                                 <AntIcon type="warning" />
-                            ) : account.data.isContact ? (
-                                <AntIcon type="star" />
-                            ) : account.data.isOwnAccount ? (
-                                <AntIcon type="user" />
                             ) : null}
                             &nbsp;
                             {account.data.name}
@@ -670,12 +667,11 @@ class AccountSelector extends React.Component {
                     <label
                         className={cnames(
                             "right-label",
-                            selectedAccount.isKnownScammer
-                                ? "negative"
-                                : selectedAccount.isContact ||
-                                  selectedAccount.isOwnAccount
-                                    ? "positive"
-                                    : null
+                            selectedAccount.isContact ||
+                            selectedAccount.isOwnAccount
+                                ? "positive"
+                                : null,
+                            selectedAccount.isKnownScammer ? "negative" : null
                         )}
                         style={{marginTop: -30}}
                     >
