@@ -524,11 +524,34 @@ class AccountPortfolioList extends React.Component {
 
     getHeader(atLeastOneHas) {
         let {settings} = this.props;
-        let {shownAssets} = this.state;
+        let {shownAssets} = this.props;
 
         const preferredUnit =
             settings.get("unit") || this.props.core_asset.get("symbol");
         const showAssetPercent = settings.get("showAssetPercent", false);
+
+        function getImageName(symbol) {
+            if (symbol.startsWith("RUDEX.")) return symbol;
+
+            if (
+                symbol == "PPY" ||
+                symbol == "DONATE" ||
+                symbol == "BTS" //||
+                //symbol == "CNY" ||
+                //symbol == "USD" ||
+                //symbol == "EUR" ||
+                //symbol == "RUBLE" ||
+                //symbol == "BTC" ||
+                //symbol == "GOLD" ||
+                //symbol == "SILVER"
+            )
+                return symbol;
+
+            return "unknown";
+
+            //let imgName = symbol.split(".");
+            //return imgName.length === 2 ? imgName[1] : imgName[0];
+        }
 
         let headerItems = [
             {
@@ -540,6 +563,21 @@ class AccountPortfolioList extends React.Component {
                 render: item => {
                     return (
                         <span style={{whiteSpace: "nowrap"}}>
+                            {getImageName(item.get("symbol")) === "unknown" ? (
+                                ""
+                            ) : (
+                                <img
+                                    ref={item.get("symbol").toLowerCase()}
+                                    className="column-hide-small"
+                                    //onError={this._onError.bind(this, item.get("symbol").toLowerCase())}
+                                    style={{maxWidth: 35, marginRight: 10}}
+                                    //src={`${__BASE_URL__}asset-symbols/${item.get("symbol").toLowerCase()}.png`}
+                                    src={`${__BASE_URL__}asset-symbols/${getImageName(
+                                        item.get("symbol")
+                                    ).toLowerCase()}.png`}
+                                />
+                            )}
+
                             <LinkToAssetById asset={item.get("id")} />
                         </span>
                     );
@@ -716,11 +754,9 @@ class AccountPortfolioList extends React.Component {
             {
                 className: "column-hide-medium",
                 title: <Translate content="exchange.buy" />,
-                customizable: atLeastOneHas.buy
-                    ? undefined
-                    : {
-                          default: false
-                      },
+                customizable: {
+                    default: false
+                },
                 dataIndex: "buy",
                 align: "center",
                 render: item => {
@@ -744,11 +780,9 @@ class AccountPortfolioList extends React.Component {
                 ) : (
                     <Translate content="modal.deposit.submit" />
                 ),
-                customizable: atLeastOneHas.deposit
-                    ? undefined
-                    : {
-                          default: false
-                      },
+                customizable: {
+                    default: false
+                },
                 dataIndex: "deposit",
                 align: "center",
                 render: item => {
@@ -758,11 +792,9 @@ class AccountPortfolioList extends React.Component {
             {
                 className: "column-hide-medium",
                 title: <Translate content="modal.withdraw.submit" />,
-                customizable: atLeastOneHas.withdraw
-                    ? undefined
-                    : {
-                          default: false
-                      },
+                customizable: {
+                    default: false
+                },
                 dataIndex: "withdraw",
                 align: "center",
                 render: item => {
@@ -913,8 +945,8 @@ class AccountPortfolioList extends React.Component {
                 asset.getIn(["options", "description"])
             );
             symbol = asset.get("symbol");
-            if (symbol.indexOf("OPEN.") !== -1 && !market) market = "USD";
-            let preferredMarket = market ? market : preferredUnit;
+            //let preferredMarket = market ? market : preferredUnit;
+            let preferredMarket = market ? market : "BTS";
 
             if (notCore && preferredMarket === symbol)
                 preferredMarket = coreSymbol;
@@ -1008,7 +1040,8 @@ class AccountPortfolioList extends React.Component {
             const canWithdraw =
                 backedCoin &&
                 backedCoin.withdrawalAllowed &&
-                (hasBalance && balanceObject.get("balance") != 0);
+                hasBalance &&
+                balanceObject.get("balance") != 0;
 
             const canBuy = !!this.props.bridgeCoins.get(symbol);
 
@@ -1256,11 +1289,6 @@ class AccountPortfolioList extends React.Component {
                         let {market} = assetUtils.parseDescription(
                             asset.getIn(["options", "description"])
                         );
-                        if (
-                            asset.get("symbol").indexOf("OPEN.") !== -1 &&
-                            !market
-                        )
-                            market = "USD";
                         let preferredMarket = market ? market : coreSymbol;
 
                         let directMarketLink = notCore ? (

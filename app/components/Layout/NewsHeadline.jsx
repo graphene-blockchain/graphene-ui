@@ -41,7 +41,7 @@ class NewsHeadline extends React.Component {
 
     componentDidMount() {
         this.getNewsThroughAsset();
-        //this.getNewsFromGitHub.call(this);
+        this.getNewsFromGitHub.call(this);
     }
 
     static getDerivedStateFromProps(props, state) {

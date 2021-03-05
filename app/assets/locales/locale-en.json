@@ -36,6 +36,10 @@
             "not_yours": "Not your account",
             "unknown": "Unknown account"
         },
+        "notify": {
+            "copy_memo": "Memo copied",
+            "copy_address": "Address copied"
+        },
         "estimate_value": "Estimated Account value",
         "existing_accounts": "Existing Accounts",
         "existing_user": "Existing user",
@@ -804,11 +808,18 @@
         "to_market": "Go to market",
         "total": "Total",
         "trading_pair": "Trading pair",
+        "trollbox": "Trollbox",
         "value": "Value",
         "vertical": "Vertical",
         "vol_short": "Vol",
         "volume": "Volume",
         "volume_24": "24hr Volume",
+        "scam_alert": {
+            "text1": "WARNING: ",
+            "text2": "Potentially dangerous trading pair! Among the assets on this market, there are some ",
+            "text3": "NOT related ",
+            "text4": " to RUDEX. By trading on this market, you assume responsibility for the potential risks and loss of your funds."
+        },
         "worth_less_settlement_warning": "The current market price of {market_link} is higher than settle price",
         "your_price": "Your Call Price",
         "zoom": "Zoom",
@@ -1081,6 +1092,7 @@
         },
         "disabled_asset_1": "This asset is managed by an external service provider (gateway). Currently deposits and withdrawals for this asset are <b>disabled</b>",
         "disabled_asset_2": "For more information visit Settings -> Entry External Service Providers. For any issues or questions please contact the gateway operator directly.",
+        "disabled_asset_2_rudex": "For any issues or questions please contact the gateway operator directly.",
         "expect_more": "If you expect to see more deposit and withdraw options for your assets, please check the External Service Providers in Settings > General.",
         "gateway": {
             "description": "Gateways are external service providers that allow you to deposit, trade and withdraw assets into the BitShares Blockchain that are not native to it. For example, you can send your BTC on the Bitcoin Blockchain to a Gateway, who will in turn give you an UIA (user issued asset) on the BitShares Blockchain, with the promise that you can withdraw it again (for a fee of course). While you are holding such an UIA on the BitShares Blockchain, the Gateway becomes the custodian of your funds. As it is external service providers you implicitly agree to their Terms and Conditions by using any of their services or assets.",
@@ -1115,6 +1127,9 @@
         "title": "Fee Schedule"
     },
     "footer": {
+        "listing": "Token Listing",
+        "audit": "Audit",
+        "support": "Support",
         "advanced_settings": "Advanced settings",
         "backup": "A Backup is Required",
         "block": "Block",
@@ -1247,7 +1262,31 @@
             "min_amount": "Minimum amount: %(minAmount)s %(symbol)s",
             "min_amount_error": "Please enter number >= minimum",
             "support_block": "For support, please contact RuDEX at:",
-            "under_construction": "Under Construction"
+            "under_construction": "Under Construction",
+            "rudex_notice1": "Please see the Service Agreement of RuDEX for usage of their gateways",
+            "rudex_notice1_informed": "I have read and agree with RuDEX Service Agreement",
+            "rudex_notice_third_party": "Please see Terms of third party service",
+            "rudex_notice1_informed_third_party_service": "I have read and agree with third party service terms",
+            "buy_crypto": {
+                "title": "Buy with ",
+                "title_tab": "Buy crypto",
+                "choose_deposit": "Please, select a cryptocurrency to buy",
+                "choose_withdraw": "Please, select a cryptocurrency to sell",
+                "deposit_summary": "Additional Information",
+                "title2": "You can purchase crypto (BTC, ETH, USDT) to your RuDEX account using debit or credit card (Visa/MasterCard)* or bank wire (SEPA)",
+                "partner": "*service provided by our partner Raido Finance",
+                "buy": "Buy",
+                "buy_inst": "Instructions",
+                "you_give": "I want to spend:",
+                "you_get": "You will receive:",
+                "you_give_placeholder": "Enter amount:",
+                "you_get_placeholder": "Enter amount:",
+                "min_amount": "Minimum amount: ",
+                "max_amount": "Maximum amount: ",
+                "withdraw_fee_included": "* network fee: %(withdraw_fee)s %(asset)s already included in the total",
+                "approximate_amount": "* * This is approximate amount. The exact amount will be calculated at the time of completion of the transaction.",
+                "final_text": "The purchased cryptocurrency will be transferred to the account "
+            }
         },
         "scan_qr": "Scan QR",
         "service": "Transfer Service",
@@ -1312,6 +1351,10 @@
         "account_notify": "The active account is now %(account)s",
         "account_value": "Account value",
         "accounts_manage": "Manage Accounts",
+        "bots": "Bots",
+        "listing": "Listing",
+        "lottery": "Lottery",
+        "bots_beta": "Bots (beta)",
         "advanced": "Advanced",
         "collateral_ratio": "Collateral ratio",
         "create_account": "Create Account",
@@ -1354,6 +1397,7 @@
     "icons": {
         "adjust": "Adjust margin position",
         "assets": "Assets",
+        "bots": "Bots",
         "checkmark_circle": {
             "approved": "Approved",
             "operation_succeed": "Operation succeed",
@@ -1416,6 +1460,7 @@
             "common": "Click to unlock your account",
             "enable_auto_scroll": "Enable auto scroll"
         },
+        "lottery": "Lottery",
         "manage_accounts": "Manage Accounts",
         "minus_circle": {
             "disapproved": "Disapproved",
@@ -2935,5 +2980,145 @@
         "wif_associated_accounts": "Associated Account(s): ",
         "wif_import_error": "Please enter a valid WIF",
         "wif_length_error": "Incorrect input length"
+    },
+    "bots": {
+        "asset_selector": {
+            "wait": "Please wait...",
+            "placeholder": "Your asset"
+        },
+        "common": {
+            "select_strategy": "Select strategy:",
+            "create": "Create",
+            "bot_state": "Bot state:",
+            "start": "Start",
+            "stop": "Stop",
+            "delete": "Delete",
+            "update": "Update",
+            "select_bot": "Please, select bot",
+            "name": "Name",
+            "base": "Base",
+            "quote": "Quote",
+            "asset": "Asset",
+            "balance": "Balance",
+            "amount": "Amount in order",
+            "balance_percent": "balance %",
+            "balance_value": "value",
+            "spread": "Spread, %"
+        },
+        "spread_trade": {
+            "balance_percent": "balance %",
+            "balance_value": "value",
+            "spread": "Spread, %",
+            "default_price": "Default Price",
+            "get_price_from_market": "Get price from market"
+        },
+        "trailing_stop": {
+            "sell_asset": "Sell asset",
+            "get_asset": "Get asset",
+            "amount": "Amount",
+            "min_amount": "Min amount",
+            "stoploss": "Stoploss",
+            "trailing_percent": "Trailing Percent, %"
+        },
+        "percent_up": {
+            "distance": "Distance, %"
+        }
+    },
+    "listing": {
+        "submit_request": "Submit request",
+        "add_coin": "Add Coin",
+        "donate_progress": "Crowdfunding progress",
+        "listed": "Listed",
+        "get_donate_tokens": "Get ",
+        "token": " token",
+        "loading": "Please wait, loading...",
+        "notice_informed": "By submitting request, I confirm that I've read the rules and conditions and agree with them",
+        "modal": {
+            "header": "Participate in crowdfunding",
+            "header2": "Support listing "
+        },
+        "table": {
+            "rank": "#",
+            "asset_name": "Asset name (symbol)",
+            "goal": "Goal",
+            "donates": "Received",
+            "status": "Status",
+            "progress": "Progress",
+            "coming_soon": "Coming soon",
+            "collecting": "Collecting",
+            "waiting": "Waiting",
+            "done": "Collected"
+        },
+        "texts": {
+            "header": "List an asset on RuDEX",
+            "text1": "Would you like to list an asset on RuDEX, and integrate with Bitshares decentralized trading platform? Use our listing service via public crowdfunding. The listing process is very simple and is described below.",
+            "text2": "To sumbit an asset listing request on RuDEX platform please fill out a simple form (Submit request button). Our team will review your request in accordance with submitted information in 7 business days, and if the project fulfils our listing criteria, it will be added to the public list for public crowdfunding. The main goal for the voluntary crowdfunding is to gather the funds for the launch and maintenance of the gateway, as well as estimation of potentioal interest in an ansset.",
+            "text3": {
+                "t1": "Any RuDEX user can support the listing of their favorite assets via crowdfunding. ",
+                "t2": "To that end please ",
+                "get": "acquire "
+            },
+            "text4": {
+                "t1": "special tokens",
+                "t2": "Crowdfunding consists of sending tokens",
+                "t3": "via special \"Crowdfunding progress\" form ( ",
+                "t4": " button next to the asset name)."
+            },
+            "text5": {
+                "t1": "After the project reaches the set crowdfunding threshold all collected tokens are burned",
+                "t2": "and our teams initiates the listing procedure, that includes gateway creation and set up of the trading pairs for the asset.",
+                "t3": "Please note that the RuDEX team reserves the right to delist assets to protect our own interests and the interests of our customers."
+            },
+            "rules": {
+                "header": "Checklist for asset listing on RuDEX:",
+                "rule_1": "Please check ",
+                "rule_10": "rules",
+                "rule_11": " and submit a listing request.",
+                "rule_2": "Wait for the review results: if everything is in order, then it would be added to the project listing page within 7 business days.",
+                "rule_3": "Use your time to promote your project crowdfunding process via social networks, attract other users. Use",
+                "rule_4": " tokens to reach the crowdfunding goal (a RuDEX account is required for this).",
+                "rule_5": "Listing process is initiated after the crowdfunding goal is reach, and begins with the gateway launch preparation. Please provide the contacts for technical/marketing team, or any other qualified contact."
+            },
+            "end": "Good luck with your project and welcome to "
+        }
+    },
+    "lottery": {
+        "loading": "Loading, please wait",
+        "buy": "Buy",
+        "reg": "Register ticket",
+        "ticket": " lottery ticket",
+        "more": "More about GPH lottery",
+        "my_stat": {
+            "main": "Your stats:",
+            "regs_all": "Tickets registered:",
+            "win_all": "Tokens won:",
+            "try": "Draws number:"
+        },
+        "all_stat": {
+            "main": "Global stats:",
+            "regs_all": "Total tickets registered:",
+            "win_all": "Total tokens distributed:",
+            "try": "Total number of draws:"
+        },
+        "text": {
+            "main": "How to participate in GPH token distribution",
+            "block_1": "To participate in",
+            "block_11": "via the all win lottery, you first need to buy lottery tickets.",
+            "block_12": "You can do that by visiting the ",
+            "block_13": "You can purchase tickets during whole lottery duration, if the market has tickets available for purchase.",
+            "block_2": "To participate in the distribution you need to register your tickets via the special form (кнопка Register ticket) by sending any amount of tickets (multiples of 1) to the registration account.",
+            "block_3": "The distribution is implemented as an \"instant\" lottery. After sending the lottery tickets to the special account and transaction confirmation (once it is added to an irreversible block) you will see your result (number of tokens won) in the stats section."
+        },
+        "details": {
+            "main": "Details",
+            "trx": "Transaction TXID ",
+            "num_blocks": "Block number",
+            "tickets": "Tickets ",
+            "tokens": "tokens ",
+            "start": "Start from remainder "
+        },
+        "modal": {
+            "header": "Register ticket"
+        }
     }
 }

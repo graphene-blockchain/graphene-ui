@@ -30,7 +30,7 @@ class RuDexDepositAddressCache {
         output_coin_type
     ) {
         let wallet = WalletDb.getWallet();
-        if (!wallet) return null;
+        if (!wallet) return undefined; //when Wallet isn't exist
         wallet.deposit_keys = wallet.deposit_keys || {};
         wallet.deposit_keys[exchange_name] =
             wallet.deposit_keys[exchange_name] || {};
@@ -58,6 +58,8 @@ class RuDexDepositAddressCache {
         address,
         memo
     ) {
+        if (address === "unknown") return;
+
         let wallet = WalletDb.getWallet();
         if (!wallet) return null;
         wallet.deposit_keys = wallet.deposit_keys || {};

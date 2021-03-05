@@ -534,7 +534,7 @@ class WalletUnlockModal extends React.Component {
         return (
             // U N L O C K
             <Modal
-                title="Login"
+                title={counterpart.translate("header.unlock_short")}
                 visible={this.state.isModalVisible}
                 wrapClassName={"unlock_wallet_modal2"}
                 id={modalId}

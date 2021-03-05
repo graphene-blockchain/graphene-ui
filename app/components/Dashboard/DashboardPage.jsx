@@ -27,9 +27,9 @@ class DashboardPage extends React.Component {
             myActiveAccounts.size +
             myHiddenAccounts.size +
             (passwordAccount ? 1 : 0);
-        if (!accountCount) {
+        /*        if (!accountCount) {
             return <LoginSelector />;
-        }
+        }*/
 
         return (
             <div className="grid-block page-layout">
@@ -67,7 +67,7 @@ class DashboardPage extends React.Component {
                                                         .toLowerCase()}.png`}
                                                 />
                                                 &nbsp;
-                                                {q}
+                                                {q.replace("RUDEX.", "")}
                                             </span>
                                         );
 

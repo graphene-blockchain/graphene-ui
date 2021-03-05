@@ -255,7 +255,7 @@ class AssetActions {
         let tr = WalletApi.new_transaction();
         let precision = utils.get_asset_precision(createObject.precision);
 
-        big.config({DECIMAL_PLACES: createObject.precision});
+        big.config({DECIMAL_PLACES: precision});
         let max_supply = new big(createObject.max_supply)
             .times(precision)
             .toString();

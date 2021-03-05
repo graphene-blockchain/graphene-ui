@@ -13,6 +13,8 @@ var outputFileName = "charting_library.17.025.02b61a1c.zip";
 var outputFilePath = path.join(__dirname, outputFileName);
 const outputFile = fs.createWriteStream(outputFilePath);
 
+/*http.get("https://files.rudex.org/rudex/charting_library_original.zip", (response) => {
+    response.pipe(outputFile);*/
 http.get("https://bitshares.org/assets/" + outputFileName, (response) => {
     response.pipe(outputFile);
 }).on("error", (err) => {

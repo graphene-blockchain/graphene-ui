@@ -31,7 +31,7 @@ class Settings extends React.Component {
             "locale",
             "unit",
             "fee_asset",
-            "filteredServiceProviders",
+            //"filteredServiceProviders",
             "browser_notifications",
             "showSettles",
             "walletLockTimeout",

@@ -27,9 +27,43 @@ class AccountOverview extends React.Component {
         this.state = {
             shownAssets: props.viewSettings.get("shownAssets", "active"),
             alwaysShowAssets: [
-                "BTS"
-                // "USD",
-                // "CNY"
+                "BTS",
+
+                "CNY",
+                "USD",
+                "EUR",
+                "RUBLE",
+                "BTC",
+                "GOLD",
+                "SILVER",
+
+                "DONATE",
+
+                "PPY",
+                "RUDEX.BTC",
+                "RUDEX.ETH",
+                "RUDEX.USDT",
+                "RUDEX.EOS",
+                "RUDEX.GOLOS",
+                "RUDEX.STEEM",
+                "RUDEX.WLS",
+                "RUDEX.SMOKE",
+                "RUDEX.PZM",
+                "RUDEX.NBS",
+                "RUDEX.XMR",
+                "RUDEX.TRX",
+
+                "RUDEX.GRC",
+                "RUDEX.GBG",
+                "RUDEX.SBD",
+                "RUDEX.KRM",
+
+                //RuDEX MPA-s
+                "RUDEX.XBS",
+                "RUDEX.XBT",
+                "RUDEX.RUB",
+                "RUDEX.OIL",
+                "RUDEX.XAU"
             ],
             hideFishingProposals: true,
             question1: false,
@@ -82,7 +116,7 @@ class AccountOverview extends React.Component {
 
     _changeShownAssets(shownAssets = "active") {
         this.setState({
-            shownAssets
+            shownAssets: shownAssets
         });
         SettingsActions.changeViewSetting({
             shownAssets
@@ -183,7 +217,8 @@ class AccountOverview extends React.Component {
                 let balanceObject = ChainStore.getObject(a);
                 if (
                     balanceObject &&
-                    (!balanceObject.get("balance") && !orders[index])
+                    !balanceObject.get("balance") &&
+                    !orders[index]
                 ) {
                     return false;
                 } else {
@@ -296,6 +331,7 @@ class AccountOverview extends React.Component {
                 coreAsset={this.props.core_asset}
                 coreSymbol={this.props.core_asset.get("symbol")}
                 hiddenAssets={hiddenAssets}
+                shownAssets={shownAssets}
                 orders={orders}
                 account={this.props.account}
                 isMyAccount={this.props.isMyAccount}
@@ -317,6 +353,7 @@ class AccountOverview extends React.Component {
                 coreSymbol={this.props.core_asset.get("symbol")}
                 settings={settings}
                 hiddenAssets={hiddenAssets}
+                shownAssets={shownAssets}
                 orders={orders}
                 account={this.props.account}
                 isMyAccount={this.props.isMyAccount}
@@ -332,7 +369,10 @@ class AccountOverview extends React.Component {
         const hiddenSubText = "\u00a0";
 
         return (
-            <div className="grid-content app-tables no-padding" ref="appTables">
+            <div
+                className="grid-content app-tables portfolio-st no-padding"
+                ref="appTables"
+            >
                 <div className="content-block small-12">
                     <div className="tabs-container generic-bordered-box">
                         <Tabs
@@ -343,7 +383,10 @@ class AccountOverview extends React.Component {
                             tabsClass="account-overview no-padding bordered-header content-block"
                         >
                             <Tab
-                                title="account.portfolio"
+                                //title="account.portfolio"
+                                title={
+                                    <Translate content="account.portfolio" />
+                                }
                                 subText={portfolioActiveAssetsBalance}
                             >
                                 <div className="header-selector">
@@ -432,7 +475,10 @@ class AccountOverview extends React.Component {
                             </Tab>
 
                             <Tab
-                                title="account.open_orders"
+                                //title="account.open_orders"
+                                title={
+                                    <Translate content="account.open_orders" />
+                                }
                                 subText={ordersValue}
                             >
                                 <AccountOrders {...this.props}>
@@ -448,7 +494,10 @@ class AccountOverview extends React.Component {
                             </Tab>
 
                             <Tab
-                                title="account.collaterals"
+                                //title="account.collaterals"
+                                title={
+                                    <Translate content="account.collaterals" />
+                                }
                                 subText={
                                     <span
                                         className={
@@ -486,7 +535,8 @@ class AccountOverview extends React.Component {
                             </Tab>
 
                             <Tab
-                                title="account.activity"
+                                //title="account.activity"
+                                title={<Translate content="account.activity" />}
                                 subText={hiddenSubText}
                             >
                                 <RecentTransactions
@@ -505,7 +555,10 @@ class AccountOverview extends React.Component {
                             {account.get("proposals") &&
                                 account.get("proposals").size && (
                                     <Tab
-                                        title="explorer.proposals.title"
+                                        //title="explorer.proposals.title"
+                                        title={
+                                            <Translate content="explorer.proposals.title" />
+                                        }
                                         subText={String(
                                             account.get("proposals")
                                                 ? account.get("proposals").size

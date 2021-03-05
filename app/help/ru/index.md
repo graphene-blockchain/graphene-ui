@@ -10,7 +10,7 @@ BitShares 2.0 - это платформа Финансовых Смарт-Кон
 - [Кошелек](introduction/wallets.md)
 - [Резервные копии](introduction/backups.md)
 - [Блокчейн](introduction/blockchain.md)
-- [Делегаты](introduction/witness.md)
+- [Заверители](introduction/witness.md)
 - [Работники](introduction/workers.md)
 - [Члены Комитета](introduction/committee.md)
 
@@ -23,7 +23,7 @@ BitShares 2.0 - это платформа Финансовых Смарт-Кон
 ## Активы
 
 - [Привязанные к рынку активы](assets/mpa.md) (BitUSD, BitEUR, BitGOLD, Bit\*,...)
-- [Эмитированные пользователем активы](assets/uia.md)
+- [Выпущенные пользователем активы](assets/uia.md)
 - [Приватизированные BitAssets](assets/privbitassets.md)
 
 ## Децентрализованная биржа

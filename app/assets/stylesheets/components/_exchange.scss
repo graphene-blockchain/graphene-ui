@@ -167,6 +167,7 @@ p.order-table-title {
 .backingWarning {
     color: yellow;
 }
+
 .backingError {
     color: red;
 }
@@ -181,10 +182,77 @@ p.order-table-title {
     padding-bottom: 0.25rem !important;
 }
 
+//for Limit orders
+
 .buySellButton {
     float: right;
     min-width: 4rem;
 }
+
+body .buy-sell-container .ant-btn {
+    height: 40px;
+    border-radius: 5px;
+}
+
+body .buy-sell-container .ant-btn.ask,
+body .buy-sell-container .ant-btn.bid {
+    border: none !important;
+}
+
+button,
+.button {
+    transition: all 0.3s ease 0s !important;
+}
+
+.buy-sell-container .button.disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+    margin-right: 0;
+}
+
+body .buy-sell-container .ant-btn-primary[disabled] {
+    color: #fff1f0 !important;
+    opacity: 0.5;
+}
+
+body .buy-sell-container .ant-btn-primary[disabled].ask {
+    background-color: #ea340b !important;
+    border: none;
+}
+
+body .buy-sell-container .ant-btn-primary[disabled].bid {
+    background-color: #258a14 !important;
+    border: none;
+}
+
+.market-layout .inputAddon .ant-input-group-addon {
+    width: 40% !important;
+}
+
+//for Scalled orders
+
+button.ant-btn.ask:hover,
+button.ant-btn.bid:hover {
+    background-color: #349ff4 !important;
+}
+
+.buy-sell-container form.order-form .ant-form-item-label label {
+    font-size: 100% !important;
+}
+
+.buy-sell-container .order-form .ant-form-item-label {
+    overflow: visible;
+}
+
+.buy-sell-container .ant-row.ant-form-item.fixmarket-fee label {
+    line-height: 1.3rem;
+    white-space: normal;
+    display: block;
+    overflow: visible;
+}
+
+//===
 
 form.order-form {
     padding: 10px;
@@ -226,6 +294,7 @@ form.order-form {
     // on left side instead of right
     .ant-tabs-extra-content {
         float: left !important;
+        //padding: 0 15px;
         padding: 0 15px;
         margin-right: 12px;
     }
@@ -233,14 +302,21 @@ form.order-form {
 
 .buy-form {
     > div.ant-tabs-bar {
-        border-bottom: 1px solid #6ba583 !important;
+        border-bottom: 2px solid #6ba583 !important;
     }
 }
 
 .sell-form {
     > div.ant-tabs-bar {
-        border-bottom: 1px solid #e3745b !important;
+        border-bottom: 2px solid #e3745b !important;
     }
+}
+
+//For Account fixes
+
+body .portfolio-st .ant-table table thead.ant-table-thead > tr > th {
+    white-space: nowrap;
+    padding: 6px 6px;
 }
 
 #market-charts {
@@ -299,7 +375,7 @@ form.order-form {
         display: table-cell;
         font-size: 0.875rem;
         padding-top: 5px;
-        padding-bottom: 5px;
+        padding-bottom: 4px;
         vertical-align: middle;
         text-align: right;
         &.header-cell {
@@ -362,6 +438,7 @@ form.order-form {
 .top-header {
     padding-bottom: 0.25rem;
 }
+
 .bottom-header {
     padding-top: 0.25rem;
     > .horizontal-button {
@@ -423,6 +500,7 @@ ul.market-stats {
     display: flex;
     flex-wrap: wrap;
 }
+
 .market-stats .stat {
     text-align: left;
     font-size: 0.75rem;
@@ -481,7 +559,7 @@ div.bucket-option {
     cursor: pointer;
     text-transform: none !important;
     margin-right: 3px;
-    border-radius: 0;
+    border-radius: 5px !important;
     user-select: none;
 }
 
@@ -505,11 +583,18 @@ div.bucket-option {
 }
 
 .buy-sell-label {
-    font-size: 90%;
+    //font-size: 90%;
     line-height: 1.75rem;
     height: 1.75rem;
     white-space: nowrap;
     z-index: 100; // Make sure unwrapped content isn't hidden under companion input
+}
+
+//Fix for long RU market-fee
+.buy-sell-label.fixmarket-fee {
+    line-height: 1rem;
+    white-space: normal;
+    height: 2.5rem;
 }
 
 .buy-sell-input {
@@ -626,11 +711,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .exchange-content-header.bid {
-    border-bottom: 1px solid #6ba583 !important;
+    border-bottom: 2px solid #6ba583 !important;
 }
 
 .exchange-content-header.ask {
-    border-bottom: 1px solid #e3745b !important;
+    border-bottom: 2px solid #e3745b !important;
 }
 
 .exchange-padded {
@@ -646,6 +731,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .mymarkets-list {
     padding: 0;
+    margin-bottom: 15px;
     font-size: 0.75rem;
     .table > thead tr th {
         font-size: 0.75rem;
@@ -704,31 +790,37 @@ table thead tr th.mymarkets-header {
         display: none !important;
     }
 }
+
 @media (max-width: 570px) {
     .hide-order-1 {
         display: none !important;
     }
 }
+
 @media (max-width: 720px) {
     .hide-order-2 {
         display: none !important;
     }
 }
+
 @media (max-width: 880px) {
     .hide-order-3 {
         display: none !important;
     }
 }
+
 @media (max-width: 1020px) {
     .hide-order-4 {
         display: none !important;
     }
 }
+
 @media (max-width: 1180px) {
     .hide-order-5 {
         display: none !important;
     }
 }
+
 @media (max-width: 1340px) {
     .hide-order-6 {
         display: none !important;

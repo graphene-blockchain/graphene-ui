@@ -10,6 +10,7 @@ import {
     getDefaultLogin,
     getMyMarketsBases,
     getMyMarketsQuotes,
+    getFeaturedMarkets,
     getUnits
 } from "branding";
 
@@ -105,8 +106,50 @@ class SettingsStore {
      * @private
      */
     _getDefaultSetting() {
+        const supportedLocales = [
+            "en",
+            "zh",
+            "fr",
+            "ko",
+            "de",
+            "es",
+            "it",
+            "tr",
+            "ru",
+            "ja"
+        ];
+
+        const fallbackLocales = {
+            uk: "ru",
+            be: "ru",
+            uz: "ru",
+            kz: "ru"
+        };
+
+        let defaultLocale = "en";
+        let userLanguage = navigator.language || navigator.userLanguage;
+
+        //console.log("userLanguage-1: " + defaultLocale);
+
+        for (let i = 0; i < supportedLocales.length; i++) {
+            if (userLanguage.startsWith(supportedLocales[i])) {
+                defaultLocale = supportedLocales[i];
+                break;
+            }
+        }
+
+        let fallbackKeys = Object.keys(fallbackLocales);
+        for (let i = 0; i < fallbackKeys.length; i++) {
+            if (userLanguage.startsWith(fallbackKeys[i])) {
+                defaultLocale = fallbackLocales[fallbackKeys[i]];
+                break;
+            }
+        }
+
+        //console.log("userLanguage-2: " + defaultLocale);
+
         return {
-            locale: "en",
+            locale: defaultLocale,
             apiServer: settingsAPIs.DEFAULT_WS_NODE,
             filteredApiServers: [],
             filteredServiceProviders: ["all"],
@@ -498,7 +541,6 @@ class SettingsStore {
 
     _getDefaultMarkets() {
         let markets = [];
-
         this.preferredBases.forEach(base => {
             addMarkets(markets, base, this.chainMarkets);
         });
@@ -509,10 +551,18 @@ class SettingsStore {
                     return a !== base;
                 })
                 .forEach(market => {
-                    target.push([
-                        `${market}_${base}`,
-                        {quote: market, base: base}
-                    ]);
+                    let FeaturedMarketsBase = getFeaturedMarkets([base]);
+                    let filterMarkets = markets;
+                    if (getMyMarketsBases().indexOf(base) !== -1)
+                        filterMarkets = FeaturedMarketsBase.filter(a => {
+                            return market.indexOf(a[1]) !== -1;
+                        });
+
+                    if (filterMarkets.length > 0)
+                        target.push([
+                            `${market}_${base}`,
+                            {quote: market, base: base}
+                        ]);
                 });
         }
 

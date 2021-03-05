@@ -120,6 +120,21 @@ export const settingsAPIs = {
             location: {translate: "settings.api_closest"}
         },
         {
+            url: "wss://node.market.rudex.org",
+            region: "Western Europe",
+            country: "Germany",
+            location: "Falkenstein",
+            operator: "Witness: blckchnd",
+            contact: "telegram:blckchnd"
+        },
+        {
+            url: "wss://eu.nodes.bitshares.ws",
+            region: "Western Europe",
+            country: "Germany",
+            operator: "Infrastructure Worker",
+            contact: "email:info@blockchainprojectsbv.com"
+        },
+        {
             url: "ws://127.0.0.1:8090",
             location: "Locally hosted"
         },
@@ -178,6 +193,7 @@ export const settingsAPIs = {
             operator: "Witness: bhuz",
             contact: "telegram:bhuzor"
         },
+        {
         {
             url: "wss://api.btsgo.net/ws",
             region: "Southeastern Asia",
@@ -242,6 +258,7 @@ export const settingsAPIs = {
             operator: "Witness: zapata42-witness",
             contact: "telegram:Zapata_42"
         },
+
         {
             url: "wss://api.bitshares.org/ws",
             region: "Western Europe",
@@ -394,9 +411,9 @@ export const settingsAPIs = {
             url: "https://api.bitshares.ws/openexplorer",
             region: "Western Europe",
             country: "Germany",
-            operator: "blocksights.info",
-            contact: "bitshares:blocksights"
-        }
+            operator: "Infrastructure Worker",
+            contact: "email:info@blockchainprojectsbv.com"
+        },
     ],
     DEFAULT_FAUCET: getFaucet().url,
     TESTNET_FAUCET: getTestFaucet().url

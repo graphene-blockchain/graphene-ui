@@ -46,6 +46,12 @@ const Explorer = Loadable({
     loading: LoadingIndicator
 });
 
+const Bots = Loadable({
+    loader: () =>
+        import(/* webpackChunkName: "bots" */ "./components/Bots/Bots"),
+    loading: LoadingIndicator
+});
+
 const PredictionMarketsPage = Loadable({
     loader: () =>
         import(/* webpackChunkName: "pm" */ "./components/PredictionMarkets/PMAssetsContainer"),
@@ -149,6 +155,18 @@ const DirectDebit = Loadable({
 const QuickTrade = Loadable({
     loader: () =>
         import(/* webpackChunkName: "QuickTrade" */ "./components/QuickTrade/QuickTradeRouter"),
+    loading: LoadingIndicator
+});
+
+const Listing = Loadable({
+    loader: () =>
+        import(/* webpackChunkName: "listing" */ "./components/Listing/ListingPage"),
+    loading: LoadingIndicator
+});
+
+const Lottery = Loadable({
+    loader: () =>
+        import(/* webpackChunkName: "Lottery" */ "./components/Lottery/LotteryPage"),
     loading: LoadingIndicator
 });
 
@@ -443,7 +461,7 @@ class App extends React.Component {
                     : "committee-account";
             content = (
                 <div className="grid-frame vertical">
-                    <NewsHeadline />
+                    {/*<NewsHeadline />*/}
                     <Header height={this.state.height} {...others} />
                     <div id="mainContainer" className="grid-block">
                         <div className="grid-block vertical">
@@ -453,6 +471,7 @@ class App extends React.Component {
                                     exact
                                     component={DashboardPage}
                                 />
+                                <Route path="/bots" exact component={Bots} />
                                 <Route
                                     path="/account/:account_name"
                                     component={AccountPage}
@@ -500,6 +519,16 @@ class App extends React.Component {
                                     component={AccountRegistration}
                                 />
                                 <Route path="/news" exact component={News} />
+                                <Route
+                                    path="/listing"
+                                    exact
+                                    component={Listing}
+                                />{" "}
+                                <Route
+                                    path="/lottery"
+                                    exact
+                                    component={Lottery}
+                                />
                                 <Redirect
                                     path={"/voting"}
                                     to={{
@@ -527,18 +556,15 @@ class App extends React.Component {
                                     component={Block}
                                 />
                                 <Route path="/borrow" component={Borrow} />
-
                                 <Route path="/barter" component={Barter} />
                                 <Route
                                     path="/direct-debit"
                                     component={DirectDebit}
                                 />
-
                                 <Route
                                     path="/spotlight"
                                     component={ShowcaseGrid}
                                 />
-
                                 {/* Wallet backup/restore routes */}
                                 <Route
                                     path="/wallet"
@@ -552,12 +578,10 @@ class App extends React.Component {
                                     path="/existing-account"
                                     component={ExistingAccount}
                                 />
-
                                 <Route
                                     path="/create-worker"
                                     component={CreateWorker}
                                 />
-
                                 {/* Help routes */}
                                 <Route exact path="/help" component={Help} />
                                 <Route

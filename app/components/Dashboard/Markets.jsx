@@ -85,7 +85,11 @@ class FeaturedMarkets extends React.Component {
             markets.forEach(m => {
                 let obj = {quote: m.quote, base: props.quotes[i]};
                 let marketKey = `${obj.quote}_${obj.base}`;
-                if (obj.quote !== obj.base && !markets.has(marketKey)) {
+                if (
+                    obj.quote !== obj.base &&
+                    !markets.has(marketKey) &&
+                    (obj.base !== "RUDEX.RUBLE" && props.quotes[i] === "RUBLE")
+                ) {
                     markets = markets.set(marketKey, obj);
                 }
             });

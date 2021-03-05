@@ -1,0 +1,96 @@
+.raido {
+}
+
+.raido label img {
+    margin: 0 0 0 10px;
+}
+
+.raido input[type="radio"] {
+    display: none;
+}
+
+.raido input[name="giveAmount"],
+.raido input[name="getAmount"] {
+    background: right 7px top 3px #ebebeb no-repeat;
+    text-align: right;
+    padding-right: 50px;
+    background-size: 25px;
+    background-position: top 6px right 10px;
+}
+
+.raido input[name="getAmount"] {
+    background-size: 35px;
+    background-position: right 5px top 2px;
+}
+
+.raido input[name="giveAmount"]::placeholder,
+.raido input[name="getAmount"]::placeholder {
+    font-size: 0.8rem;
+}
+
+.raido .give,
+.raido .get {
+    font-size: 14px;
+}
+
+.raido input {
+    text-align: right;
+    padding-right: 50px;
+    border: 1px solid #ebebeb;
+}
+
+.raido input:focus {
+    border: 1px solid #c6c6c6 !important;
+}
+
+.raido label img {
+    height: 25px;
+}
+.raido label {
+    cursor: pointer;
+    border-bottom: 3px solid #ebebeb;
+    padding: 15px 0px 10px 30px;
+    font-size: 1rem;
+    margin-left: 0;
+}
+.raido label.active {
+    background: linear-gradient(to top, #ebebeb, #ffffff);
+}
+.darkTheme .raido label,
+.midnightTheme .raido label {
+    cursor: pointer;
+    border-bottom: 3px solid #fff;
+    padding: 15px 0px 10px 30px;
+    font-size: 1rem;
+    margin-left: 0;
+    color: #e0e0e0;
+}
+.darkTheme .raido label.active,
+.midnightTheme .raido label.active {
+    color: #2a2a2a;
+    background: linear-gradient(to top, #fff, #2a2a2a);
+}
+
+.raido button {
+    border-radius: 10px;
+}
+
+.raido_text_block {
+    margin: 10px 0 0 0;
+    font-size: 0.9rem;
+}
+
+.raido_text_block {
+    margin: 10px 0 0 0;
+    font-size: 0.9rem;
+}
+
+.raido_min_max_validate {
+    font-size: 0.85rem;
+    margin-top: 9px;
+    color: red;
+    visibility: hidden;
+}
+.raido_min_max_validate.active {
+    visibility: visible;
+}

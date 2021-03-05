@@ -42,7 +42,7 @@ class FeePoolOperation extends React.Component {
                 : null,
             this.props.core,
             this.props.asset,
-            this.state.fundPoolAmount.replace(/,/g, "")
+            this.state.fundPoolAmount
         );
 
     reset = () => {
@@ -116,12 +116,24 @@ class FeePoolOperation extends React.Component {
             }
         }
         const balanceText = (
-            <span>
+            <span
+                onClick={() => {
+                    this.state.fundPoolAsset.setAmount({
+                        sats: balance
+                    });
+                    this.setState({
+                        fundPoolAmount: this.state.fundPoolAsset.getAmount({
+                            real: true
+                        })
+                    });
+                }}
+            >
                 <Translate component="span" content="transfer.available" />
                 :&nbsp;
                 <FormattedAsset amount={balance} asset={coreID} />
             </span>
         );
+
         return (
             <div>
                 {hideBalance || (
@@ -145,6 +157,7 @@ class FeePoolOperation extends React.Component {
                     account={funderAccountName}
                     error={null}
                     tabIndex={1}
+                    typeahead={true}
                 />
 
                 <AmountSelector

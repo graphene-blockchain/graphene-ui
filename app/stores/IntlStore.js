@@ -20,7 +20,7 @@ class IntlStore {
     constructor() {
         const storedSettings = ss.get("settings_v4", {});
         if (storedSettings.locale === undefined) {
-            storedSettings.locale = "en";
+            storedSettings.locale = this.getDefaultLocale();
         }
         this.currentLocale = storedSettings.locale;
 
@@ -65,6 +65,48 @@ class IntlStore {
 
     onClearSettings() {
         this.onSwitchLocale({locale: "en"});
+    }
+
+    getDefaultLocale() {
+        let supportedLocales = [
+            "en",
+            "cn",
+            "fr",
+            "ko",
+            "de",
+            "es",
+            "it",
+            "tr",
+            "ru",
+            "ja"
+        ];
+
+        let fallbackLocales = {
+            uk: "ru",
+            be: "ru",
+            uz: "ru",
+            kz: "ru"
+        };
+
+        let defaultLocale = "en";
+        let userLanguage = navigator.language || navigator.userLanguage;
+
+        for (let i = 0; i < supportedLocales.length; i++) {
+            if (userLanguage.startsWith(supportedLocales[i])) {
+                defaultLocale = supportedLocales[i];
+                break;
+            }
+        }
+
+        let fallbackKeys = Object.keys(fallbackLocales);
+        for (let i = 0; i < fallbackKeys.length; i++) {
+            if (userLanguage.startsWith(fallbackKeys[i])) {
+                defaultLocale = fallbackLocales[fallbackKeys[i]];
+                break;
+            }
+        }
+
+        return defaultLocale;
     }
 }
 

@@ -43,6 +43,8 @@ import SimpleDepositBlocktradesBridge from "../Dashboard/SimpleDepositBlocktrade
 import {Notification} from "bitshares-ui-style-guide";
 import PriceAlert from "./PriceAlert";
 import counterpart from "counterpart";
+import Translate from "react-translate-component";
+import ChatBro from "../Chat/ChatBro";
 
 class Exchange extends React.Component {
     static propTypes = {
@@ -298,10 +300,10 @@ class Exchange extends React.Component {
         let ws = props.viewSettings;
         let {ask, bid} = this._initialOrderState(props);
 
-        let chart_height = ws.get("chartHeight", 620);
-        if (chart_height == 620 && window.innerWidth < 640) {
+        let chart_height = ws.get("chartHeight", 500);
+        if (chart_height == 500 && window.innerWidth < 640) {
             // assume user is on default setting, use smaller for mobile
-            chart_height = 425;
+            chart_height = 400;
         }
 
         return {
@@ -1688,8 +1690,8 @@ class Exchange extends React.Component {
         let newHeight = value
             ? value
             : this.state.chartHeight + (increase ? 20 : -20);
-        if (newHeight < 425) {
-            newHeight = 425;
+        if (newHeight < 400) {
+            newHeight = 400;
         }
         if (newHeight > 1000) {
             newHeight = 1000;
@@ -1857,6 +1859,12 @@ class Exchange extends React.Component {
         }
 
         return {isFrozen: false};
+    }
+
+    _toggleChat() {
+        SettingsActions.changeViewSetting({
+            viewChat: !this.props.viewChat
+        });
     }
 
     _toggleMiniChart() {
@@ -2085,7 +2093,21 @@ class Exchange extends React.Component {
             );
         };
 
-        let buyForm = isFrozen ? null : tinyScreen &&
+        let buyForm = isFrozen ? (
+            <div
+                className="error small-12 no-overflow"
+                style={{
+                    margin: "30px 10px 0",
+                    lineHeight: "1.2rem"
+                }}
+            >
+                <Translate
+                    content="exchange.market_frozen"
+                    asset={frozenAsset}
+                    component="p"
+                />
+            </div>
+        ) : tinyScreen &&
         !this.state.mobileKey.includes("buySellTab") ? null : (
             <Tabs
                 animated={false}
@@ -2428,7 +2450,7 @@ class Exchange extends React.Component {
             tinyScreen && !this.state.mobileKey.includes("myMarkets") ? null : (
                 <MyMarkets
                     key={`actionCard_${actionCardIndex++}`}
-                    className="left-order-book no-overflow order-9"
+                    className="grid-block left-order-book no-padding no-margin vertical"
                     style={{
                         minWidth: 350,
                         height: smallScreen ? 680 : "calc(100vh - 215px)",
@@ -2461,6 +2483,36 @@ class Exchange extends React.Component {
                     }
                 />
             );
+
+        let Trollbox = (
+            <div
+                style={{
+                    padding: !this.props.viewChat ? 0 : "0 0 0 0"
+                }}
+                className="grid-block no-margin vertical shrink"
+            >
+                <div
+                    onClick={this._toggleChat.bind(this)}
+                    className="exchange-content-header clickable"
+                    style={{
+                        textAlign: "left",
+                        paddingRight: 10,
+                        paddingLeft: 10,
+                        paddingTop: 6,
+                        paddingBottom: 6
+                    }}
+                >
+                    {this.props.viewChat ? (
+                        <span>&#9660;</span>
+                    ) : (
+                        <span>&#9650;</span>
+                    )}
+                    <Translate content="exchange.trollbox" />
+                </div>
+
+                {this.props.viewChat ? <ChatBro height={"400px"} /> : null}
+            </div>
+        );
 
         let orderBook =
             tinyScreen && !this.state.mobileKey.includes("orderBook") ? null : (
@@ -3273,34 +3325,46 @@ class Exchange extends React.Component {
 
             rightPanel = (
                 <div
-                    className="left-order-book no-padding no-overflow"
-                    style={{display: "block"}}
-                    key={`actionCard_${actionCardIndex++}`}
+                    className="grid-block shrink right-column no-overflow"
+                    style={{maxWidth: 450}}
                 >
-                    <div
-                        className="v-align no-padding align-center grid-block footer shrink column"
-                        data-intro={translator.translate(
-                            "walkthrough.my_markets"
-                        )}
-                    >
-                        <Tabs
-                            defaultActiveKey="my-market"
-                            activeKey={tabVerticalPanel}
-                            onChange={this._setTabVerticalPanel.bind(this)}
+                    <div className="grid-block no-padding no-margin vertical">
+                        <div
+                            className="left-order-book no-padding no-overflow shrink"
+                            style={{display: "block"}}
+                            key={`actionCard_${actionCardIndex++}`}
                         >
-                            <Tabs.TabPane
-                                tab={translator.translate(
-                                    "exchange.market_name"
+                            <div
+                                className="v-align no-padding align-center grid-block footer vertical shrink"
+                                data-intro={translator.translate(
+                                    "walkthrough.my_markets"
                                 )}
-                                key="my-market"
-                            />
-                            <Tabs.TabPane
-                                tab={translator.translate("exchange.more")}
-                                key="find-market"
-                            />
-                        </Tabs>
+                            >
+                                <Tabs
+                                    defaultActiveKey="my-market"
+                                    activeKey={tabVerticalPanel}
+                                    onChange={this._setTabVerticalPanel.bind(
+                                        this
+                                    )}
+                                >
+                                    <Tabs.TabPane
+                                        tab={translator.translate(
+                                            "exchange.market_name"
+                                        )}
+                                        key="my-market"
+                                    />
+                                    <Tabs.TabPane
+                                        tab={translator.translate(
+                                            "exchange.more"
+                                        )}
+                                        key="find-market"
+                                    />
+                                </Tabs>
+                            </div>
+                            {myMarkets}
+                        </div>
+                        {Trollbox}
                     </div>
-                    {myMarkets}
                 </div>
             );
 

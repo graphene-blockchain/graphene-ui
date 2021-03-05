@@ -112,6 +112,12 @@ class ExchangeContainer extends React.Component {
                             true
                         );
                     },
+                    viewChat: () => {
+                        return SettingsStore.getState().viewSettings.get(
+                            "viewChat",
+                            true
+                        );
+                    },
 
                     dataFeed: () => new DataFeed(),
 

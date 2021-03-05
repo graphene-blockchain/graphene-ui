@@ -309,7 +309,7 @@ class BuySell extends React.Component {
                     })}
                 >
                     <div className="grid-block no-overflow wrap shrink">
-                        <div className="small-3 buy-sell-label">
+                        <div className="small-3 buy-sell-label fixmarket-fee">
                             <Translate content="explorer.asset.summary.market_fee" />
                             , {baseMarketFeePercent}
                         </div>
@@ -407,7 +407,7 @@ class BuySell extends React.Component {
                     })}
                 >
                     <div className="grid-block no-overflow wrap shrink">
-                        <div className="small-3 buy-sell-label">
+                        <div className="small-3 buy-sell-label fixmarket-fee">
                             <Translate content="explorer.asset.summary.market_fee" />
                             , {quoteMarketFeePercent}
                         </div>
@@ -469,7 +469,7 @@ class BuySell extends React.Component {
                 style={{visibility: "hidden"}}
                 className="grid-block no-overflow wrap shrink"
             >
-                <div className="small-3 buy-sell-label">
+                <div className="small-3 buy-sell-label fixmarket-fee">
                     <Translate content="explorer.asset.summary.market_fee" />
                 </div>
                 <div className="inputAddon small-9">
@@ -517,7 +517,7 @@ class BuySell extends React.Component {
 
         let disabled = noBalance || invalidPrice || invalidAmount;
 
-        let buttonClass = classNames(type, {
+        let buttonClass = classNames("button buySellButton", type, {
             disabled: disabled
         });
         let balanceSymbol = isBid ? base.get("symbol") : quote.get("symbol");
@@ -1111,51 +1111,36 @@ class BuySell extends React.Component {
                         </div>
 
                         <div className="grid-block no-overflow wrap shrink">
-                            <div
-                                className={
-                                    singleColumnForm
-                                        ? "small-12 grid-block"
-                                        : "small-6"
-                                }
-                            >
-                                <Translate
-                                    className="small-4 buy-sell-label"
-                                    content="transaction.expiration"
-                                />
-                                <div className="small-8 expiration-datetime-picker">
-                                    <DatePicker
-                                        ref={this.getDatePickerRef}
-                                        className="expiration-datetime-picker--hidden"
-                                        showTime
-                                        showToday={false}
-                                        disabledDate={current =>
-                                            current <
-                                            moment().add(59, "minutes")
-                                        }
-                                        value={
-                                            expirationCustomTime !== "Specific"
-                                                ? expirationCustomTime
-                                                : moment().add(1, "hour")
-                                        }
-                                        onChange={
-                                            this.props.onExpirationCustomChange
-                                        }
+                            <div className="small-12 medium-12 xlarge-12">
+                                <div className="grid-block no-overflow wrap shrink">
+                                    <Translate
+                                        className="small-4 buy-sell-label"
+                                        content="exchange.balance"
                                     />
-                                    <select
-                                        className="cursor-pointer"
-                                        onChange={this.onExpirationSelectChange}
-                                        onClick={this.onExpirationSelectClick}
-                                        onBlur={this.onExpirationSelectBlur}
-                                        data-tip={
-                                            expirationTip &&
-                                            moment(expirationTip).format(
-                                                "Do MMM YYYY hh:mm A"
-                                            )
-                                        }
-                                        value={this.props.expirationType}
-                                    >
-                                        {expirationsOptionsList}
-                                    </select>
+                                    <div className="small-8 buy-sell-label">
+                                        <span
+                                            style={{
+                                                borderBottom:
+                                                    "#A09F9F 1px dotted",
+                                                cursor: "pointer"
+                                            }}
+                                            onClick={this._addBalance.bind(
+                                                this,
+                                                balanceToAdd
+                                            )}
+                                        >
+                                            {utils.format_number(
+                                                balanceAmount.getAmount({
+                                                    real: true
+                                                }),
+                                                balancePrecision
+                                            )}{" "}
+                                            <AssetName
+                                                name={balanceSymbol}
+                                                noTip
+                                            />
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             {!singleColumnForm ? (
@@ -1165,7 +1150,7 @@ class BuySell extends React.Component {
                                 {singleColumnForm ? (
                                     <div className="grid-block no-overflow wrap shrink">
                                         <Translate
-                                            className="small-4 buy-sell-label"
+                                            className="small-4 buy-sell-label fixmarket-fee"
                                             content={
                                                 isBid
                                                     ? "exchange.lowest_ask"
@@ -1204,34 +1189,67 @@ class BuySell extends React.Component {
                                     </div>
                                 ) : null}
                                 {singleColumnForm ? (
-                                    <div className="grid-block no-overflow wrap shrink">
+                                    <div
+                                        className={
+                                            singleColumnForm
+                                                ? "small-12 grid-block"
+                                                : "small-6"
+                                        }
+                                    >
                                         <Translate
                                             className="small-4 buy-sell-label"
-                                            content="exchange.balance"
+                                            content="transaction.expiration"
                                         />
-                                        <div className="small-8 buy-sell-label">
-                                            <span
-                                                style={{
-                                                    borderBottom:
-                                                        "#A09F9F 1px dotted",
-                                                    cursor: "pointer"
-                                                }}
-                                                onClick={this._addBalance.bind(
-                                                    this,
-                                                    balanceToAdd
-                                                )}
+                                        <div className="small-8 expiration-datetime-picker">
+                                            <DatePicker
+                                                ref={this.getDatePickerRef}
+                                                className="expiration-datetime-picker--hidden"
+                                                showTime
+                                                showToday={false}
+                                                disabledDate={current =>
+                                                    current <
+                                                    moment().add(59, "minutes")
+                                                }
+                                                value={
+                                                    expirationCustomTime !==
+                                                    "Specific"
+                                                        ? expirationCustomTime
+                                                        : moment().add(
+                                                              1,
+                                                              "hour"
+                                                          )
+                                                }
+                                                onChange={
+                                                    this.props
+                                                        .onExpirationCustomChange
+                                                }
+                                            />
+                                            <select
+                                                className="cursor-pointer"
+                                                onChange={
+                                                    this
+                                                        .onExpirationSelectChange
+                                                }
+                                                onClick={
+                                                    this.onExpirationSelectClick
+                                                }
+                                                onBlur={
+                                                    this.onExpirationSelectBlur
+                                                }
+                                                data-tip={
+                                                    expirationTip &&
+                                                    moment(
+                                                        expirationTip
+                                                    ).format(
+                                                        "Do MMM YYYY hh:mm A"
+                                                    )
+                                                }
+                                                value={
+                                                    this.props.expirationType
+                                                }
                                             >
-                                                {utils.format_number(
-                                                    balanceAmount.getAmount({
-                                                        real: true
-                                                    }),
-                                                    balancePrecision
-                                                )}{" "}
-                                                <AssetName
-                                                    name={balanceSymbol}
-                                                    noTip
-                                                />
-                                            </span>
+                                                {expirationsOptionsList}
+                                            </select>
                                         </div>
                                     </div>
                                 ) : null}
@@ -1243,22 +1261,35 @@ class BuySell extends React.Component {
                                                 disabledText ? disabledText : ""
                                             }
                                         >
-                                            <Button
-                                                className={
-                                                    disabled
-                                                        ? null
-                                                        : buttonClass
-                                                }
-                                                disabled={disabled}
-                                                onClick={onSubmit.bind(
-                                                    this,
-                                                    true
-                                                )}
-                                                type="primary"
-                                                style={{margin: 5}}
+                                            <div
+                                                className="float-right"
+                                                //data-tip={disabledText}
+                                                data-place="right"
                                             >
-                                                {isBid ? "Buy" : "Sell"}
-                                            </Button>
+                                                <Button
+                                                    className={
+                                                        disabled
+                                                            ? isBid
+                                                                ? "bid"
+                                                                : "ask"
+                                                            : buttonClass
+                                                    }
+                                                    disabled={disabled}
+                                                    onClick={onSubmit.bind(
+                                                        this,
+                                                        true
+                                                    )}
+                                                    type="primary"
+                                                >
+                                                    {isBid
+                                                        ? counterpart.translate(
+                                                              "exchange.buy"
+                                                          )
+                                                        : counterpart.translate(
+                                                              "exchange.sell"
+                                                          )}
+                                                </Button>
+                                            </div>
                                         </Tooltip>
                                         {/* <Button
                                             style={{margin: 5}}
@@ -1476,7 +1507,7 @@ class BuySell extends React.Component {
                                         {this.props.onBorrow &&
                                         !isGloballySettled ? (
                                             <Button
-                                                style={{margin: 5}}
+                                                //style={{margin: 5}}
                                                 disabled={
                                                     !this.props
                                                         .currentAccount ||
@@ -1522,6 +1553,7 @@ class BuySell extends React.Component {
                                         <div
                                             style={{paddingRight: 10}}
                                             className="float-right"
+                                            data-place="right"
                                         >
                                             <input
                                                 style={{margin: 0}}
@@ -1540,6 +1572,7 @@ class BuySell extends React.Component {
                                         <div
                                             style={{paddingRight: 10}}
                                             className="float-right"
+                                            data-place="right"
                                         >
                                             <input
                                                 style={{margin: 0}}

@@ -5,12 +5,12 @@
 
 import {
     rudexAPIs,
-    bitsparkAPIs,
-    openledgerAPIs,
-    cryptoBridgeAPIs,
-    gdex2APIs,
-    xbtsxAPIs,
-    citadelAPIs
+    //bitsparkAPIs,
+    //openledgerAPIs,
+    //cryptoBridgeAPIs,
+    gdex2APIs
+    //xbtsxAPIs,
+    //citadelAPIs
 } from "api/apiConfig";
 import {allowedGateway} from "branding";
 import {isGatewayTemporarilyDisabled} from "../chain/onChainConfig";
@@ -86,20 +86,6 @@ const _isEnabled = gatewayKey => {
 };
 
 export const availableGateways = {
-    OPEN: {
-        id: "OPEN",
-        name: "OpenLedger",
-        baseAPI: openledgerAPIs,
-        isEnabled: () => false,
-        selected: false,
-        options: {
-            enabled: false,
-            selected: false
-        },
-        landing:
-            "https://dex.openledger.io/news/ol-dex-is-closing-all-activities/",
-        wallet: "Shutdown"
-    },
     RUDEX: {
         id: "RUDEX",
         name: "RuDEX",
@@ -110,7 +96,7 @@ export const availableGateways = {
         simpleAssetGateway: true,
         fixedMemo: {
             prepend_default: "dex:",
-            prepend_btsid: "btsid-",
+            prepend_btsid: "btsid",
             append: ""
         },
         addressValidatorMethod: "POST",
@@ -120,76 +106,6 @@ export const availableGateways = {
         },
         landing: "https://rudex.org/",
         wallet: "https://market.rudex.org/"
-    },
-    SPARKDEX: {
-        id: "SPARKDEX",
-        name: "BitSpark",
-        baseAPI: bitsparkAPIs,
-        isEnabled: () => false,
-        selected: false,
-        options: {
-            enabled: false,
-            selected: false
-        },
-        landing: "https://www.bitspark.io/",
-        wallet: "Shutdown"
-    },
-    BRIDGE: {
-        id: "BRIDGE",
-        name: "CryptoBridge",
-        baseAPI: cryptoBridgeAPIs,
-        isEnabled: () => false,
-        selected: false,
-        singleWallet: true, // Has no coresponging coinType == backingCoinType specific wallet
-        addressValidatorAsset: true, // Address validator requires output_asset parameter
-        useFullAssetName: true, // Adds <gateway>.<asset> to memo and address object
-        intermediateAccount: "cryptobridge", // Fixed intermediateAccount
-        options: {
-            enabled: false,
-            selected: false
-        },
-        landing: "Shutdown",
-        wallet: "Shutdown"
-    },
-    GDEX: {
-        id: "GDEX",
-        name: "GDEX",
-        baseAPI: gdex2APIs,
-        isEnabled: _isEnabled("GDEX"),
-        options: {
-            enabled: false,
-            selected: false
-        },
-        wallet: "https://www.gdex.io/"
-    },
-    XBTSX: {
-        id: "XBTSX",
-        name: "XBTS",
-        baseAPI: xbtsxAPIs,
-        isEnabled: _isEnabled("XBTSX"),
-        isSimple: true,
-        selected: false,
-        addressValidatorMethod: "POST",
-        options: {
-            enabled: false,
-            selected: false
-        },
-        landing: "https://xbts.io/",
-        wallet: "https://ex.xbts.io/"
-    },
-    CITADEL: {
-        id: "CITADEL",
-        name: "Citadel",
-        baseAPI: citadelAPIs,
-        isEnabled: () => false,
-        selected: false,
-        assetWithdrawlAlias: {monero: "xmr"}, // if asset name doesn't equal to memo
-        options: {
-            enabled: false,
-            selected: false
-        },
-        landing: "https://citadel.li/",
-        wallet: "Disabled"
     }
 };
 

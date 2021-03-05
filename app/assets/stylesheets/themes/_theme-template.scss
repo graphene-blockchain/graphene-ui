@@ -266,8 +266,8 @@
     }
     .settings-input {
         /* !important to overwrite styles for Inputs on User Settings. By default inputs take styles from
-    .block-list and it uses on many places. To keep everything OK and do not break something I just do
-    overwrite for Inputs on settings and keep default styles for inputs on another places. */
+.block-list and it uses on many places. To keep everything OK and do not break something I just do
+overwrite for Inputs on settings and keep default styles for inputs on another places. */
         color: $settings-select-color !important;
         height: 36px !important;
         background-color: $settings-select-bg !important;
@@ -2269,6 +2269,7 @@
                             }
                         }
                     }
+                    cursor: pointer;
                 }
             }
         }
@@ -2676,13 +2677,16 @@
         }
     }
 }
+
 .rc-time-picker-panel {
     z-index: 9999 !important;
 }
+
 .midnightTheme .gate_fee .amount-selector {
     width: 100%;
     display: inline-block;
 }
+
 .midnightTheme .gate_fee .right-selector {
     text-align: right;
     width: 26%;
@@ -2690,19 +2694,23 @@
     color: #adadad;
     text-transform: uppercase;
 }
+
 .midnightTheme .gate_fee .right-selector .right-selector-input {
     text-align: right;
     width: 100%;
 }
+
 .clear-text,
 .search-wrapper {
     position: relative;
 }
+
 .market-filter-input,
 .clear-text,
 .search-wrapper {
     position: relative;
 }
+
 .clear-text {
     top: 10px;
     right: -30px;
@@ -2713,6 +2721,7 @@
     outline: 0;
     cursor: pointer;
 }
+
 .clear-text:after {
     content: "X";
     display: block;
@@ -2733,9 +2742,11 @@
     font-size: 12px;
     cursor: pointer;
 }
+
 .market-filter-input:not(:valid) ~ .clear-text {
     display: none;
 }
+
 .header-container {
     display: flex;
     align-items: center;
@@ -2774,6 +2785,7 @@
         line-height: normal;
     }
 }
+
 .local-wallet-menu {
     // top: 50px!important;
     .table-cell {
@@ -2786,9 +2798,17 @@
         }
     }
 }
+
 .app-menu {
     flex: 0;
 }
+
+@media only screen and (max-width: 768px) {
+    .app-menu.hidez {
+        display: none;
+    }
+}
+
 .truncated {
     flex: 1;
     min-width: 0; /* or some value */
@@ -2799,6 +2819,7 @@
         text-align: right;
     }
 }
+
 #qr_scanner_modal {
     > section {
         width: 100%;
@@ -2808,6 +2829,7 @@
         justify-content: center;
     }
 }
+
 @media screen and (max-width: 640px) {
     .responsive-list > .help-content > ul {
         height: 300px;
@@ -2825,6 +2847,7 @@
         }
     }
 }
+
 div.customizable-column--selector {
     position: absolute;
     right: 1rem;
@@ -2836,11 +2859,37 @@ div.customizable-column--selector {
         }
     }
 }
+
 div.customizable-column--selector--dropdown {
     ul.ant-select-dropdown-menu-vertical {
         max-height: 100% !important;
     }
 }
+
 .ant-table-tbody > tr.ant-table-row-selected td {
     background-color: #4f596633 !important;
+}
+
+.potencial_scam_markets {
+    margin: 0 10% 15px 0;
+    width: 90%;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 1.25em;
+    text-align: center;
+    border: 1px solid red;
+    padding: 5px;
+}
+
+.header-container .menu-group .menu-bar li.lottery_a a,
+.header-container .menu-group .menu-bar li.lottery_a a.active,
+.header-container .menu-group .menu-bar li.lottery_a a:hover {
+    background-color: #ff7a00 !important;
+    color: white !important;
+}
+
+.header-container .menu-group .menu-bar li.lottery_a a svg path,
+.header-container .menu-group .menu-bar li.lottery_a a.active svg path,
+.header-container .menu-group .menu-bar li.lottery_a a:hover svg path {
+    fill: white !important;
 }

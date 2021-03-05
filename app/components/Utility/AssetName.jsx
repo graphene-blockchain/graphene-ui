@@ -10,6 +10,8 @@ import GatewayStore from "../../stores/GatewayStore";
 import {getAssetAndGateway} from "../../lib/common/gatewayUtils";
 import {Icon, Tooltip} from "bitshares-ui-style-guide";
 
+import {allowedGateway} from "../../branding";
+
 class AssetName extends React.Component {
     static propTypes = {
         replace: PropTypes.bool.isRequired,
@@ -228,8 +230,9 @@ export default class AssetNameWrapper extends React.Component {
             const onChainConfig = GatewayStore.getOnChainConfig(
                 getAssetAndGateway(this.props.name).selectedGateway
             );
-            const isDisabledGatewayAsset =
-                !!onChainConfig && !onChainConfig.enabled;
+            const isDisabledGatewayAsset = !allowedGateway(
+                gatewaySplit.selectedGateway
+            );
             postfix = isDisabledGatewayAsset && (
                 <Tooltip
                     placement="topLeft"
@@ -243,12 +246,12 @@ export default class AssetNameWrapper extends React.Component {
                                         ) + ". "
                                 }}
                             />
-                            <span>{onChainConfig.comment}</span>
+                            {/*<span>{onChainConfig.comment}</span>*/}
                             <br />
                             <br />
                             <span>
                                 {counterpart.translate(
-                                    "external_service_provider.disabled_asset_2"
+                                    "external_service_provider.disabled_asset_2_rudex"
                                 )}
                             </span>
                         </span>

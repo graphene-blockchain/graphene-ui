@@ -1,12 +1,18 @@
 import React from "react";
 import counterpart from "counterpart";
-import {api} from "steem-js-api";
+import * as api_en from "steem-js-api";
+import * as api_ru from "golos-classic-js";
 import Translate from "react-translate-component";
 import LoadingIndicator from "./LoadingIndicator";
 import utils from "common/utils";
-import {getSteemNewsTag} from "../branding";
 
-const query = {tag: getSteemNewsTag(), limit: 20};
+let api;
+
+const query = {
+    select_authors: ["rudex"],
+    tag: "rudex",
+    limit: 20
+};
 
 const alignRight = {textAlign: "right"};
 const alignLeft = {textAlign: "left"};
@@ -28,9 +34,15 @@ const SomethingWentWrong = () => (
     </p>
 );
 
-const ReusableLink = ({data, url, isLink = false}) => (
+const ReusableLink = ({data, locale, url, isLink = false}) => (
     <a
-        href={`https://steemit.com${url}`}
+        //href={`https://steemit.com${url}`}
+        //href={`https://golos.id${url}`}
+        href={
+            locale == "ru"
+                ? `https://golos.id${url}`
+                : `https://steemit.com${url}`
+        }
         rel="noreferrer noopener"
         target="_blank"
         style={{display: "block"}}
@@ -40,7 +52,7 @@ const ReusableLink = ({data, url, isLink = false}) => (
     </a>
 );
 
-const NewsTable = ({data, width}) => {
+const NewsTable = ({data, width, locale}) => {
     return (
         <table
             className="table table-hover dashboard-table"
@@ -88,18 +100,21 @@ const NewsTable = ({data, width}) => {
                             <td style={rightCell}>
                                 <ReusableLink
                                     data={iter + 1}
+                                    locale={locale}
                                     url={singleNews.url}
                                 />
                             </td>
                             <td style={secondCol}>
                                 <ReusableLink
                                     data={formattedDate}
+                                    locale={locale}
                                     url={singleNews.url}
                                 />
                             </td>
                             <td style={leftCell}>
                                 <ReusableLink
                                     data={smartTitle}
+                                    locale={locale}
                                     url={singleNews.url}
                                     isLink
                                 />
@@ -107,6 +122,7 @@ const NewsTable = ({data, width}) => {
                             <td style={leftCell}>
                                 <ReusableLink
                                     data={theAuthor}
+                                    locale={locale}
                                     url={singleNews.url}
                                 />
                             </td>
@@ -133,7 +149,8 @@ class News extends React.Component {
             isLoading: true,
             isWrong: false,
             discussions: [],
-            width: 1200
+            width: 1200,
+            currentLocale: Translate.getLocale()
         };
         this.updateDimensions = this.updateDimensions.bind(this);
         this.orderDiscussions = this.orderDiscussions.bind(this);
@@ -153,12 +170,12 @@ class News extends React.Component {
     componentDidMount() {
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions);
-        if (!query.tag) {
-            setTimeout(() => {
-                this.setState({isLoading: false, isWrong: false});
-            }, 100);
-            return;
-        }
+
+        if (this.state.currentLocale === "ru") {
+            api = api_ru.api;
+            api.setWebSocket("wss://api.golos.id/ws");
+        } else api = api_en.api;
+
         api.getDiscussionsByBlog(query)
             .then(discussions => {
                 this.orderDiscussions(discussions);
@@ -173,7 +190,13 @@ class News extends React.Component {
     }
 
     render() {
-        const {isLoading, isWrong, discussions, width} = this.state;
+        const {
+            isLoading,
+            isWrong,
+            discussions,
+            width,
+            currentLocale
+        } = this.state;
 
         return (
             <div className="grid-block page-layout">
@@ -188,6 +211,7 @@ class News extends React.Component {
                                         <NewsTable
                                             width={width}
                                             data={discussions}
+                                            locale={currentLocale}
                                         />
                                     )}
                             </div>

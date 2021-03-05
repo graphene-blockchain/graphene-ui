@@ -1390,7 +1390,9 @@ class OrderBook extends React.Component {
                                 </div>
                                 <div
                                     className="cell"
-                                    style={{textAlign: "center"}}
+                                    style={{
+                                        textAlign: "right"
+                                    }}
                                 >
                                     {!!this.props.latest && (
                                         <span className="right">
@@ -1400,6 +1402,9 @@ class OrderBook extends React.Component {
                                                         ? "spread-value"
                                                         : this.props.changeClass
                                                 }
+                                                style={{
+                                                    paddingRight: "15px"
+                                                }}
                                             >
                                                 <PriceText
                                                     price={this.props.latest}

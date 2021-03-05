@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import Icon from "../Icon/Icon";
 import AssetName from "../Utility/AssetName";
+import AssetImage from "../Utility/AssetImage";
 import MarketsActions from "actions/MarketsActions";
 import SettingsActions from "actions/SettingsActions";
 import PriceStatWithLabel from "./PriceStatWithLabel";
@@ -11,6 +12,8 @@ import {ChainStore} from "bitsharesjs";
 import ExchangeHeaderCollateral from "./ExchangeHeaderCollateral";
 import {Icon as AntIcon} from "bitshares-ui-style-guide";
 import {Asset, Price} from "common/MarketClasses";
+
+import {getGroupedMPAsRuDEX} from "../../branding";
 
 export default class ExchangeHeader extends React.Component {
     constructor(props) {
@@ -61,6 +64,42 @@ export default class ExchangeHeader extends React.Component {
             selectedMarketPickerAsset
         });
         this.props.onToggleMarketPicker(selectedMarketPickerAsset);
+    }
+
+    _checkPotencialScamMarket(quote, base) {
+        let coins = [
+            "BTS",
+
+            //"BTC",
+            //"CNY",
+            //"USD",
+            //"EUR",
+            //"RUBLE",
+            //"KRW",
+            //"GBP",
+            //"GOLD",
+            //"SILVER",
+
+            "PPY",
+            "DONATE"
+        ];
+
+        //1. RUDEX.X <=> RUDEX.X
+        if (quote.indexOf("RUDEX.") !== -1 && base.indexOf("RUDEX.") !== -1)
+            return false;
+
+        //2. coins <=> coins
+        if (coins.indexOf(quote) !== -1 && coins.indexOf(base) !== -1)
+            return false;
+
+        //3. RUDEX.X <=> coins
+        if (
+            (quote.indexOf("RUDEX.") !== -1 && coins.indexOf(base) !== -1) ||
+            (base.indexOf("RUDEX.") !== -1 && coins.indexOf(quote) !== -1)
+        )
+            return false;
+
+        return true;
     }
 
     render() {
@@ -114,14 +153,20 @@ export default class ExchangeHeader extends React.Component {
         const quoteId = quoteAsset.get("id");
         const baseId = baseAsset.get("id");
 
-        const lookForBitAsset =
+        let lookForBitAsset =
             quoteId === "1.3.0" ? baseId : baseId === "1.3.0" ? quoteId : null;
+
+        if (getGroupedMPAsRuDEX().rudex.indexOf(quoteAsset.get("id"))) {
+            lookForBitAsset = quoteAsset.get("id");
+        }
+
         const possibleBitAsset = lookForBitAsset
             ? ChainStore.getAsset(lookForBitAsset)
             : null;
         const isBitAsset = possibleBitAsset
             ? !!possibleBitAsset.get("bitasset")
             : false;
+
         let collOrderObject = "";
         let settlePrice = null;
         let settlePriceTitle = "exchange.settle";
@@ -216,6 +261,13 @@ export default class ExchangeHeader extends React.Component {
                 <div className="grid-block overflow-visible">
                     <div className="grid-block shrink">
                         <div style={{padding: "10px"}}>
+                            <AssetImage
+                                replaceNoneToBts={false}
+                                maxWidth={50}
+                                name={quoteAsset.get("symbol")}
+                            />
+                        </div>
+                        <div style={{padding: "10px"}}>
                             {!hasPrediction ? (
                                 <div
                                     style={{
@@ -230,6 +282,7 @@ export default class ExchangeHeader extends React.Component {
                                         onClick={this.props.showPriceAlertModal}
                                         type={"bell"}
                                         className={`exchange--price-alert--show-modal ${PriceAlertBellClassName}`}
+                                        style={{paddingRight: "10px"}}
                                         data-intro={translator.translate(
                                             "walkthrough.price_alerts"
                                         )}
@@ -450,6 +503,7 @@ export default class ExchangeHeader extends React.Component {
                                     />
                                 ) : null}
                             </ul>
+
                             <ul
                                 className="market-stats stats top-stats"
                                 data-position={"left"}
@@ -476,6 +530,42 @@ export default class ExchangeHeader extends React.Component {
                                 </li>
                             </ul>
                         </div>
+
+                        {this._checkPotencialScamMarket(
+                            quoteSymbol,
+                            baseSymbol
+                        ) === true ? (
+                            <div className="potencial_scam_markets">
+                                <span
+                                    style={{
+                                        color: "red"
+                                    }}
+                                >
+                                    {counterpart.translate(
+                                        "exchange.scam_alert.text1"
+                                    )}
+                                </span>
+                                <span>
+                                    {counterpart.translate(
+                                        "exchange.scam_alert.text2"
+                                    )}
+                                </span>
+                                <span
+                                    style={{
+                                        color: "red"
+                                    }}
+                                >
+                                    {counterpart.translate(
+                                        "exchange.scam_alert.text3"
+                                    )}
+                                </span>
+                                <span>
+                                    {counterpart.translate(
+                                        "exchange.scam_alert.text4"
+                                    )}
+                                </span>
+                            </div>
+                        ) : null}
                     </div>
                 </div>
             </div>

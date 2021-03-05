@@ -8,6 +8,8 @@ import Translate from "react-translate-component";
 import counterpart from "counterpart";
 import utils from "common/utils";
 
+import {getGroupedMPAsRuDEX} from "../../branding";
+
 import TranslateWithLinks from "../Utility/TranslateWithLinks";
 import Immutable from "immutable";
 import {Popover} from "bitshares-ui-style-guide";
@@ -114,6 +116,51 @@ class ListGenerator extends React.Component {
 
                     return a.has_margin_order ? -1 : 1;
                 } else {
+                    let aIndex = a.asset.get("id").replace("1.3.", "") * 1;
+                    let bIndex = b.asset.get("id").replace("1.3.", "") * 1;
+
+                    //rudexMPA <-> rudexMPA
+                    if (
+                        getGroupedMPAsRuDEX().rudex.indexOf(
+                            a.asset.get("symbol")
+                        ) !== -1 &&
+                        getGroupedMPAsRuDEX().rudex.indexOf(
+                            b.asset.get("symbol")
+                        ) !== -1
+                    ) {
+                        return aIndex - bIndex;
+                    }
+                    //rudexMPA exist
+                    else if (
+                        getGroupedMPAsRuDEX().rudex.indexOf(
+                            a.asset.get("symbol")
+                        ) !== -1 ||
+                        getGroupedMPAsRuDEX().rudex.indexOf(
+                            b.asset.get("symbol")
+                        ) !== -1
+                    ) {
+                        return getGroupedMPAsRuDEX().rudex.indexOf(
+                            a.asset.get("symbol")
+                        ) !== -1
+                            ? -1
+                            : 1;
+                    }
+                    // listedMPA exist
+                    else if (
+                        getGroupedMPAsRuDEX().listed.indexOf(
+                            a.asset.get("symbol")
+                        ) !== -1 ||
+                        getGroupedMPAsRuDEX().listed.indexOf(
+                            b.asset.get("symbol")
+                        ) !== -1
+                    ) {
+                        return getGroupedMPAsRuDEX().listed.indexOf(
+                            a.asset.get("symbol")
+                        ) !== -1
+                            ? -1
+                            : 1;
+                    }
+
                     // if both have no order, sort by symbol
 
                     let aName = utils.replaceName(a.asset);
@@ -178,13 +225,21 @@ ListGenerator = AssetWrapper(ListGenerator, {
     propNames: ["bitAssets"],
     defaultProps: {
         bitAssets: [
-            "1.3.113",
+            //BitAssets
+            "1.3.103",
             "1.3.120",
             "1.3.121",
             "1.3.1325",
             "1.3.105",
             "1.3.106",
-            "1.3.103"
+            "1.3.113",
+
+            //RuDEX MPA-s
+            "1.3.5747",
+            "1.3.5748",
+            "1.3.5749",
+            "1.3.5752",
+            "1.3.5753"
         ]
     },
     asList: true

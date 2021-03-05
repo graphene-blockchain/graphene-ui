@@ -4,6 +4,7 @@ import FormattedPrice from "../Utility/FormattedPrice";
 import ChainTypes from "../Utility/ChainTypes";
 import BindToChainState from "../Utility/BindToChainState";
 import AssetName from "../Utility/AssetName";
+import AssetImage from "../Utility/AssetImage";
 import BorrowModal from "../Modal/BorrowModal";
 import WalletApi from "api/WalletApi";
 import {ChainStore} from "bitsharesjs";
@@ -264,6 +265,11 @@ class MarginPosition extends React.Component {
         return (
             <tr className="margin-row">
                 <td style={alignLeft}>
+                    <AssetImage
+                        replaceNoneToBts={false}
+                        maxWidth={30}
+                        name={debtAsset.get("symbol")}
+                    />
                     <Link to={`/asset/${debtAsset.get("symbol")}`}>
                         <AssetName noTip name={debtAsset.get("symbol")} />
                     </Link>

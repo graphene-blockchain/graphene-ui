@@ -64,7 +64,10 @@ class MarketsTable extends React.Component {
                         basePrecision: base.get("precision"),
                         isHidden: props.hiddenMarkets.includes(marketName),
                         isFavorite: props.isFavorite,
-                        marketStats: props.allMarketStats.get(marketName, {}),
+                        marketStats: props.allMarketStats.get(
+                            `${market.quote}_${market.base}`,
+                            {}
+                        ),
                         isStarred: this.props.starredMarkets.has(marketName)
                     };
                 })
@@ -285,7 +288,16 @@ class MarketsTable extends React.Component {
                 ),
                 dataIndex: "hide",
                 render: item => {
-                    return <span style={{whiteSpace: "nowrap"}}>{item}</span>;
+                    return (
+                        <span
+                            style={{
+                                whiteSpace: "nowrap",
+                                cursor: "pointer"
+                            }}
+                        >
+                            {item}
+                        </span>
+                    );
                 }
             }
         ];
@@ -321,16 +333,18 @@ class MarketsTable extends React.Component {
             SettingsActions.removeStarMarket(quote, base);
         }
     }
+
     getTableData(row) {
         let {base, quote, marketStats, isHidden, inverted, basePrecision} = row;
 
         function getImageName(symbol) {
-            if (symbol === "OPEN.BTC" || symbol === "GDEX.BTC") return symbol;
+            //if (symbol === "OPEN.BTC" || symbol === "GDEX.BTC") return symbol;
             if (symbol.startsWith("RUDEX.")) return symbol;
 
             let imgName = symbol.split(".");
             return imgName.length === 2 ? imgName[1] : imgName[0];
         }
+
         let imgName = getImageName(quote);
 
         let marketID = `${quote}_${base}`;
@@ -384,7 +398,7 @@ class MarketsTable extends React.Component {
                 <div className="column-hide-small" style={{textAlign: "right"}}>
                     {marketStats && marketStats.price
                         ? utils.price_text(
-                              marketStats.price.toReal(true),
+                              marketStats.price.toReal(false),
                               ChainStore.getAsset(quote),
                               ChainStore.getAsset(base)
                           )
@@ -398,9 +412,9 @@ class MarketsTable extends React.Component {
                     ? 0
                     : marketStats.change,
             volume:
-                !marketStats || !marketStats.volumeQuote
+                !marketStats || !marketStats.volumeBase
                     ? 0
-                    : marketStats.volumeQuote,
+                    : marketStats.volumeBase,
             flip:
                 inverted === null || !this.props.isFavorite ? null : (
                     <span className="column-hide-small">
@@ -449,10 +463,10 @@ class MarketsTable extends React.Component {
             .filter(m => {
                 if (!!filter || m.isStarred) return true;
                 if (
-                    this.props.onlyLiquid ||
-                    (m.marketStats && "volumeBase" in m.marketStats)
+                    this.props.onlyLiquid // ||
+                    //(m.marketStats && "volumeBase" in m.marketStats)
                 ) {
-                    return !!m.marketStats.volumeBase || false;
+                    return !!m.marketStats.volumeQuote || false;
                 } else {
                     return true;
                 }

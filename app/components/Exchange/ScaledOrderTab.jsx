@@ -238,6 +238,7 @@ class ScaledOrderForm extends Component {
 
         const quantity = Number(this._getTotal());
         const action = formValues.action;
+        const amount = Number(formValues.amount);
 
         if (isNaN(quantity)) return null;
 
@@ -256,6 +257,12 @@ class ScaledOrderForm extends Component {
         });
 
         const marketFeePercent = this._getMarketFeePercentage();
+
+        if (action === SCALED_ORDER_ACTION_TYPES.BUY)
+            return Math.min(
+                maxMarketFee.getAmount({real: true}),
+                (amount / 100) * marketFeePercent
+            ).toFixed(maxMarketFee.precision);
 
         return !quantity
             ? 0
@@ -732,6 +739,7 @@ class ScaledOrderForm extends Component {
                     </Form.Item>
 
                     <Form.Item
+                        className="fixmarket-fee"
                         {...formItemProps}
                         label={counterpart.translate(
                             "scaled_orders.order_count"
@@ -758,6 +766,7 @@ class ScaledOrderForm extends Component {
 
                     {this._isMarketFeeVisible() ? (
                         <Form.Item
+                            className="fixmarket-fee"
                             {...formItemProps}
                             label={`${counterpart.translate(
                                 "scaled_orders.market_fee"
@@ -766,6 +775,57 @@ class ScaledOrderForm extends Component {
                             {marketFeeInput}
                         </Form.Item>
                     ) : null}
+
+                    <Form.Item
+                        label={counterpart.translate("exchange.balance")}
+                        {...formItemProps}
+                    >
+                        <span
+                            style={{
+                                borderBottom: "#A09F9F 1px dotted",
+                                cursor: "pointer"
+                            }}
+                            onClick={this.handleClickBalance}
+                        >
+                            {!isBid
+                                ? this.props.quoteAssetBalance
+                                : this.props.baseAssetBalance}{" "}
+                            <AssetNameWrapper
+                                name={
+                                    !isBid
+                                        ? quote.get("symbol")
+                                        : base.get("symbol")
+                                }
+                                noTip
+                            />
+                        </span>
+                    </Form.Item>
+
+                    <Form.Item
+                        className="fixmarket-fee"
+                        label={lastPriceLabel}
+                        {...formItemProps}
+                    >
+                        <span
+                            style={{
+                                borderBottom: "#A09F9F 1px dotted",
+                                cursor: "pointer"
+                            }}
+                            onClick={this.handleCurrentPriceClick}
+                        >
+                            <PriceText
+                                price={this.props.currentPrice}
+                                quote={quote}
+                                base={base}
+                            />{" "}
+                            <AssetNameWrapper name={base.get("symbol")} noTip />
+                            /
+                            <AssetNameWrapper
+                                name={quote.get("symbol")}
+                                noTip
+                            />
+                        </span>
+                    </Form.Item>
 
                     <Form.Item
                         label={counterpart.translate("transaction.expiration")}
@@ -809,54 +869,11 @@ class ScaledOrderForm extends Component {
                         </div>
                     </Form.Item>
 
-                    <Form.Item label={lastPriceLabel} {...formItemProps}>
-                        <span
-                            style={{
-                                borderBottom: "#A09F9F 1px dotted",
-                                cursor: "pointer"
-                            }}
-                            onClick={this.handleCurrentPriceClick}
-                        >
-                            <PriceText
-                                price={this.props.currentPrice}
-                                quote={quote}
-                                base={base}
-                            />{" "}
-                            <AssetNameWrapper name={base.get("symbol")} noTip />
-                            /
-                            <AssetNameWrapper
-                                name={quote.get("symbol")}
-                                noTip
-                            />
-                        </span>
-                    </Form.Item>
-
-                    <Form.Item
-                        label={counterpart.translate("exchange.balance")}
-                        {...formItemProps}
-                    >
-                        <span
-                            style={{
-                                borderBottom: "#A09F9F 1px dotted",
-                                cursor: "pointer"
-                            }}
-                            onClick={this.handleClickBalance}
-                        >
-                            {!isBid
-                                ? this.props.quoteAssetBalance
-                                : this.props.baseAssetBalance}{" "}
-                            <AssetNameWrapper
-                                name={
-                                    !isBid
-                                        ? quote.get("symbol")
-                                        : base.get("symbol")
-                                }
-                                noTip
-                            />
-                        </span>
-                    </Form.Item>
-
                     <Button
+                        className={isBid ? "bid" : "ask"}
+                        style={{
+                            float: "right"
+                        }}
                         onClick={this.props.handleSubmit}
                         type="primary"
                         disabled={!this.isFormValid()}
