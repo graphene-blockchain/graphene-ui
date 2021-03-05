@@ -319,6 +319,7 @@ class MarketsTable extends React.Component {
 
     _onError(imgName) {
         if (!this.state.imgError) {
+            this.refs[imgName.toLowerCase()].src = "asset-symbols/bts.png";
             this.setState({
                 imgError: true
             });
@@ -353,10 +354,6 @@ class MarketsTable extends React.Component {
             ? "gold-star"
             : "grey-star";
 
-        const imageSrc = this.state.imgError
-            ? `${__BASE_URL__}asset-symbols/${imgName.toLowerCase()}.png`
-            : `${__BASE_URL__}asset-symbols/bts.png`;
-
         return {
             key: marketID,
             star: (
@@ -374,10 +371,11 @@ class MarketsTable extends React.Component {
             asset: (
                 <Link to={`/market/${quote}_${base}`}>
                     <img
+                        ref={imgName.toLowerCase()}
                         className="column-hide-small"
                         onError={this._onError.bind(this, imgName)}
                         style={{maxWidth: 20, marginRight: 10}}
-                        src={imageSrc}
+                        src={`${__BASE_URL__}asset-symbols/${imgName.toLowerCase()}.png`}
                     />
                     <AssetName dataPlace="top" name={quote} />
                     &nbsp;
