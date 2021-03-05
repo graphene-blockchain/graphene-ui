@@ -152,6 +152,7 @@ export function getMyMarketsQuotes() {
             "RUDEX.PZM",
             "RUDEX.NBS",
             "RUDEX.XMR",
+            "RUDEX.TRX",
 
             //RuDEX MPA-s
             "RUDEX.XBS",
@@ -219,6 +220,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "RUDEX.USDT"],
         ["BTS", "RUDEX.ETH"],
         ["BTS", "RUDEX.XMR"],
+        ["BTS", "RUDEX.TRX"],
         ["BTS", "RUDEX.EOS"],
         ["BTS", "RUDEX.GOLOS"],
         ["BTS", "RUDEX.STEEM"],
@@ -250,6 +252,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.USDT", "RUDEX.SMOKE"],
         ["RUDEX.USDT", "RUDEX.PZM"],
         ["RUDEX.USDT", "RUDEX.XMR"],
+        ["RUDEX.USDT", "RUDEX.TRX"],
         //["RUDEX.USDT", "RUBLE"],
 
         ["RUDEX.USDT", "RUDEX.XBS"], //MPA
@@ -265,6 +268,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.BTC", "RUDEX.USDT"],
         ["RUDEX.BTC", "RUDEX.ETH"],
         ["RUDEX.BTC", "RUDEX.XMR"],
+        ["RUDEX.BTC", "RUDEX.TRX"],
         ["RUDEX.BTC", "RUDEX.EOS"],
         ["RUDEX.BTC", "RUDEX.GOLOS"],
         ["RUDEX.BTC", "RUDEX.STEEM"],
@@ -397,13 +401,13 @@ export function getListingCoins() {
             goal: 5000,
             votes: 0
         },
-        {
+        /*        {
             name: "Tron",
             ticker: "TRX",
             account: "rudex-tron",
             goal: 10000,
             votes: 0
-        },
+        },*/
         {
             name: "Minter Network",
             ticker: "BIP",

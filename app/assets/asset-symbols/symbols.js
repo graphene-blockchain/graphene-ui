@@ -23,6 +23,7 @@ require("file-loader?name=asset-symbols/[name].png!./rudex.wls.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.pzm.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.nbs.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.xmr.png");
+require("file-loader?name=asset-symbols/[name].png!./rudex.trx.png");
 
 require("file-loader?name=asset-symbols/[name].png!./rudex.dgb.png");
 require("file-loader?name=asset-symbols/[name].png!./rudex.gbg.png");

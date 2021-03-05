@@ -356,23 +356,23 @@ RaidoFinance.defaultProps = {
                 type: "blocks",
                 value: 30
             }
-        },
-        {
-            name: "USDT",
-            description: "Tether - USDT (on Ethereum)",
-            backingCoin: "USDT",
-            symbol: "RUDEX.USDT",
-            depositAllowed: true,
-            //"withdrawalAllowed": true,
-
-            issuer: "rudex-usdt",
-            issuerId: "1.2.927458",
-            //"minAmount": 500000,
-            confirmations: {
-                type: "blocks",
-                value: 20
-            }
         }
+        /* {
+             name: "USDT",
+             description: "Tether - USDT (on Ethereum)",
+             backingCoin: "USDT",
+             symbol: "RUDEX.USDT",
+             depositAllowed: true,
+             //"withdrawalAllowed": true,
+
+             issuer: "rudex-usdt",
+             issuerId: "1.2.927458",
+             //"minAmount": 500000,
+             confirmations: {
+                 type: "blocks",
+                 value: 20
+             }
+         }*/
     ]
 };
 
