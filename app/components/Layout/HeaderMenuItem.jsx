@@ -110,7 +110,7 @@ class HeaderMenuItem extends React.Component {
         }
 
         return actuallyHidden ? null : (
-            <li className={actualIcon.name == "lottery" ? "lottery_a" : ""}>
+            <li>
                 <a
                     style={{flexFlow: "row"}}
                     className={cnames(actualHideClass, {

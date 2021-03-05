@@ -135,7 +135,6 @@ class MenuDataStructure {
 
             allItems.divider,
             allItems.listing,
-            allItems.lottery,
             allItems.news,
             allItems.help,
 
@@ -204,7 +203,6 @@ class MenuDataStructure {
                     "/assets",
                     "/bots",
                     "/listing",
-                    "/lottery",
                     "/news",
                     "/help",
                     "/settings",
@@ -277,24 +275,6 @@ class MenuDataStructure {
                 target: "/listing",
                 icon: "listing",
                 text: "header.listing",
-                inHeaderBehavior: MenuItemType.Dynamic,
-                inDropdownBehavior: MenuItemType.Always
-            }),
-            lottery: state => ({
-                includePattern: ["/lottery"],
-                excludePattern: [
-                    //"/account", "account/", "/account/",
-                    "/assets",
-                    "/voting",
-                    "/signedmessages",
-                    "/member-stats",
-                    "/vesting",
-                    "/whitelist",
-                    "/permissions"
-                ],
-                target: "/lottery",
-                icon: "lottery",
-                text: "header.lottery",
                 inHeaderBehavior: MenuItemType.Dynamic,
                 inDropdownBehavior: MenuItemType.Always
             }),

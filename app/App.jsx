@@ -164,12 +164,6 @@ const Listing = Loadable({
     loading: LoadingIndicator
 });
 
-const Lottery = Loadable({
-    loader: () =>
-        import(/* webpackChunkName: "Lottery" */ "./components/Lottery/LotteryPage"),
-    loading: LoadingIndicator
-});
-
 import LoginSelector from "./components/LoginSelector";
 import Login from "./components/Login/Login";
 import RegistrationSelector from "./components/Registration/RegistrationSelector";
@@ -524,11 +518,6 @@ class App extends React.Component {
                                     exact
                                     component={Listing}
                                 />{" "}
-                                <Route
-                                    path="/lottery"
-                                    exact
-                                    component={Lottery}
-                                />
                                 <Redirect
                                     path={"/voting"}
                                     to={{
