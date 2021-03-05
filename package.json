@@ -1,6 +1,6 @@
 {
   "name": "RuDEX3-light",
-  "version": "3.3.210305",
+  "version": "5.0.210305",
   "description": "Advanced wallet interface for the BitShares financial blockchain.",
   "homepage": "https://github.com/blckchnd/rudex-ui",
   "author": "RuDEX Team <support@rudex.org>",
