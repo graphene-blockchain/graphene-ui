@@ -23,6 +23,5 @@
      - [PercentUP ](bots/percent-up.md)
  * [Short Selling BitAssets](dex/shorting.md)
  * [Gateways](gateways/introduction.md)
-    * [Citadel](gateways/citadel.md)
     * [Rudex](gateways/rudex.md)
     * [Xbts](gateways/xbtsx.md)

@@ -472,7 +472,7 @@ export function validateAddress({
                 "Content-Type": "application/json"
             })
         })
-            .then(reply => reply.json().then(json => json))
+            .then(reply => reply.json().then(json => json.isValid))
             .catch(err => {
                 console.log("validate error:", err);
             });
@@ -485,7 +485,7 @@ export function validateAddress({
             }),
             body: JSON.stringify({address: newAddress})
         })
-            .then(reply => reply.json().then(json => json))
+            .then(reply => reply.json().then(json => json.isValid))
             .catch(err => {
                 console.log("validate error:", err);
             });

@@ -135,10 +135,6 @@ export const settingsAPIs = {
             contact: "email:info@blockchainprojectsbv.com"
         },
         {
-            url: "ws://127.0.0.1:8090",
-            location: "Locally hosted"
-        },
-        {
             url: "wss://nexus01.co.uk/ws",
             region: "Northern Europe",
             country: "England",
@@ -193,7 +189,6 @@ export const settingsAPIs = {
             operator: "Witness: bhuz",
             contact: "telegram:bhuzor"
         },
-        {
         {
             url: "wss://api.btsgo.net/ws",
             region: "Southeastern Asia",
@@ -413,7 +408,7 @@ export const settingsAPIs = {
             country: "Germany",
             operator: "Infrastructure Worker",
             contact: "email:info@blockchainprojectsbv.com"
-        },
+        }
     ],
     DEFAULT_FAUCET: getFaucet().url,
     TESTNET_FAUCET: getTestFaucet().url
