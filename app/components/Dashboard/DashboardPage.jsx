@@ -53,7 +53,7 @@ class DashboardPage extends React.Component {
                                     {preferredBases.map(q => {
                                         let title = (
                                             <span>
-                                                <img
+                                                {/* <img
                                                     className="column-hide-small"
                                                     style={{
                                                         maxWidth: 30,
@@ -65,7 +65,7 @@ class DashboardPage extends React.Component {
                                                             "OPEN.BTC"
                                                         )
                                                         .toLowerCase()}.png`}
-                                                />
+                                                />*/}
                                                 &nbsp;
                                                 {q.replace("RUDEX.", "")}
                                             </span>

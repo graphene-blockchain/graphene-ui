@@ -156,9 +156,9 @@ class AppInit extends React.Component {
     }
 
     componentWillMount() {
-        /*        if (!__DEV__) {
+        if (!__DEV__) {
             this._enablePersistingLog();
-        }*/
+        }
         setTimeout(() => {
             this.setState({
                 showNodeFilter: true

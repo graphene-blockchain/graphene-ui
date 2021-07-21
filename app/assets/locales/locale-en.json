@@ -3024,7 +3024,7 @@
         "texts": {
             "header": "List an asset on RuDEX",
             "text1": "Would you like to list an asset on RuDEX, and integrate with Graphene decentralized trading platform? Use our listing service via public crowdfunding. The listing process is very simple and is described below.",
-            "text2": "To sumbit an asset listing request on RuDEX platform please fill out a simple form (Submit request button). Our team will review your request in accordance with submitted information in 7 business days, and if the project fulfils our listing criteria, it will be added to the public list for public crowdfunding. The main goal for the voluntary crowdfunding is to gather the funds for the launch and maintenance of the gateway, as well as estimation of potentioal interest in an ansset.",
+            "text2": "To sumbit an asset listing request on RuDEX platform please fill out a simple form (Submit request button). Our team will review your request in accordance with submitted information in 14 business days, and if the project fulfils our listing criteria, it will be added to the public list for public crowdfunding. The main goal for the voluntary crowdfunding is to gather the funds for the launch and maintenance of the gateway, as well as estimation of potentioal interest in an ansset.",
             "text3": {
                 "t1": "Any RuDEX user can support the listing of their favorite assets via crowdfunding. ",
                 "t2": "To that end please ",
@@ -3046,7 +3046,7 @@
                 "rule_1": "Please check ",
                 "rule_10": "rules",
                 "rule_11": " and submit a listing request.",
-                "rule_2": "Wait for the review results: if everything is in order, then it would be added to the project listing page within 7 business days.",
+                "rule_2": "Wait for the review results: if everything is in order, then it would be added to the project listing page within 14 business days.",
                 "rule_3": "Use your time to promote your project crowdfunding process via social networks, attract other users. Use",
                 "rule_4": " tokens to reach the crowdfunding goal (a RuDEX account is required for this).",
                 "rule_5": "Listing process is initiated after the crowdfunding goal is reach, and begins with the gateway launch preparation. Please provide the contacts for technical/marketing team, or any other qualified contact."

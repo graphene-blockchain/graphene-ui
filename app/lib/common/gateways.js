@@ -4,11 +4,11 @@
  */
 
 import {
-    rudexAPIs,
+    rudexAPIs
     //bitsparkAPIs,
     //openledgerAPIs,
     //cryptoBridgeAPIs,
-    gdex2APIs
+    //gdex2APIs
     //xbtsxAPIs,
     //citadelAPIs
 } from "api/apiConfig";
@@ -90,14 +90,13 @@ export const availableGateways = {
         id: "RUDEX",
         name: "RuDEX",
         baseAPI: rudexAPIs,
-        //isEnabled: _isEnabled("RUDEX"),
-        isEnabled: () => false,
+        isEnabled: _isEnabled("RUDEX"),
         isSimple: true,
         selected: false,
         simpleAssetGateway: true,
         fixedMemo: {
             prepend_default: "dex:",
-            prepend_btsid: "gpid",
+            prepend_btsid: "gphid",
             append: ""
         },
         addressValidatorMethod: "POST",
@@ -111,12 +110,12 @@ export const availableGateways = {
 };
 
 export const availableBridges = {
-    TRADE: {
+    /*    TRADE: {
         id: "TRADE",
         name: "Blocktrades",
         isEnabled: _isEnabled("TRADE"),
         landing: "https://blocktrades.us"
-    }
+    }*/
 };
 
 export const gatewayPrefixes = Object.keys(availableGateways);

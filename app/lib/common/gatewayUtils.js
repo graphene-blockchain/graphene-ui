@@ -13,13 +13,9 @@ export function getGatewayName(asset) {
         return counterpart.translate("exchange.native");
     }
 
-    let prefix =
-        asset.get("symbol") === "PPY"
-            ? "RUDEX"
-            : asset.get("symbol").split(".")[0];
+    let prefix = asset.get("symbol").split(".")[0];
 
-    let assetName =
-        asset.get("symbol") === "PPY" ? "RUDEX.PPY" : asset.get("symbol");
+    let assetName = asset.get("symbol");
 
     if (hasGatewayPrefix(assetName)) {
         return availableGateways[prefix].name;
@@ -93,10 +89,10 @@ export function getBackedCoin(symbol, backedCoins) {
 
 export function getAssetAndGateway(symbol) {
     let [selectedGateway, selectedAsset] = symbol.split(".");
-    if (symbol === "PPY") {
+    /*    if (symbol === "PPY") {
         selectedGateway = "RUDEX";
         selectedAsset = "PPY";
-    }
+    }*/
     if (!selectedAsset) {
         selectedAsset = selectedGateway;
         selectedGateway = undefined;
@@ -104,12 +100,12 @@ export function getAssetAndGateway(symbol) {
     return {selectedGateway, selectedAsset};
 }
 
-export async function updateGatewayBackers(chain = "14953393") {
+export async function updateGatewayBackers(chain = "7fcf452d") {
     // Only fetch this when on desired chain, default to main chain
     if (!Apis.instance().chain_id) return;
     if (Apis.instance().chain_id.substr(0, 8) === chain) {
         // Only one bridge so far, BlockTrades
-        if (Object.values(availableBridges).length !== 1) {
+        /*        if (Object.values(availableBridges).length !== 1) {
             throw "Multiple bridges not yet supported!";
         }
         availableBridges.TRADE.enabled = await availableBridges.TRADE.isEnabled();
@@ -119,7 +115,7 @@ export async function updateGatewayBackers(chain = "14953393") {
             if (isDisabled) {
                 GatewayActions.temporarilyDisable("TRADE");
             }
-        }
+        }*/
         // Walk all Gateways
         for (let gateway in availableGateways) {
             let gatewayConfig = availableGateways[gateway];

@@ -45,7 +45,6 @@ export function getWalletURL() {
  */
 export function getFaucet() {
     return {
-        //url: "https://faucet.rudex.org",
         url: "https://faucet.gph.ai",
         show: true,
         editable: false,
@@ -97,16 +96,14 @@ export function getUnits() {
     if (_isTestnet()) {
         return ["TEST"];
     }
-    //return ["BTS", "RUBLE", "EUR", "RUDEX.BTC", "RUDEX.USDT"];
-    return ["GPH"];
+    return ["GPH", "RUDEX.BTC", "RUDEX.USDT"];
 }
 
 export function getDefaultMarket() {
     if (_isTestnet()) {
         return "USD_TEST";
     }
-    //return "BTS_RUDEX.BTC";
-    return "GPH_USD";
+    return "GPH_RUDEX.USDT";
 }
 
 /**
@@ -118,8 +115,7 @@ export function getMyMarketsBases() {
     if (_isTestnet()) {
         return ["TEST"];
     }
-    //return ["BTS", "RUDEX.USDT", "RUDEX.BTC", "RUBLE"];
-    return ["GPH"];
+    return ["GPH", "RUDEX.BTC", "RUDEX.USDT", "RUDEX.BTS"];
 }
 
 /**
@@ -135,7 +131,9 @@ export function getMyMarketsQuotes() {
         nativeTokens: [
             "GPH",
 
-            "USD",
+            "USD"
+
+            /* ,
             "EUR",
             "CNY",
             "RUB",
@@ -143,31 +141,34 @@ export function getMyMarketsQuotes() {
             "BTC",
             "GOLD",
             "SILVER",
-            "OIL"
+            "OIL"*/
         ],
         rudexTokens: [
-            /*"PPY",
             "DONATE",
 
             "RUDEX.BTC",
             "RUDEX.ETH",
             "RUDEX.USDT",
             "RUDEX.EOS",
+            "RUDEX.PZM",
             "RUDEX.GOLOS",
             "RUDEX.STEEM",
             "RUDEX.WLS",
             "RUDEX.SMOKE",
-            "RUDEX.PZM",
-                        "RUDEX.NBS",
+            "RUDEX.NBS",
+            "RUDEX.PPY",
             "RUDEX.XMR",
-            "RUDEX.TRX",
+            "RUDEX.BTS",
+            "RUDEX.TRX"
 
             //RuDEX MPA-s
+            /*
             "RUDEX.XBS",
             "RUDEX.XBT",
             "RUDEX.RUB",
             "RUDEX.OIL",
-            "RUDEX.XAU"*/
+            "RUDEX.XAU"
+            */
         ],
         otherTokens: []
     };
@@ -185,7 +186,8 @@ export function getMyMarketsQuotes() {
  */
 export function getGroupedMPAsRuDEX() {
     let tokens = {
-        listed: ["USD", "EUR", "CNY", "RUB", "BTC", "GOLD", "SILVER", "OIL"],
+        //listed: ["USD", "EUR", "CNY", "RUB", "BTC", "GOLD", "SILVER", "OIL"],
+        listed: [],
         rudex: [
             //RuDEX MPA-s
             /*            "RUDEX.XBS",
@@ -209,8 +211,8 @@ export function getFeaturedMarkets(quotes = []) {
         return [["USD", "TEST"]];
     }
     return [
-        //BTS
-        ["GPH", "USD"],
+        //GPH
+        /*["GPH", "USD"],
         ["GPH", "EUR"],
         ["GPH", "CNY"],
         ["GPH", "RUB"],
@@ -234,7 +236,90 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUB", "BTC"],
         ["RUB", "GOLD"],
         ["RUB", "SILVER"],
-        ["RUB", "OIL"]
+        ["RUB", "OIL"]*/
+
+        ["GPH", "RUDEX.PPY"],
+        ["GPH", "RUDEX.NBS"],
+        ["GPH", "RUDEX.BTC"],
+        ["GPH", "RUDEX.USDT"],
+        ["GPH", "RUDEX.ETH"],
+        ["GPH", "RUDEX.XMR"],
+        ["GPH", "RUDEX.EOS"],
+        ["GPH", "RUDEX.GOLOS"],
+        ["GPH", "RUDEX.STEEM"],
+        ["GPH", "RUDEX.WLS"],
+        ["GPH", "RUDEX.SMOKE"],
+        ["GPH", "RUDEX.BTS"],
+        ["GPH", "RUDEX.TRX"],
+
+        /*["RUBLE", "GPH"],
+        ["RUBLE", "RUDEX.PPY"],
+        ["RUBLE", "RUDEX.BTC"],
+        ["RUBLE", "RUDEX.USDT"],
+        ["RUBLE", "RUDEX.ETH"],
+        ["RUBLE", "RUDEX.EOS"],
+        ["RUBLE", "RUDEX.GOLOS"],
+        ["RUBLE", "RUDEX.STEEM"],
+        ["RUBLE", "RUDEX.WLS"],
+        ["RUBLE", "RUDEX.SMOKE"],
+        ["RUBLE", "RUDEX.RUB"], */
+
+        ["RUDEX.USDT", "GPH"],
+        ["RUDEX.USDT", "RUDEX.PPY"],
+        ["RUDEX.USDT", "RUDEX.NBS"],
+        ["RUDEX.USDT", "RUDEX.BTC"],
+        ["RUDEX.USDT", "RUDEX.ETH"],
+        ["RUDEX.USDT", "RUDEX.EOS"],
+        ["RUDEX.USDT", "RUDEX.GOLOS"],
+        ["RUDEX.USDT", "RUDEX.STEEM"],
+        ["RUDEX.USDT", "RUDEX.WLS"],
+        ["RUDEX.USDT", "RUDEX.SMOKE"],
+        ["RUDEX.USDT", "RUDEX.PZM"],
+        ["RUDEX.USDT", "RUDEX.XMR"],
+        ["RUDEX.USDT", "RUDEX.BTS"],
+        ["RUDEX.USDT", "RUDEX.TRX"],
+        //["RUDEX.USDT", "RUBLE"],
+
+        /*        ["RUDEX.USDT", "RUDEX.XBS"], //MPA
+        ["RUDEX.USDT", "RUDEX.XBT"], //MPA
+        ["RUDEX.USDT", "RUDEX.OIL"], //MPA
+        ["RUDEX.USDT", "RUDEX.XAU"], //MPA
+        ["RUDEX.USDT", "RUDEX.RUB"], //MPA*/
+
+        //Bitcoin
+        ["RUDEX.BTC", "DONATE"],
+
+        ["RUDEX.BTC", "GPH"],
+        ["RUDEX.BTC", "RUDEX.PPY"],
+        ["RUDEX.BTC", "RUDEX.NBS"],
+        ["RUDEX.BTC", "RUDEX.ETH"],
+        ["RUDEX.BTC", "RUDEX.XMR"],
+        ["RUDEX.BTC", "RUDEX.EOS"],
+        ["RUDEX.BTC", "RUDEX.GOLOS"],
+        ["RUDEX.BTC", "RUDEX.STEEM"],
+        ["RUDEX.BTC", "RUDEX.WLS"],
+        ["RUDEX.BTC", "RUDEX.SMOKE"],
+        ["RUDEX.BTC", "RUDEX.BTS"],
+        ["RUDEX.BTC", "RUDEX.TRX"],
+
+        //["RUDEX.BTC", "RUDEX.LOTTERY"],
+        //["RUDEX.BTC", "RUBLE"],
+        //["RUDEX.BTC", "RUDEX.XBT"] //MPA
+
+        //Bitshares
+        ["RUDEX.BTS", "GPH"],
+        ["RUDEX.BTS", "RUDEX.PPY"],
+        ["RUDEX.BTS", "RUDEX.NBS"],
+        ["RUDEX.BTS", "RUDEX.BTC"],
+        ["RUDEX.BTS", "RUDEX.USDT"],
+        ["RUDEX.BTS", "RUDEX.ETH"],
+        ["RUDEX.BTS", "RUDEX.XMR"],
+        ["RUDEX.BTS", "RUDEX.EOS"],
+        ["RUDEX.BTS", "RUDEX.GOLOS"],
+        ["RUDEX.BTS", "RUDEX.STEEM"],
+        ["RUDEX.BTS", "RUDEX.WLS"],
+        ["RUDEX.BTS", "RUDEX.SMOKE"],
+        ["RUDEX.BTS", "RUDEX.TRX"]
     ].filter(a => {
         if (!quotes.length) return true;
         return quotes.indexOf(a[0]) !== -1;
@@ -250,9 +335,7 @@ export function getAssetNamespaces() {
     if (_isTestnet()) {
         return [];
     }
-    return [
-        //"RUDEX.",
-    ];
+    return ["RUDEX."];
 }
 
 /**
@@ -261,7 +344,8 @@ export function getAssetNamespaces() {
  */
 export function getAssetHideNamespaces() {
     // e..g "OPEN.", "bit"
-    return ["RUDEX."];
+    //return ["RUDEX."];
+    return [];
 }
 
 /**
@@ -270,10 +354,7 @@ export function getAssetHideNamespaces() {
  * @returns {boolean}
  */
 export function allowedGateway(gateway) {
-    //const allowedGateways = ["RUDEX"];
-    const allowedGateways = [
-        //"RUDEX"
-    ];
+    const allowedGateways = ["RUDEX"];
     if (!gateway) {
         // answers the question: are any allowed?
         return allowedGateways.length > 0;

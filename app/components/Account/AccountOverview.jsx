@@ -28,37 +28,35 @@ class AccountOverview extends React.Component {
             shownAssets: props.viewSettings.get("shownAssets", "active"),
             alwaysShowAssets: [
                 "GPH",
-
                 "USD",
-                "EUR",
-                "CNY",
-                "RUB",
-
-                "BTC",
-                "GOLD",
-                "SILVER",
-                "OIL"
 
                 /*
-                "DONATE"
+                 "USD",
+                 "EUR",
+                 "CNY",
+                 "RUB",
+                 "BTC",
+                 "GOLD",
+                 "SILVER",
+                 "OIL",
+                */
+
+                "DONATE",
 
                 "RUDEX.BTC",
                 "RUDEX.ETH",
                 "RUDEX.USDT",
                 "RUDEX.EOS",
+                "RUDEX.PZM",
                 "RUDEX.GOLOS",
                 "RUDEX.STEEM",
                 "RUDEX.WLS",
                 "RUDEX.SMOKE",
-                "RUDEX.PZM",
                 "RUDEX.NBS",
-                "RUDEX.PPY"
+                "RUDEX.PPY",
                 "RUDEX.XMR",
-
-                "RUDEX.TRX",
                 "RUDEX.BTS",
-
-"*/
+                "RUDEX.TRX"
             ],
             hideFishingProposals: true,
             question1: false,

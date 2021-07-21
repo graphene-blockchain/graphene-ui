@@ -465,7 +465,7 @@ class App extends React.Component {
                                     exact
                                     component={DashboardPage}
                                 />
-                                <Route path="/bots" exact component={Bots} />
+                                {/*<Route path="/bots" exact component={Bots} />*/}
                                 <Route
                                     path="/account/:account_name"
                                     component={AccountPage}
@@ -474,10 +474,10 @@ class App extends React.Component {
                                     path="/accounts"
                                     component={DashboardAccountsOnly}
                                 />
-                                {/*                                <Route
+                                <Route
                                     path="/market/:marketID"
                                     component={Exchange}
-                                />*/}
+                                />
                                 <Route
                                     path="/settings/:tab"
                                     component={Settings}

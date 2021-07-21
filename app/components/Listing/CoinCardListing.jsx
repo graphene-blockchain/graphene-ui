@@ -44,7 +44,7 @@ class CoinCardListing extends React.Component {
                             : this.props.account
                     }
                     to_name={coin.account ? coin.account : from_name}
-                    asset_id={"1.3.5588"}
+                    asset_id={"1.3.2"}
                     ticker={coin.ticker}
                 />
                 <div className="listingAsset">
@@ -107,7 +107,7 @@ class CoinCardListing extends React.Component {
                                         <a
                                             onClick={this.triggerSend.bind(
                                                 this,
-                                                "1.3.5588",
+                                                "1.3.2",
                                                 coin
                                             )}
                                         >

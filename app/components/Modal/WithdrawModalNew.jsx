@@ -198,9 +198,6 @@ class WithdrawModalNew extends React.Component {
             ? selectedGateway + "." + selectedAsset
             : selectedAsset;
 
-        if (selectedGateway === "RUDEX" && selectedAsset === "PPY")
-            fullSymbol = "PPY";
-
         let withdrawalCurrencyBalance = 0;
         let withdrawalCurrencyBalanceId = null;
         let withdrawalCurrencyPrecision = null;

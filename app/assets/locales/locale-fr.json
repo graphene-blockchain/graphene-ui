@@ -476,7 +476,7 @@
         "ws_status": "Full node connection status"
     },
     "assets": {
-        "BTS": "BTS is the core token of the Graphene Blockchain"
+        "BTS": "GPH is the core token of the Graphene Blockchain"
     },
     "boolean": {
         "false": "False",

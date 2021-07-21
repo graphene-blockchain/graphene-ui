@@ -334,7 +334,7 @@ RaidoFinance.defaultProps = {
             //"withdrawalAllowed": true,
 
             issuer: "rudex-bitcoin",
-            issuerId: "1.2.852589",
+            issuerId: "1.2.955",
             //"minAmount": 180000,
             confirmations: {
                 type: "blocks",
@@ -350,7 +350,7 @@ RaidoFinance.defaultProps = {
             //"withdrawalAllowed": true,
 
             issuer: "rudex-ethereum",
-            issuerId: "1.2.852823",
+            issuerId: "1.2.956",
             //"minAmount": 500000,
             confirmations: {
                 type: "blocks",

@@ -319,7 +319,7 @@ class MarketsTable extends React.Component {
 
     _onError(imgName) {
         if (!this.state.imgError) {
-            this.refs[imgName.toLowerCase()].src = "asset-symbols/bts.png";
+            this.refs[imgName.toLowerCase()].src = "asset-symbols/unknown.png";
             this.setState({
                 imgError: true
             });
@@ -340,10 +340,22 @@ class MarketsTable extends React.Component {
 
         function getImageName(symbol) {
             //if (symbol === "OPEN.BTC" || symbol === "GDEX.BTC") return symbol;
-            if (symbol.startsWith("RUDEX.")) return symbol;
+            //if (symbol.startsWith("RUDEX.")) return symbol;
 
-            let imgName = symbol.split(".");
-            return imgName.length === 2 ? imgName[1] : imgName[0];
+            if (
+                symbol == "GPH" ||
+                symbol == "USD"
+
+                /*                symbol == "CNY" ||
+
+                            symbol == "EUR" ||
+                            symbol == "RUBLE" ||
+                            symbol == "GOLD" ||
+                            symbol == "SILVER"*/
+            )
+                return symbol;
+
+            return "unknown";
         }
 
         let imgName = getImageName(quote);

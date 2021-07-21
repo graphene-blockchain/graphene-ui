@@ -71,7 +71,7 @@ class MenuDataStructure {
         return [
             allItems.dashboard,
             allItems.account,
-            //allItems.market,
+            allItems.market,
             allItems.explorer
             //allItems.bots
         ];
@@ -122,7 +122,7 @@ class MenuDataStructure {
             allItems.divider,
             allItems.dashboard,
             allItems.account,
-            //allItems.market,
+            allItems.market,
             //allItems.bots,
             allItems.explorer,
 
@@ -130,7 +130,7 @@ class MenuDataStructure {
             allItems.transfer,
             //allItems.deposit,
             //allItems.withdraw,
-            //allItems.deposit_withdraw,
+            allItems.deposit_withdraw,
             allItems.settings,
 
             allItems.divider,
@@ -289,7 +289,7 @@ class MenuDataStructure {
                 text: state.isContact ? "account.unfollow" : "account.follow",
                 inDropdownBehavior: MenuItemType.WhenNotMyAccount
             }),
-            /*            market: state => ({
+            market: state => ({
                 includePattern: "/market/",
                 target: state.tradeUrl,
                 icon: {
@@ -299,7 +299,7 @@ class MenuDataStructure {
                 text: "header.exchange",
                 inHeaderBehavior: MenuItemType.Always,
                 inDropdownBehavior: MenuItemType.Never
-            }),*/
+            }),
             explorer: state => ({
                 includePattern: "/explorer",
                 target: "/explorer/blocks",
@@ -308,7 +308,7 @@ class MenuDataStructure {
                     size: "2x"
                 },
                 text: "header.explorer",
-                inHeaderBehavior: MenuItemType.Always,
+                inHeaderBehavior: MenuItemType.Never,
                 inDropdownBehavior: MenuItemType.Always
             }),
             transfer: state => ({
@@ -344,7 +344,7 @@ class MenuDataStructure {
                 disabled: !state.enableDepositWithdraw,
                 inDropdownBehavior: MenuItemType.WhenAccount
             }),
-            /*            deposit_withdraw: state => ({
+            deposit_withdraw: state => ({
                 includePattern: "deposit-withdraw",
                 target: "/deposit-withdraw",
                 icon: {
@@ -354,7 +354,7 @@ class MenuDataStructure {
                 text: "header.deposit-withdraw",
                 inHeaderBehavior: MenuItemType.Dynamic,
                 inDropdownBehavior: MenuItemType.WhenAccount
-            }),*/
+            }),
             settings: state => ({
                 includePattern: "/settings",
                 target: "/settings",

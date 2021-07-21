@@ -418,9 +418,9 @@ class MyMarkets extends React.Component {
 
         this._setMinWidth();
 
-        if (this.state.activeTab === "find-market") {
+        /*        if (this.state.activeTab === "find-market") {
             this._lookupAssets("RUDEX.", true);
-        }
+        }*/
 
         if (this.state.activeTab !== this.props.activeTab) {
             setTimeout(() => {

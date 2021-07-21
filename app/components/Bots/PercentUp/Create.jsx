@@ -10,7 +10,7 @@ class Create extends React.Component {
     state = {
         name: "",
         base: "GPH",
-        quote: "USD",
+        quote: "RUDEX.USDT",
         amount: 100,
         percentAmount: false,
         balance: "",
