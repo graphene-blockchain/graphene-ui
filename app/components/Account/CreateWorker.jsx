@@ -14,7 +14,9 @@ class CreateWorker extends React.Component {
         this.state = {
             title: null,
             start: new Date(),
+            start_time: "00:00",
             end: null,
+            end_time: "00:00",
             pay: null,
             url: "http://",
             vesting: 7
@@ -95,8 +97,15 @@ class CreateWorker extends React.Component {
                                 <Translate content="account.votes.start" />
                                 <input
                                     onChange={e => {
+                                        let time = new Date(e.target.value);
+                                        time.setHours(
+                                            this.state.start_time.split(":")[0],
+                                            this.state.start_time.split(":")[1],
+                                            0,
+                                            0
+                                        );
                                         this.setState({
-                                            start: new Date(e.target.value)
+                                            start: new Date(time)
                                         });
                                     }}
                                     type="date"
@@ -106,7 +115,38 @@ class CreateWorker extends React.Component {
                         <div
                             style={{
                                 width: "50%",
-                                paddingLeft: "2.5%",
+                                paddingRight: "2.5%",
+                                display: "inline-block"
+                            }}
+                        >
+                            <label>
+                                <Translate content="Time start" />
+                                <input
+                                    defaultValue={this.state.start_time}
+                                    onChange={e => {
+                                        let time = new Date();
+                                        time.setTime(
+                                            this.state.start.getTime()
+                                        );
+                                        time.setHours(
+                                            e.target.value.split(":")[0],
+                                            e.target.value.split(":")[1],
+                                            0,
+                                            0
+                                        );
+                                        this.setState({
+                                            start: time,
+                                            start_time: e.target.value
+                                        });
+                                    }}
+                                    type="time"
+                                />
+                            </label>
+                        </div>
+                        <div
+                            style={{
+                                width: "50%",
+                                paddingRight: "2.5%",
                                 display: "inline-block"
                             }}
                         >
@@ -114,14 +154,58 @@ class CreateWorker extends React.Component {
                                 <Translate content="account.votes.end" />
                                 <input
                                     onChange={e => {
+                                        let time = new Date(e.target.value);
+                                        time.setHours(
+                                            this.state.end_time.split(":")[0],
+                                            this.state.end_time.split(":")[1],
+                                            0,
+                                            0
+                                        );
                                         this.setState({
-                                            end: new Date(e.target.value)
+                                            end: new Date(time)
                                         });
                                     }}
                                     type="date"
                                 />
                             </label>
                         </div>
+
+                        <div
+                            style={{
+                                width: "50%",
+                                paddingRight: "2.5%",
+                                display: "inline-block"
+                            }}
+                        >
+                            <label>
+                                <Translate content="Time END" />
+                                <input
+                                    defaultValue={this.state.end_time}
+                                    onChange={e => {
+                                        let time = new Date();
+                                        try {
+                                            time.setTime(
+                                                this.state.end.getTime()
+                                            );
+                                        } catch (e) {
+                                            time.setTime(new Date().getTime());
+                                        }
+                                        time.setHours(
+                                            e.target.value.split(":")[0],
+                                            e.target.value.split(":")[1],
+                                            0,
+                                            0
+                                        );
+                                        this.setState({
+                                            end: time,
+                                            end_time: e.target.value
+                                        });
+                                    }}
+                                    type="time"
+                                />
+                            </label>
+                        </div>
+
                         <Translate
                             content="explorer.workers.date_text"
                             component="p"

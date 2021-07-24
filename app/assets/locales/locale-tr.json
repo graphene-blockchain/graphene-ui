@@ -1143,7 +1143,7 @@
         "asset_to_withdraw": "Çekilecek dijital varlık:",
         "asset_unavailable": "The gateway for %(asset)s is not in service",
         "assets": {
-            "bit": "bit%(asset)s, fiyat olarak %(backed)s marketini takip eden bir türev araçtır. Bu hizmet hiçbir merkezi otorite tarafından değil, merkezsiz Graphene blokzinciri tarafından sağlanır.",
+            "bit": "gp%(asset)s, fiyat olarak %(backed)s marketini takip eden bir türev araçtır. Bu hizmet hiçbir merkezi otorite tarafından değil, merkezsiz Graphene blokzinciri tarafından sağlanır.",
             "bitcny": "gpCNY, Çin Yuanı'nın Graphene borsasındaki temsilidir. 1:1 Çin Yuanı ile değiştirilebilen bu dijital varlık Magic Wallet tarafından yürütülmektedir. Daha fazla bilgi için: https://www.magicw.net/",
             "bridge": "Bu dijital varlık Graphene üzerinde %(backed)s işlemleri yapmanız için CryptoBridge tarafından %%100 %(backed)s rezervi ile desteklenmektedir. İstediğiniz zaman 1:1 oranında %(asset)s-%(backed)s dönüşümü yapabilirsiniz.",
             "gdex": "Bu dijital varlık Graphene üzerinde %(backed)s işlemleri yapmanız için Gdex tarafından %%100 %(backed)s rezervi ile desteklenmektedir. İstediğiniz zaman 1:1 oranında %(asset)s-%(backed)s dönüşümü yapabilirsiniz.",

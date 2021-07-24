@@ -6,7 +6,7 @@ function lookupAssets(value, gatewayAssets = false, getAssetList, setState) {
 
     let quote = value.toUpperCase();
 
-    if (quote.startsWith("BIT") && quote.length >= 6) {
+    if (quote.startsWith("GP") && quote.length >= 6) {
         quote = value.substr(3, quote.length - 1);
     }
 
@@ -90,7 +90,7 @@ function getMarketSortComponents(market) {
 }
 
 function sortMarketsList(allMarkets, inputValue) {
-    if (inputValue.startsWith("BIT") && inputValue.length >= 6) {
+    if (inputValue.startsWith("GP") && inputValue.length >= 6) {
         inputValue = inputValue.substr(3, inputValue.length - 1);
     }
     return allMarkets.sort(([, marketA], [, marketB]) => {

@@ -1149,7 +1149,7 @@
         "asset_to_withdraw": "Anlage zur Auszahlung:",
         "asset_unavailable": "Das Gateway für %(asset)s ist nicht in Betrieb",
         "assets": {
-            "bit": "bit%(asset)s ist ein Derivat, das den echten Wert von %(backed)s verfolgt. Es ist 100% dezentralisiert, benötigt kein Vertrauen und wird durch eine Sicherheit auf der Blockchain in einem Smart Contrakt hinterlegt.",
+            "bit": "gp%(asset)s ist ein Derivat, das den echten Wert von %(backed)s verfolgt. Es ist 100% dezentralisiert, benötigt kein Vertrauen und wird durch eine Sicherheit auf der Blockchain in einem Smart Contrakt hinterlegt.",
             "bitcny": "gpCNY kann 1:1 zum echten Yuan ein- oder ausbezahlt werden, indem die Gateway des Magic Wallet Dienstes benutzt wird.  Mehr Informationen auf https://www.magicw.net/",
             "bridge": "Die %(asset)s Anlage ist 1:1 durch echte  %(backed)s hinterlegt und kann ein- oder ausgezahlt werden. Der Gateway-Dienst wird durch CryptoBridge bereitgestellt",
             "gdex": "Die %(asset)s Anlage ist 1:1 durch echte  %(backed)s hinterlegt und kann ein- oder ausgezahlt werden. Der Gateway-Dienst wird durch Gdex bereitgestellt",

@@ -84,7 +84,7 @@ class AssetName extends React.Component {
             isBitAsset && asset.getIn(["bitasset", "is_prediction_market"]);
 
         let {name: replacedName, prefix} = utils.replaceName(asset);
-        const hasBitPrefix = prefix === "bit";
+        const hasBitPrefix = prefix === "gp";
 
         let includeBitAssetDescription =
             isBitAsset && !isPredMarket && hasBitPrefix;
@@ -105,7 +105,7 @@ class AssetName extends React.Component {
                         ? counterpart.translate(
                               "gateway.assets." +
                                   (hasBitPrefix
-                                      ? "bit"
+                                      ? "gp"
                                       : realPrefix
                                             .replace(".", "")
                                             .toLowerCase()),
@@ -126,7 +126,7 @@ class AssetName extends React.Component {
             }
 
             const upperCasePrefix =
-                prefix && prefix === "bit"
+                prefix && prefix === "gp"
                     ? prefix
                     : !!prefix
                         ? prefix.toUpperCase()

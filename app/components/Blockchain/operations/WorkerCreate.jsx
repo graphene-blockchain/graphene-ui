@@ -7,12 +7,26 @@ export const WorkerCreate = ({op, fromComponent}) => {
     if (fromComponent === "proposed_operation") {
         return (
             <span>
-                <Translate component="span" content="proposal.create_worker" />
-                &nbsp;
-                <FormattedAsset
-                    style={{fontWeight: "bold"}}
-                    amount={op[1].daily_pay}
-                    asset={"1.3.0"}
+                <TranslateWithLinks
+                    string="proposal.worker_create"
+                    keys={[
+                        {
+                            type: "account",
+                            value: op[1].owner,
+                            arg: "account"
+                        },
+                        {
+                            type: "amount",
+                            value: {
+                                amount: op[1].daily_pay,
+                                asset_id: "1.3.0"
+                            },
+                            arg: "pay"
+                        }
+                    ]}
+                    params={{
+                        name: op[1].name
+                    }}
                 />
             </span>
         );
