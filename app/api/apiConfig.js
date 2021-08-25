@@ -74,6 +74,14 @@ export const settingsAPIs = {
             location: "Hong-Kong",
             operator: "Witness: traders-witness",
             contact: "telegram:minter_traders"
+        },
+        {
+            url: "wss://gph.lexai.host",
+            region: "Northern Europe",
+            country: "Finland",
+            location: "Helsinki",
+            operator: "Witness: lex",
+            contact: "telegram:lexai"
         }
     ],
     ES_WRAPPER_LIST: [],
