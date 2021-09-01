@@ -531,7 +531,8 @@ class AccountPortfolioList extends React.Component {
         const showAssetPercent = settings.get("showAssetPercent", false);
 
         function getImageName(symbol) {
-            //if (symbol.startsWith("RUDEX.")) return symbol;
+            if (symbol.startsWith("RUDEX.") || symbol.startsWith("DONATE"))
+                return "rudex";
 
             if (
                 symbol == "GPH" ||

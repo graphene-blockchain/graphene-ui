@@ -1058,7 +1058,8 @@ class OrderBook extends React.Component {
                                     paddingRight: "0.6rem",
                                     overflow: "hidden",
                                     maxHeight: 260,
-                                    lineHeight: "13px"
+                                    lineHeight: "13px",
+                                    flexWrap: "wrap"
                                 }}
                             >
                                 <table
@@ -1218,7 +1219,8 @@ class OrderBook extends React.Component {
                                     paddingRight: "0.6rem",
                                     overflow: "hidden",
                                     maxHeight: 260,
-                                    lineHeight: "13px"
+                                    lineHeight: "13px",
+                                    flexWrap: "wrap"
                                 }}
                             >
                                 <table

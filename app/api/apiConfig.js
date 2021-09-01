@@ -68,6 +68,14 @@ export const settingsAPIs = {
             contact: "telegram:blckchnd"
         },
         {
+            url: "wss://gph.lexai.host",
+            region: "Finland",
+            country: "Finland",
+            location: "Helsinki",
+            operator: "Witness: lex",
+            contact: "telegram:LexAi"
+        },
+        {
             url: "wss://node.hk.graphene.fans",
             region: "Eastern Asia",
             country: "China",
@@ -76,7 +84,15 @@ export const settingsAPIs = {
             contact: "telegram:minter_traders"
         }
     ],
-    ES_WRAPPER_LIST: [],
+    ES_WRAPPER_LIST: [
+        {
+            url: "https://es-wrapper.gph.ai",
+            region: "Western Europe",
+            country: "Germany",
+            operator: "Witness: blckchnd",
+            contact: "telegram:blckchnd"
+        }
+    ],
     DEFAULT_FAUCET: getFaucet().url,
     TESTNET_FAUCET: getTestFaucet().url
 };

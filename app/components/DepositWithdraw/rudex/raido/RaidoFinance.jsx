@@ -341,6 +341,7 @@ RaidoFinance.defaultProps = {
                 value: 3
             }
         },
+
         {
             name: "ETH",
             description: "Ethereum - ETH",

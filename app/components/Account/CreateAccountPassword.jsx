@@ -70,7 +70,7 @@ class CreateAccountPassword extends React.Component {
     }
 
     scrollToInput() {
-        scroller.scrollTo(`scrollToInput`, {
+        scroller.scrollTo("scrollToInput", {
             duration: 1500,
             delay: 100,
             smooth: true,

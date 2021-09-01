@@ -10,7 +10,8 @@ class ChatBro extends React.Component {
     render() {
         let frameHeight = this.props.height || "30%";
 
-        let currentLocale = SettingsStore.getState().settings.get("locale");
+        //let currentLocale = SettingsStore.getState().settings.get("locale");
+        let currentLocale = "ru";
 
         let chatUrl = null;
         switch (currentLocale) {

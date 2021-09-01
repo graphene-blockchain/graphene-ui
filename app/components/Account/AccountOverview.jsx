@@ -31,7 +31,6 @@ class AccountOverview extends React.Component {
                 "USD",
 
                 /*
-                 "USD",
                  "EUR",
                  "CNY",
                  "RUB",

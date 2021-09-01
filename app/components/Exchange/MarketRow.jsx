@@ -31,7 +31,10 @@ class MarketRow extends React.Component {
 
     componentDidMount() {
         this.statsChecked = new Date();
+
         if (
+            this.props.base &&
+            this.props.quote &&
             this.props.base.get &&
             this.props.base.get("id") &&
             this.props.quote.get &&

@@ -248,7 +248,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["GPH", "RUDEX.GOLOS"],
         ["GPH", "RUDEX.STEEM"],
         ["GPH", "RUDEX.WLS"],
-        //["GPH", "RUDEX.SMOKE"],
+        //["GPH", "RUDEX.SMOKE"], delisted
         ["GPH", "RUDEX.BTS"],
         ["GPH", "RUDEX.TRX"],
 
@@ -261,9 +261,10 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUBLE", "RUDEX.GOLOS"],
         ["RUBLE", "RUDEX.STEEM"],
         ["RUBLE", "RUDEX.WLS"],
-        //["RUBLE", "RUDEX.SMOKE"],
+        ["RUBLE", "RUDEX.SMOKE"], delisted
         ["RUBLE", "RUDEX.RUB"], */
 
+        ["RUDEX.USDT", "DONATE"],
         ["RUDEX.USDT", "GPH"],
         ["RUDEX.USDT", "RUDEX.PPY"],
         ["RUDEX.USDT", "RUDEX.NBS"],
@@ -273,7 +274,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.USDT", "RUDEX.GOLOS"],
         ["RUDEX.USDT", "RUDEX.STEEM"],
         ["RUDEX.USDT", "RUDEX.WLS"],
-        //["RUDEX.USDT", "RUDEX.SMOKE"],
+        //["RUDEX.USDT", "RUDEX.SMOKE"], delisted
         ["RUDEX.USDT", "RUDEX.PZM"],
         ["RUDEX.USDT", "RUDEX.XMR"],
         ["RUDEX.USDT", "RUDEX.BTS"],
@@ -287,7 +288,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.USDT", "RUDEX.RUB"], //MPA*/
 
         //Bitcoin
-        ["RUDEX.BTC", "DONATE"],
+        //["RUDEX.BTC", "DONATE"],
 
         ["RUDEX.BTC", "GPH"],
         ["RUDEX.BTC", "RUDEX.PPY"],
@@ -298,7 +299,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.BTC", "RUDEX.GOLOS"],
         ["RUDEX.BTC", "RUDEX.STEEM"],
         ["RUDEX.BTC", "RUDEX.WLS"],
-        //["RUDEX.BTC", "RUDEX.SMOKE"],
+        //["RUDEX.BTC", "RUDEX.SMOKE"], delisted
         ["RUDEX.BTC", "RUDEX.BTS"],
         ["RUDEX.BTC", "RUDEX.TRX"],
 
@@ -318,7 +319,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUDEX.BTS", "RUDEX.GOLOS"],
         ["RUDEX.BTS", "RUDEX.STEEM"],
         ["RUDEX.BTS", "RUDEX.WLS"],
-        //["RUDEX.BTS", "RUDEX.SMOKE"],
+        //["RUDEX.BTS", "RUDEX.SMOKE"], delisted
         ["RUDEX.BTS", "RUDEX.TRX"]
     ].filter(a => {
         if (!quotes.length) return true;
@@ -376,13 +377,13 @@ export function getConfigurationAsset() {
     if (_isTestnet()) {
         assetSymbol = "NOTIFICATIONS";
     } else {
-        assetSymbol = "TEST";
+        assetSymbol = "RUDEX";
     }
     // explanation will be parsed out of the asset description (via split)
     return {
         symbol: assetSymbol,
         explanation:
-            "This asset is used for decentralized configuration of the RuDEX UI placed under market.rudex.org."
+            "This asset is used for decentralized configuration of the RuDEX UI placed under https://market.rudex.org/."
     };
 }
 

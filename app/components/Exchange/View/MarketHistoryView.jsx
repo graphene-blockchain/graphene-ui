@@ -131,10 +131,11 @@ class MarketHistoryView extends React.Component {
                         className="table-container grid-block market-right-padding-only no-overflow"
                         ref="history"
                         style={{
-                            minHeight: !tinyScreen ? 260 : 0,
+                            //minHeight: !tinyScreen ? 260 : 0,
                             maxHeight: 260,
                             overflow: "hidden",
-                            lineHeight: "13px"
+                            lineHeight: "13px",
+                            flexWrap: "wrap"
                         }}
                     >
                         <table className="table order-table no-stripes table-hover fixed-table text-right no-overflow">

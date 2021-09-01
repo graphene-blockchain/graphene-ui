@@ -72,8 +72,9 @@ class AccountReferralsTable extends React.Component {
                             esNode
                     );
                 }
+                let referralsCountRaw = await referralsCountResponse.json();
                 this.setState({
-                    referralsCount: await referralsCountResponse.json()
+                    referralsCount: referralsCountRaw.value
                 });
             }
 

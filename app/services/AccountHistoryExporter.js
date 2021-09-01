@@ -43,19 +43,27 @@ class AccountHistoryExporter {
 
     async generateCSV(accountsList, esNode, exportType) {
         let start = 0,
-            limit = 150;
+            limit = 10000;
         let account = accountsList[0].get("id");
         let accountName = (await FetchChain("getAccount", account)).get("name");
         let recordData = {};
+        let end_next = false;
 
         while (true) {
-            let res = await this._getAccountHistoryES(
-                account,
-                limit,
-                start,
-                esNode
-            );
-            if (!res.length) break;
+            let res = false;
+
+            try {
+                res = await this._getAccountHistoryES(
+                    account,
+                    limit,
+                    start,
+                    esNode
+                );
+            } catch (e) {
+                end_next = true;
+            }
+
+            if (!res.length || end_next) break;
 
             await report.resolveBlockTimes(res);
 
@@ -115,7 +123,7 @@ class AccountHistoryExporter {
         let today = new Date();
         saveAs(
             blob,
-            "bitshares-account-history-" +
+            "graphene-account-history-" +
                 accountName +
                 "-" +
                 today.getFullYear() +
@@ -133,7 +141,7 @@ class AccountHistoryExporter {
 
     _getAccountHistoryES(account_id, limit, start, esNode) {
         let endpoint = "get_account_history";
-        if (esNode.indexOf("explorer") !== -1 || esNode.indexOf("api") !== -1) {
+        if (esNode.indexOf("es-wrapper") !== -1) {
             endpoint = "es/account_history";
         }
         let queryUrl =

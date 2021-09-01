@@ -1,6 +1,9 @@
 //Unknown asset
 require("file-loader?name=asset-symbols/[name].png!./unknown.png");
 
+//Gateway's Assets
+require("file-loader?name=asset-symbols/[name].png!./rudex.png");
+
 // Core asset
 require("file-loader?name=asset-symbols/[name].png!./gph.png");
 

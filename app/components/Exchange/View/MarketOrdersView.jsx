@@ -192,9 +192,10 @@ class MarketsOrderView extends React.Component {
                         ref="container"
                         style={{
                             overflow: "hidden",
-                            minHeight: tinyScreen ? 260 : 0,
+                            //minHeight: tinyScreen ? 260 : 0,
                             maxHeight: 260,
-                            lineHeight: "13px"
+                            lineHeight: "13px",
+                            flexWrap: "wrap"
                         }}
                     >
                         <table className="table order-table table-highlight-hover table-hover no-stripes text-right fixed-table market-right-padding">

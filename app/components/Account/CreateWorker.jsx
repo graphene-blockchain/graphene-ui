@@ -120,7 +120,7 @@ class CreateWorker extends React.Component {
                             }}
                         >
                             <label>
-                                <Translate content="Time start" />
+                                <Translate content="explorer.workers.time_start" />
                                 <input
                                     defaultValue={this.state.start_time}
                                     onChange={e => {
@@ -178,7 +178,7 @@ class CreateWorker extends React.Component {
                             }}
                         >
                             <label>
-                                <Translate content="Time END" />
+                                <Translate content="explorer.workers.time_finish" />
                                 <input
                                     defaultValue={this.state.end_time}
                                     onChange={e => {
