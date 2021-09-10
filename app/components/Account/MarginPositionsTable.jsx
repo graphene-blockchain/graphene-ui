@@ -226,14 +226,7 @@ ListGenerator = AssetWrapper(ListGenerator, {
     defaultProps: {
         bitAssets: [
             //gpAssets
-            "1.3.1"
-            /*            "1.3.103",
-            "1.3.120",
-            "1.3.121",
-            "1.3.1325",
-            "1.3.105",
-            "1.3.106",
-            "1.3.113",*/
+            "1.3.27" //gpUSD
             //RuDEX MPA-s
             /*            "1.3.5747",
             "1.3.5748",

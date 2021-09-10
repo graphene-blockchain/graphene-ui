@@ -96,7 +96,7 @@ export function getUnits() {
     if (_isTestnet()) {
         return ["TEST"];
     }
-    return ["GPH", "RUDEX.BTC", "RUDEX.USDT"];
+    return ["GPH", "USD", "RUDEX.BTC", "RUDEX.USDT"];
 }
 
 export function getDefaultMarket() {
@@ -130,7 +130,6 @@ export function getMyMarketsQuotes() {
     let tokens = {
         nativeTokens: [
             "GPH",
-
             "USD"
 
             /* ,
@@ -212,7 +211,9 @@ export function getFeaturedMarkets(quotes = []) {
     }
     return [
         //GPH
-        /*["GPH", "USD"],
+        ["GPH", "USD"],
+
+        /*
         ["GPH", "EUR"],
         ["GPH", "CNY"],
         ["GPH", "RUB"],
@@ -264,8 +265,10 @@ export function getFeaturedMarkets(quotes = []) {
         ["RUBLE", "RUDEX.SMOKE"], delisted
         ["RUBLE", "RUDEX.RUB"], */
 
-        ["RUDEX.USDT", "DONATE"],
         ["RUDEX.USDT", "GPH"],
+        ["RUDEX.USDT", "USD"],
+
+        ["RUDEX.USDT", "DONATE"],
         ["RUDEX.USDT", "RUDEX.PPY"],
         ["RUDEX.USDT", "RUDEX.NBS"],
         ["RUDEX.USDT", "RUDEX.BTC"],

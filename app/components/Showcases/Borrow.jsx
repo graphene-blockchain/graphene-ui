@@ -147,13 +147,13 @@ class Borrow extends Component {
                                     marginBottom: "1rem"
                                 }}
                                 assets={[
-                                    "1.3.113",
-                                    "1.3.120",
+                                    "1.3.27" // gpUSD
+                                    /*                                    "1.3.120",
                                     "1.3.121",
                                     "1.3.1325",
                                     "1.3.105",
                                     "1.3.106",
-                                    "1.3.103"
+                                    "1.3.103"*/
                                 ]}
                                 value={this.state.selectedAsset}
                                 onChange={this.onAssetChange.bind(this)}

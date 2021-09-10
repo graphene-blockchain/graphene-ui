@@ -76,6 +76,14 @@ export const settingsAPIs = {
             contact: "telegram:LexAi"
         },
         {
+            url: "wss://node.graphenelab.io",
+            region: "Finland",
+            country: "Finland",
+            location: "Helsinki",
+            operator: "Witness: graphene-lab",
+            contact: "telegram:Denis_GL"
+        },
+        {
             url: "wss://node.hk.graphene.fans",
             region: "Eastern Asia",
             country: "China",
