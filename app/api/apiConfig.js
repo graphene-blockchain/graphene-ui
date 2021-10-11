@@ -84,6 +84,14 @@ export const settingsAPIs = {
             contact: "telegram:Denis_GL"
         },
         {
+            url: "wss://gph-api.xchng.finance",
+            region: "Finland",
+            country: "Finland",
+            location: "Helsinki",
+            operator: "Witness: xchng",
+            contact: "telegram:Lososeg"
+        },
+        {
             url: "wss://node.hk.graphene.fans",
             region: "Eastern Asia",
             country: "China",

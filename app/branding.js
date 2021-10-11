@@ -295,13 +295,13 @@ export function getFeaturedMarkets(quotes = []) {
 
         ["RUDEX.BTC", "GPH"],
         ["RUDEX.BTC", "RUDEX.PPY"],
-        ["RUDEX.BTC", "RUDEX.NBS"],
+        //["RUDEX.BTC", "RUDEX.NBS"],
         ["RUDEX.BTC", "RUDEX.ETH"],
         ["RUDEX.BTC", "RUDEX.XMR"],
         ["RUDEX.BTC", "RUDEX.EOS"],
         ["RUDEX.BTC", "RUDEX.GOLOS"],
         ["RUDEX.BTC", "RUDEX.STEEM"],
-        ["RUDEX.BTC", "RUDEX.WLS"],
+        //["RUDEX.BTC", "RUDEX.WLS"],
         //["RUDEX.BTC", "RUDEX.SMOKE"], delisted
         ["RUDEX.BTC", "RUDEX.BTS"],
         ["RUDEX.BTC", "RUDEX.TRX"],

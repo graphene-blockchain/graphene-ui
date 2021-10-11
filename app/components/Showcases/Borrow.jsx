@@ -19,7 +19,7 @@ class Borrow extends Component {
         super();
         this.state = {
             isBorrowBaseModalVisible: false,
-            selectedAsset: null,
+            selectedAsset: "1.3.27",
             step: 0
         };
         this.steps = [
@@ -148,7 +148,7 @@ class Borrow extends Component {
                                 }}
                                 assets={[
                                     "1.3.27" // gpUSD
-                                    /*                                    "1.3.120",
+                                    /*"1.3.120",
                                     "1.3.121",
                                     "1.3.1325",
                                     "1.3.105",

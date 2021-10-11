@@ -439,8 +439,8 @@ var Utils = {
         }
         if (!dynGlobalObject) {
             // mainnet estimation
-            head_block = 37025190;
-            head_block_time = new Date("2019-04-30T07:55:24Z");
+            head_block = 4418454;
+            head_block_time = new Date("2021-09-13T10:00:12Z");
         } else {
             head_block = dynGlobalObject.get("head_block_number");
             head_block_time = new Date(dynGlobalObject.get("time") + "Z");
