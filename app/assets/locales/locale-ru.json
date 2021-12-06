@@ -1262,6 +1262,7 @@
         "rudex": {
             "coming_soon": "Скоро",
             "min_amount": "Минимальная сумма: %(minAmount)s %(symbol)s",
+            "min_amount_warn": "Любые депозиты, меньше минимального размера, не будут зачислены.",
             "min_amount_error": "Пожалуйста, введите число ≥ минимума",
             "support_block": "Для получения поддержки, пожалуйста, свяжитесь с RuDEX по адресу:",
             "under_construction": "Технические работы",
@@ -1705,7 +1706,7 @@
             "title": "Запросить погашение %(asset)s"
         },
         "withdraw": {
-            "address": "Вывести на адрес",
+            "address": "Вывести на адрес %(amount)s %(asset)s",
             "address_not_valid": "Недействительный адрес",
             "amount": "Сумма к выводу",
             "available": "Доступно: ",

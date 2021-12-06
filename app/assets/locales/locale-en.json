@@ -1262,6 +1262,7 @@
         "rudex": {
             "coming_soon": "Coming soon",
             "min_amount": "Minimum amount: %(minAmount)s %(symbol)s",
+            "min_amount_warn": "Any deposits less than the minimum will not be credited.",
             "min_amount_error": "Please enter number >= minimum",
             "support_block": "For support, please contact RuDEX at:",
             "under_construction": "Under Construction",
@@ -1705,7 +1706,7 @@
             "title": "Request settlement of %(asset)s"
         },
         "withdraw": {
-            "address": "Withdraw to Address",
+            "address": "Withdraw to Address %(amount)s %(asset)s",
             "address_not_valid": "Invalid address",
             "amount": "Amount to Withdraw",
             "available": "Available: ",

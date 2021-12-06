@@ -31,6 +31,7 @@ class RuDexGatewayDepositRequest extends React.Component {
         issuer_account: ChainTypes.ChainAccount,
         deposit_asset: PropTypes.string,
         deposit_wallet_type: PropTypes.string,
+        description: PropTypes.string,
         receive_asset: ChainTypes.ChainAsset,
         deprecated_in_favor_of: ChainTypes.ChainAsset,
         deprecated_message: PropTypes.string,
@@ -414,7 +415,7 @@ class RuDexGatewayDepositRequest extends React.Component {
                         <label className="left-label">
                             <Translate
                                 content="gateway.deposit_to"
-                                asset={this.props.deposit_asset}
+                                asset={this.props.description}
                             />
                             :
                         </label>
@@ -422,6 +423,22 @@ class RuDexGatewayDepositRequest extends React.Component {
                             <b>
                                 <Translate
                                     content="gateway.rudex.min_amount"
+                                    minAmount={utils.format_number(
+                                        this.props.min_amount /
+                                            utils.get_asset_precision(
+                                                this.props.asset_precision
+                                            ),
+                                        this.props.asset_precision,
+                                        false
+                                    )}
+                                    symbol={this.props.deposit_coin_type}
+                                />
+                            </b>
+                        </label>
+                        <label className="left-label">
+                            <b>
+                                <Translate
+                                    content="gateway.rudex.min_amount_warn"
                                     minAmount={utils.format_number(
                                         this.props.min_amount /
                                             utils.get_asset_precision(
@@ -639,7 +656,7 @@ class RuDexGatewayDepositRequest extends React.Component {
                         <label className="left-label">
                             <Translate
                                 content="gateway.withdraw_to"
-                                asset={this.props.deposit_asset}
+                                asset={this.props.description}
                             />
                             :
                         </label>
@@ -672,6 +689,7 @@ class RuDexGatewayDepositRequest extends React.Component {
                             output_coin_symbol={this.props.deposit_asset}
                             output_coin_type={this.props.deposit_coin_type}
                             output_wallet_type={this.props.deposit_wallet_type}
+                            description={this.props.description}
                             output_supports_memos={
                                 this.props.supports_output_memos
                             }

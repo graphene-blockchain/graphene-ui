@@ -43,19 +43,21 @@ class AccountOverview extends React.Component {
                 "DONATE",
 
                 "RUDEX.BTC",
+                "RUDEX.LTC",
                 "RUDEX.ETH",
                 "RUDEX.USDT",
                 "RUDEX.EOS",
                 "RUDEX.PZM",
                 "RUDEX.GOLOS",
                 "RUDEX.STEEM",
-                "RUDEX.WLS",
-                "RUDEX.SMOKE",
                 "RUDEX.NBS",
-                "RUDEX.PPY",
                 "RUDEX.XMR",
                 "RUDEX.BTS",
-                "RUDEX.TRX"
+                "RUDEX.TRX",
+
+                "RUDEX.PPY",
+                "RUDEX.SMOKE",
+                "RUDEX.WLS"
             ],
             hideFishingProposals: true,
             question1: false,

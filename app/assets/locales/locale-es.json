@@ -1149,7 +1149,7 @@
         "asset_to_withdraw": "activos para retirar:",
         "asset_unavailable": "El porton para %(asset)s no esta en servicio",
         "assets": {
-            "bit": "gp%(asset)s es un derivado que rastrea el valor real de %(backed)s. esto es 100%% descentralizado, sin confianza y respaldado por garantías en poder de blockchain en un contrato inteligente.",
+            "gp": "gp%(asset)s es un derivado que rastrea el valor real de %(backed)s. esto es 100%% descentralizado, sin confianza y respaldado por garantías en poder de blockchain en un contrato inteligente.",
             "bitcny": "gpCNY se puede depositar o retirar 1:1 a Yuan real mediante un servicio de puerta de enlace como Magic Wallet. Para más información, consulte https://www.magicw.net/",
             "bridge": "El activo %(asset)s es respaldado 1:1 por real %(backed)s y puede ser depositado or retiado usando el servico de porton proporcionado por CryptoBridge.",
             "gdex": "El %(asset)s activo es respaldado 1:1 por real %(backed)s y puede ser depositado or retirado usando el servico de porton proporcionado por GDex.",

@@ -239,6 +239,7 @@ class RuDexGateway extends React.Component {
                                 deposit_coin_type={coin.backingCoin.toLowerCase()}
                                 deposit_account={coin.gatewayWallet}
                                 deposit_wallet_type={coin.walletType}
+                                description={coin.description}
                                 receive_asset={coin.symbol}
                                 receive_coin_type={coin.symbol.toLowerCase()}
                                 supports_output_memos={coin.supportsMemos}

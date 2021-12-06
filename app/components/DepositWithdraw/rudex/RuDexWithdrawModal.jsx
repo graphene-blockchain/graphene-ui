@@ -27,6 +27,7 @@ class RuDexWithdrawModal extends React.Component {
         output_coin_type: PropTypes.string.isRequired,
         url: PropTypes.string,
         output_wallet_type: PropTypes.string,
+        description: PropTypes.string,
         output_supports_memos: PropTypes.bool.isRequired,
         output_supportsPublicKey: PropTypes.bool.isRequired,
         amount_to_withdraw: PropTypes.string,
@@ -207,7 +208,7 @@ class RuDexWithdrawModal extends React.Component {
                     amount !== undefined && !parseFloat(amount)
             },
             function() {
-                this._checkBalance;
+                this._checkBalance();
                 this._checkMinAmount();
             }
         );
@@ -631,7 +632,7 @@ class RuDexWithdrawModal extends React.Component {
                     <div className="has-error" style={{paddingTop: 10}}>
                         <Translate
                             content="gateway.valid_address"
-                            coin_type={this.props.output_coin_type}
+                            coin_type={this.props.description}
                         />
                     </div>
                 );
@@ -853,6 +854,20 @@ class RuDexWithdrawModal extends React.Component {
                             <Translate
                                 component="span"
                                 content="modal.withdraw.address"
+                                amount={utils.format_number(
+                                    ((this.state.withdraw_amount -
+                                        this.props.gateFee) *
+                                        Math.pow(
+                                            10,
+                                            this.props.asset_precision
+                                        )) /
+                                        utils.get_asset_precision(
+                                            this.props.asset_precision
+                                        ),
+                                    this.props.asset_precision,
+                                    false
+                                )}
+                                asset={this.props.output_coin_symbol}
                             />
                         </label>
                         <div className="rudex-select-dropdown">
